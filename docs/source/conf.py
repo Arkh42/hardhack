@@ -17,8 +17,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'gitrepo-template'
-copyright = '2020, Alexandre Quenon'
+project = 'hardhack'
+copyright = '2021, Alexandre Quenon'
 author = 'Alexandre Quenon'
 
 
