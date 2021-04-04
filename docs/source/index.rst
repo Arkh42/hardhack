@@ -14,22 +14,15 @@ Hack the Hardware
 
 
 	
-Brief description of the purpose of the repository.
+This **hardhack** repository aims to teach or self-learn hardware (microcontrollers and electronics).
 
 
 ----
 
 
 .. toctree::
-	:caption: User Guide
-	:maxdepth: 2
-	
-	userguide/installing
-	userguide/quick_start
-
-.. toctree::
-	:caption: Development Community
+	:caption: User 
 	:maxdepth: 1
 	
-	contributing
-	changelog
+	intro/why
+
