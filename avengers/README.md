@@ -2,7 +2,7 @@
 # Project _Avengers_
 
 
-_Avengers_ is a project related to the C51 microcontroller, as well as its current derivatives, programmed in assembler.
+_Avengers_ is a project related to the MCS-51 microcontroller, as well as its current derivatives, programmed in assembler.
 
 _Why?_, you may ask.
 
