@@ -21,7 +21,7 @@ You can find more information in the documentation.
 
 A word about repository structure:
 
-- (avengers)[./avengers] about C51 (and derivatives) programmed in assembler... because Avengers Assemble!
+- (./avengers)[avengers] about C51 (and derivatives) programmed in assembler
 
 
 ---
