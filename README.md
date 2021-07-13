@@ -19,6 +19,10 @@ This __hardhack__ repository aims to teach or self-learn hardware (microcontroll
 The README file is quite limited.
 You can find more information in the documentation.
 
+A word about repository structure:
+
+- (avengers)[./avengers] about C51 (and derivatives) programmed in assembler... because Avengers Assemble!
+
 
 ---
 
