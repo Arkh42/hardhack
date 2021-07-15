@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Instruction Set -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>The 8051 Instruction Set</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.5 The 8051 Instruction Set</U></STRONG>
+</P>
+
+<P>
+<NOBR>ASEM-51</NOBR> implements all 8051 machine instructions including
+generic jumps and calls. The assembler implements two instructions
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+JMP  &lt;address&gt;
+CALL &lt;address&gt;
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+that do not represent a specific opcode: generic jump and call.
+These instructions will always evaluate to a jump or call, not necessarily
+the shortest, that will reach the specified address.<BR>
+JMP may assemble to SJMP, AJMP or LJMP, while CALL can only evaluate to
+ACALL or LCALL. Note that the assembler decision may not be optimal. For
+code addresses that are forward references, the assembler always generates
+LJMP or LCALL respectively. However, for backward references this is a
+powerful tool to reduce code size without extra trouble.
+</P>
+
+<P>
+With the $PHILIPS control, <NOBR>ASEM-51</NOBR> can be switched to the reduced
+instruction set of the Philips 83C75x family of microcontrollers. This disables
+the LJMP, LCALL, and MOVX instructions as well as the XDATA and XSEG pseudo
+instructions, and generic jumps and calls will always assemble to absolute
+addressing.
+</P>
+
+<P>
+The rest of the 8051 instruction mnemonics is listed in
+<A HREF="append_d.htm">Appendix D</A>.
+Appendices <A HREF="append_i.htm">I</A> and <A HREF="append_j.htm">J</A> are
+containing tables of all 8051 instructions with their opcodes, mnemonics,
+arguments, lengths, affected flags and durations.
+The comprehensive example program DEMO.A51 provided shows all the 8051
+instructions in a syntactical context.
+</P>
+
+<P>
+For detailed information on the Intel <NOBR>MCS-51</NOBR> architecture and
+instruction set refer to the
+<A HREF="mcs51man.htm">MCS&reg; 51 Microcontroller Family User's Manual</A>.
+(Requires full Internet access!)
+</P>
+
+<P>
+All <NOBR>MCS-51</NOBR> instruction mnemonics are copyright &copy; by
+Intel Corporation!
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="express.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="pseudo.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

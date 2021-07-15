@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Appendix B -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Appendix B</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>Appendix B</U></STRONG>
+</P>
+
+<P>
+<STRONG>HEXBIN Error Messages</STRONG>
+</P>
+
+<P>
+<BR>
+<U><A NAME="HEXBINCONVERSION">B.1 Conversion Errors:</A></U>
+</P>
+
+<P>
+Conversion errors apply to the consistency of <NOBR>Intel-HEX</NOBR> file and
+program options. If one of these errors is detected, it is flagged
+on the console, and HEXBIN is aborting with exit code&nbsp;1:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<TR><TH NOWRAP>Error Message</TH><TH NOWRAP>Meaning</TH></TR>
+<TR><TD NOWRAP>checksum error            </TD><TD>Checksum is not correct.</TD></TR>
+<TR><TD NOWRAP>data after EOF record     </TD><TD>Type 0 records after type 1 record.</TD></TR>
+<TR><TD NOWRAP>file length out of range  </TD><TD>/LENGTH option makes file too large.</TD></TR>
+<TR><TD NOWRAP>fill-byte out of range    </TD><TD>/FILL option defines byte value &gt; 255.</TD></TR>
+<TR><TD NOWRAP>hex file format error     </TD><TD>Certainly no <NOBR>Intel-HEX</NOBR> file.</TD></TR>
+<TR><TD NOWRAP>illegal hex digit         </TD><TD>Character is no valid hex digit.</TD></TR>
+<TR><TD NOWRAP>illegal record type       </TD><TD>Record type is none of 0 or 1.</TD></TR>
+<TR><TD NOWRAP>invalid record length     </TD><TD>Record length doesn't match the record.</TD></TR>
+<TR><TD NOWRAP>multiple EOF records      </TD><TD>More than one type 1 record.</TD></TR>
+<TR><TD NOWRAP>no data records found     </TD><TD>File doesn't contain any type 0 records.</TD></TR>
+<TR><TD NOWRAP>no EOF record found       </TD><TD>File ends without a type 1 record.</TD></TR>
+<TR><TD NOWRAP>offset out of range       </TD><TD>/OFFSET option makes file too large.</TD></TR>
+<TR><TD NOWRAP>record exceeds FFFFH      </TD><TD>Address space wrap around in record.</TD></TR>
+<TR><TD NOWRAP>record exceeds file length</TD><TD>/LENGTH option made file too short.</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+Only DOS command line options are mentioned above for simplification.
+Under Linux, they have to be replaced by the corresponding Linux options.
+</P>
+
+<P>
+<BR>
+<U><A NAME="HEXBINRUNTIME">B.2 Runtime Errors:</A></U>
+</P>
+
+<P>
+Runtime errors are operational errors, or I/O errors.
+If one of these errors is detected, it is flagged on the console,
+and HEXBIN is aborting with exit code&nbsp;2:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<TR><TH NOWRAP>Error Message</TH><TH NOWRAP>Meaning</TH></TR>
+<TR><TD NOWRAP>access denied            </TD><TD>No privilege for attempted operation.</TD></TR>
+<TR><TD NOWRAP>ambiguous option name    </TD><TD>Not enough characters specified.</TD></TR>
+<TR><TD NOWRAP>argument missing         </TD><TD>Option requires an argument.</TD></TR>
+<TR><TD NOWRAP>device or resource busy  </TD><TD>Attempt to write to a busy device. (Linux)</TD></TR>
+<TR><TD NOWRAP>disk full                </TD><TD>No more free disk space.</TD></TR>
+<TR><TD NOWRAP>disk write-protected     </TD><TD>Attempt to write to a write-protected disk.</TD></TR>
+<TR><TD NOWRAP>drive not ready          </TD><TD>Disk drive is off, or no media mounted.</TD></TR>
+<TR><TD NOWRAP>duplicate file name      </TD><TD>Attempt to overwrite an input or output file.</TD></TR>
+<TR><TD NOWRAP>fatal I/O error          </TD><TD>General (unknown) disk or device I/O error.</TD></TR>
+<TR><TD NOWRAP>file not found           </TD><TD><NOBR>Intel-HEX</NOBR> file not found. (DOS/Windows)</TD></TR>
+<TR><TD NOWRAP>illegal option syntax    </TD><TD>Option is not correctly specified.</TD></TR>
+<TR><TD NOWRAP>invalid argument         </TD><TD>Option has an illegal argument.</TD></TR>
+<TR><TD NOWRAP>no input file            </TD><TD>There is no file name in the command line.</TD></TR>
+<TR><TD NOWRAP>no such file or directory</TD><TD><NOBR>Intel-HEX</NOBR> file not found. (Linux)</TD></TR>
+<TR><TD NOWRAP>not a directory          </TD><TD>Path contains a non-directory name. (Linux)</TD></TR>
+<TR><TD NOWRAP>path not found           </TD><TD>Disk or directory not found. (DOS/Windows)</TD></TR>
+<TR><TD NOWRAP>too many open files      </TD><TD>No more free file handles.</TD></TR>
+<TR><TD NOWRAP>too many parameters      </TD><TD>More than two file names have been specified.</TD></TR>
+<TR><TD NOWRAP>unknown option           </TD><TD>Option is not implemented.</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_a.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_c.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

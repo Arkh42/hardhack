@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Macro Parameters -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Macro Parameters</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.2 Macro Parameters</U></STRONG>
+</P>
+
+<P>
+Callable macros may have parameters, to allow more flexible use.
+The names of the formal parameters are specified in the macro definition
+behind the keyword MACRO, separated by commas. All parameter names of a
+macro must be different, valid symbols. Keywords cannot be used as
+parameter names. Macros may have any number of parameters, as long as they
+fit on one line. Parameter names are local symbols, which are known within
+the macro only. Outside the macro they have no meaning!
+</P>
+
+<P><STRONG>
+<PRE>
+  &lt;macro name&gt; MACRO &lt;parameter 1&gt;, &lt;parameter 2&gt;, ... ,&lt;parameter n&gt;
+  &lt;body line 1&gt;
+  &lt;body line 2&gt;
+      .
+      .
+  &lt;body line m&gt;
+  ENDM
+</PRE>
+</STRONG></P>
+
+<P>
+When called, actual arguments can be passed to the macro. The arguments
+must be separated by commas. Valid macro arguments are
+</P>
+
+<P>
+<OL TYPE=1>
+<LI>arbitrary sequences of printable characters, not containing blanks,
+    tabs, commas, or semicolons<BR><BR></LI>
+<LI>quoted strings (in single or double quotes)<BR><BR></LI>
+<LI>single printable characters, preceded by '!' as an escape character
+    <BR><BR></LI>
+<LI>character sequences, enclosed in literal brackets &lt; ... &gt;,
+    which may be arbitrary sequences of valid macro arguments
+    (types 1. - 4.), blanks, commas and semicolons<BR><BR></LI>
+<LI>arbitrary sequences of valid macro arguments (types 1. - 4.)<BR><BR></LI>
+<LI>expressions preceded by a '%' character<BR><BR></LI>
+</OL>
+</P>
+
+<P>
+<STRONG>Note:</STRONG> The keywords MACRO, EQU, SET, CODE, DATA, IDATA, XDATA, BIT,
+and the ':' character cannot be passed as the first macro argument,
+because they always start a symbol definition!<BR>
+Therefore they must be enclosed in literal brackets &lt; ... &gt;.
+</P>
+
+<P>
+During macro expansion, these actual arguments replace the symbols of the
+corresponding formal parameters, wherever they are recognized in the macro
+body. The first argument replaces the symbol of the first parameter, the
+second argument replaces the symbol of the second parameter, and so forth.
+This is called substitution.<BR>
+Without special assistance, the assembler will not recognize a parameter
+symbol if it
+</P>
+
+<P>
+<UL TYPE=DISC>
+<LI>is part of another symbol</LI>
+<LI>is contained in a quoted string</LI>
+<LI>appears in commentary</LI>
+</UL>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 1:</STRONG>
+<PRE>
+        MY_SECOND MACRO CONSTANT, REGISTER
+        MOV A,#CONSTANT
+        ADD A,REGISTER
+        ENDM
+
+        MY_SECOND 42, R5
+</PRE>
+<BLOCKQUOTE>
+         After calling the macro MY_SECOND, the body lines
+</BLOCKQUOTE>
+<PRE>
+        MOV A,#42
+        ADD A,R5
+</PRE>
+<BLOCKQUOTE>
+         are inserted into the program, and assembled.
+         The parameter names CONSTANT and REGISTER have been
+         replaced by the macro arguments &quot;42&quot; and &quot;R5&quot;.
+</BLOCKQUOTE>
+</P>
+
+<P>
+The number of arguments, passed to a macro, can be less (but not greater)
+than the number of its formal parameters. If an argument is omitted, the
+corresponding formal parameter is replaced by an empty string.<BR>
+If other arguments than the last ones are to be omitted, they can be
+represented by commas.
+</P>
+
+<P>
+<BR>
+<STRONG>Example 2:</STRONG>
+<BLOCKQUOTE>
+         The macro OPTIONAL has eight formal parameters:
+</BLOCKQUOTE>
+<PRE>
+        OPTIONAL MACRO P1,P2,P3,P4,P5,P6,P7,P8
+          .
+          .
+        &lt;macro body&gt;
+          .
+          .
+        ENDM
+</PRE>
+<BLOCKQUOTE>
+         If it is called as follows,
+</BLOCKQUOTE>
+<PRE>
+        OPTIONAL 1,2,,,5,6
+</PRE>
+<BLOCKQUOTE>
+         the formal parameters P1, P2, P5 and P6 are replaced by the
+         arguments 1, 2, 5 and 6 during substitution. The parameters
+         P3, P4, P7 and P8 are replaced by a zero length string.
+</BLOCKQUOTE>
+</P>
+
+<P>
+For more flexible macro design, there must be a possibility to recognize
+empty macro arguments, and to branch the macro expansion accordingly.
+This can be performed with conditional assembly, using the IFB and IFNB
+meta instructions.<BR>
+(See chapter <NOBR>&quot;<A HREF="ifxxcon.htm">III.10.2 IFxx and ELSEIFxx Instructions</A>&quot;</NOBR>.)
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="simple.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="repeat.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

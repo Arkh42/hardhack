@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Compatibility with the Intel Assembler -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Compatibility with the Intel Assembler</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>IV. Compatibility with the Intel Assembler</U></STRONG>
+</P>
+
+<P>
+With their cross assembler ASM51, Intel has defined and implemented a
+suitable assembly language for the <NOBR>MCS-51</NOBR> family, which has
+always been the only real standard in the 8051 world.<BR>
+Unfortunately, Intel has announced the &quot;end of life&quot; of ASM51
+(final <NOBR>version 2.3</NOBR>) and all the other Intel <NOBR>MCS-51</NOBR>
+development tools to the end of 1993.<BR>
+The <NOBR>ASEM-51</NOBR> assembly language is a subset of the Intel standard
+that guarantees maximum compatibility with existing 8051 assembler sources.
+It implements all 8051 instruction mnemonics as well as a rich and useful
+subset of the Intel pseudo instructions and assembler controls.
+</P>
+
+<HR>
+
+<P>
+<STRONG><U><A NAME="RESTRICTIONS">IV.1 Restrictions</A></U></STRONG>
+</P>
+
+<P>
+Since <NOBR>ASEM-51</NOBR> generates an <NOBR>Intel-HEX</NOBR> file (or absolute
+<NOBR>OMF-51</NOBR>) output instead of relocatable object modules, the
+whole source code of an 8051 application program has to reside in one
+single file. Consequently all pseudo instructions that deal with relocatable
+segments or external or public symbols, have not been implemented:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+PUBLIC
+EXTRN
+SEGMENT
+RSEG
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Intel-style macros are not supported! (Thus the '%' character can be used in
+comments.)<BR>
+Up to now only the following assembler controls and their abbreviations have
+been implemented:
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH>&nbsp;</TH>
+    <TH><TABLE WIDTH="100%"><TR><TH ALIGN=LEFT NOWRAP>primary controls</TH><TH ALIGN=RIGHT NOWRAP>abbrev.&nbsp;</TH></TR></TABLE></TH>
+    <TH><TABLE WIDTH="100%"><TR><TH ALIGN=LEFT NOWRAP>general controls</TH><TH ALIGN=RIGHT NOWRAP>abbrev.</TH></TR></TABLE></TH>
+</TR>
+<TR><TD ALIGN=CENTER><STRONG>Intel-<BR><BR>controls</STRONG></TD>
+    <TD VALIGN=TOP>
+        <TABLE WIDTH="100%">
+        <TR><TD NOWRAP>$DATE (&lt;string&gt;)</TD><TD ROWSPAN=13>&nbsp;&nbsp;&nbsp;</TD><TD>$DA  </TD></TR>
+        <TR><TD>$DEBUG                       </TD><TD>$DB  </TD></TR>
+        <TR><TD>$NODEBUG                     </TD><TD>$NODB</TD></TR>
+        <TR><TD NOWRAP>$MACRO (&lt;percent&gt;)</TD><TD>$MR  </TD></TR>
+        <TR><TD>$NOMACRO                     </TD><TD>$NOMR</TD></TR>
+        <TR><TD>$MOD51                       </TD><TD>$MO  </TD></TR>
+        <TR><TD>$NOMOD51                     </TD><TD>$NOMO</TD></TR>
+        <TR><TD>$PAGING                      </TD><TD>$PI  </TD></TR>
+        <TR><TD>$NOPAGING                    </TD><TD>$NOPI</TD></TR>
+        <TR><TD>$SYMBOLS                     </TD><TD>$SB  </TD></TR>
+        <TR><TD>$NOSYMBOLS                   </TD><TD>$NOSB</TD></TR>
+        <TR><TD NOWRAP>$PAGELENGTH (&lt;lines&gt;) </TD><TD>$PL  </TD></TR>
+        <TR><TD NOWRAP>$PAGEWIDTH (&lt;columns&gt;)</TD><TD>$PW  </TD></TR>
+        </TABLE>
+    </TD>
+    <TD VALIGN=TOP>
+        <TABLE WIDTH="100%">
+        <TR><TD>$EJECT                 </TD><TD ROWSPAN=10>&nbsp;&nbsp;&nbsp;</TD><TD>$EJ  </TD></TR>
+        <TR><TD>$GEN                   </TD><TD>$GE  </TD></TR>
+        <TR><TD>$NOGEN                 </TD><TD>$NOGE</TD></TR>
+        <TR><TD>$GENONLY               </TD><TD>$GO  </TD></TR>
+        <TR><TD NOWRAP>$INCLUDE (&lt;file&gt;)</TD><TD>$IC  </TD></TR>
+        <TR><TD>$LIST                  </TD><TD>$LI  </TD></TR>
+        <TR><TD>$NOLIST                </TD><TD>$NOLI</TD></TR>
+        <TR><TD>$SAVE                  </TD><TD>$SA  </TD></TR>
+        <TR><TD>$RESTORE               </TD><TD>$RS  </TD></TR>
+        <TR><TD NOWRAP>$TITLE (&lt;string&gt;)</TD><TD>$TT  </TD></TR>
+        </TABLE>
+    </TD>
+</TR>
+<TR><TD ALIGN=CENTER><STRONG><NOBR>ASEM-51</NOBR><BR><BR>controls</STRONG></TD>
+    <TD VALIGN=TOP>
+        <TABLE WIDTH="100%">
+        <TR><TD>$NOBUILTIN</TD><TD ROWSPAN=3>&nbsp;&nbsp;&nbsp;</TD><TD>-----</TD></TR>
+        <TR><TD>$NOTABS   </TD><TD>-----</TD></TR>
+        <TR><TD>$PHILIPS  </TD><TD>-----</TD></TR>
+        </TABLE>
+    </TD>
+    <TD VALIGN=TOP>
+        <TABLE WIDTH="100%">
+        <TR><TD>$COND</TD><TD ROWSPAN=5>&nbsp;&nbsp;&nbsp;</TD><TD>-----</TD></TR>
+        <TR><TD>$NOCOND</TD><TD>-----</TD></TR>
+        <TR><TD>$CONDONLY</TD><TD>-----</TD></TR>
+        <TR><TD NOWRAP>$ERROR (&lt;string&gt;)</TD><TD>-----</TD></TR>
+        <TR><TD NOWRAP>$WARNING (&lt;string&gt;)</TD><TD>-----</TD></TR>
+        </TABLE>
+    </TD>
+</TR>
+</TABLE>
+</P>
+
+<BR>
+
+<HR>
+
+<P>
+<STRONG><U><A NAME="EXTENSIONS">IV.2 Extensions</A></U></STRONG>
+</P>
+
+<P>
+Assembler controls need not start in column 1, but may be preceded by any
+number of blanks and tabs. Primary controls may also be preceded by comment
+lines and $INCLUDE statements, provided the corresponding include files are
+only containing other control statements and commentary.<BR>
+The source file may contain blank and comment lines behind the END statement.
+Character strings may also be enclosed in double quotes.<BR>
+The DATA symbol for the special function register PCON is predefined.<BR>
+The bit operator '.' is legal in all expressions, not only in those that
+have to match the segment type BIT.
+</P>
+
+<P>
+<NOBR>ASEM-51</NOBR> introduces a set of meta instructions, which overlay the
+Intel <NOBR>MCS-51</NOBR> assembly language, but are not part of it!<BR>
+The meta instructions IFxx, ELSEIFxx, ELSE, and ENDIF allow
+<A HREF="condit.htm">conditional assembly</A>, while the meta instructions
+MACRO, REPT, ENDM, EXITM, and LOCAL (and some control characters) form a powerful
+<A HREF="macros.htm">macro processing</A> language.
+For detailed information on meta instructions see chapters
+<NOBR>&quot;<A HREF="condit.htm">III.10 Conditional Assembly</A>&quot;</NOBR> and
+<NOBR>&quot;<A HREF="macros.htm">III.11 Macro Processing</A>&quot;</NOBR>.
+</P>
+
+<BR>
+
+<HR>
+
+<P>
+<STRONG><U><A NAME="DIFFERENCES">IV.3 Further Differences</A></U></STRONG>
+</P>
+
+<P>
+To make semantics unique, especially the precedence of unary operators in
+<A HREF="express.htm">expressions</A> is slightly different. Furthermore,
+expressions with a bit operation &quot;.&quot; evaluate to a BIT type result,
+not to NUMBER. The <A HREF="segment.htm">segment type</A> of symbols that are
+defined with EQU or SET evaluates always to NUMBER. Otherwise it might be
+difficult in some cases, to force the definition of typeless symbols.
+This is described in detail in chapters
+<NOBR>&quot;<A HREF="express.htm">III.4 Expressions</A>&quot;</NOBR> and
+<NOBR>&quot;<A HREF="segment.htm">III.7 Segment Type</A>&quot;</NOBR>.<BR>
+Except in DB instructions, the zero length string constant '' is illegal.
+The $NOMOD51 control disables also the predefined CODE addresses.
+The special assembler symbols AR0...AR7 are predefined for bank 0 before
+the first USING statement occurs.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macrolst.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="listfile.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

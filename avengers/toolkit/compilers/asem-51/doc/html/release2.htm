@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- ASEM-51 V1.2 Release Notes -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>ASEM-51 V1.2 Release Notes</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><H2>Version 1.2, &nbsp; Jan 22, 1996:</H2></P>
+
+<P><BIG><BR><STRONG><U>1. Bug Fixes</U></STRONG></BIG></P>
+
+<P><BIG>
+Since <NOBR>version 1.0</NOBR>, only two serious bugs have been found in
+<NOBR>ASEM-51</NOBR>:
+</BIG></P>
+
+<P><BIG>
+If DB or DW statements contained at least two subsequent expressions with
+forward references, followed by at least one further expression or string,
+the code lengths of these statements were calculated different on <NOBR>pass 1</NOBR>
+and <NOBR>pass 2</NOBR>. Therefore, jumps to locations behind those statements might
+have led to wrong addresses.
+</BIG></P>
+
+<P><BIG>
+If a symbol name with more than 31 characters was referenced in an
+instruction operand, the assembler marked that symbol reference with the
+error message </BIG><CODE><NOBR>@@@@@ symbol not defined @@@@@</NOBR></CODE><BIG>,
+although it was defined correctly above.
+</BIG></P>
+
+<P><BIG>
+Apart of that, some minor deficiencies have been improved or corrected:
+</BIG></P>
+
+<P><BIG>
+The arrows of the error messages in the list file are now pointing more
+exactly to the position in the source line, where something is wrong.
+</BIG></P>
+
+<P><BIG>
+ASEM and HEXBIN do no longer crash in exotic I/O error situations
+(i.e. opening the door of a disk drive while reading from it),
+and they can output more specific I/O error messages.
+</BIG></P>
+
+<P><BIG>
+It is no longer possible to overwrite the input files by specifying
+duplicate file names in the command line.
+(This does not apply to device names!)
+</BIG></P>
+
+<P><BIG>
+The previous field separator '=' for ASEM and HEXBIN command line options
+had to be changed to ':', because of two reasons:<BR>
+It is not possible to pass a string, containing an '=' character, to a DOS
+batch file as a parameter, and it cannot be assigned to a DOS environment
+variable.<BR>
+However, the old field separator '=' is still accepted to maintain
+compatibility with previous HEXBIN versions.
+</BIG></P>
+
+<P><BIG><BR><STRONG><U>2. New Features</U></STRONG></BIG></P>
+
+<P><BIG>
+The new assembler version comes up with numerous extensions and improvements:
+</BIG></P>
+
+<P><BIG>
+The /INCLUDES command line option has been introduced to specify
+directories that ASEM has to search for include files.<BR>
+The /DEFINE command line option has been implemented to define symbols
+from the command line, for easy assembly of different program variants.<BR>
+Conditional assembly has been extended with the new IFDEF and IFNDEF
+meta instructions.<BR>
+Primary controls may now be preceded also by general controls.<BR>
+The new $PHILIPS control allows to switch to the reduced instruction set
+of the Philips 83C75x family of microcontrollers.<BR>
+The pseudo instruction NAME has been introduced for compatibility purposes.<BR>
+The <NOBR>ASEM-51</NOBR> list file has been beautified, and contains more information.
+New fancy printing facilities have been introduced with the $XREF,
+$PAGEWIDTH, $DATE, $TITLE and $NOTABS controls.<BR>
+The $DEBUG, $NODEBUG, $MOD51, $PAGING, $SYMBOLS, and $NOXREF controls
+have been implemented for compatibility purposes.<BR>
+Now all assembler controls may be replaced by their (Intel-) abbreviations.
+</BIG></P>
+
+<P><BIG>
+The error message filter program ASEM2MSG has been introduced, which
+allows the integration of <NOBR>ASEM-51</NOBR> into the Borland IDE for DOS.<BR>
+Files ASEM.PIF and ASEM.ICO have been added to simplify the <NOBR>ASEM-51</NOBR>
+installation under <NOBR>Windows 3.1</NOBR>.
+</BIG></P>
+
+<P><BIG>
+Device names that are passed to ASEM or HEXBIN as command line parameters
+may but need no longer be terminated with a ':' character.
+</BIG></P>
+
+<P><BIG>
+<NOBR>HEXBIN 2.2</NOBR> is running about 15% faster than <NOBR>version 2.1</NOBR>.<BR>
+The length of the binary output file now matches exactly the byte count
+of the code.<BR>
+HEXBIN now returns ERRORLEVEL&nbsp;1 on conversion errors and ERRORLEVEL&nbsp;2
+on fatal runtime errors.
+</BIG></P>
+
+<P><BIG>
+With this version, new processor definition files are provided:
+</BIG></P>
+
+<TABLE BORDER CELLPADDING=8>
+<TR><TH>File</TH><TH>Manufacturer</TH><TH>Derivatives</TH></TR>
+<TR><TD ALIGN=RIGHT> 89C1051.MCU</TD><TD>Atmel  </TD><TD>89C1051, 89C2051</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C451.MCU</TD><TD>Philips</TD><TD>83C451, 80C451, 87C451</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C528.MCU</TD><TD>Philips</TD><TD>83C528, 80C528, 87C528, 83C524, 87C524, 83CE528, 80CE528, 89CE528</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C550.MCU</TD><TD>Philips</TD><TD>83C550, 80C550, 87C550</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C562.MCU</TD><TD>Philips</TD><TD>83C562, 80C562</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C652.MCU</TD><TD>Philips</TD><TD>83C652, 80C652, 87C652, 83C654, 87C654, 83CE654, 80CE654</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C750.MCU</TD><TD>Philips</TD><TD>83C750, 87C750</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C751.MCU</TD><TD>Philips</TD><TD>83C751, 87C751</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C752.MCU</TD><TD>Philips</TD><TD>83C752, 87C752</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C851.MCU</TD><TD>Philips</TD><TD>83C851, 80C851</TD></TR>
+<TR><TD ALIGN=RIGHT>  83C852.MCU</TD><TD>Philips</TD><TD>83C852</TD></TR>
+<TR><TD ALIGN=RIGHT>    C501.MCU</TD><TD>SIEMENS</TD><TD>C501-1R, C501-L</TD></TR>
+<TR><TD ALIGN=RIGHT>    C502.MCU</TD><TD>SIEMENS</TD><TD>C502-2R, C502-L</TD></TR>
+<TR><TD ALIGN=RIGHT>    C503.MCU</TD><TD>SIEMENS</TD><TD>C503-1R, C503-L</TD></TR>
+<TR><TD ALIGN=RIGHT>    C511.MCU</TD><TD>SIEMENS</TD><TD>C511, C511A</TD></TR>
+<TR><TD ALIGN=RIGHT>    C513.MCU</TD><TD>SIEMENS</TD><TD>C513, C513A, C513A-H</TD></TR>
+<TR><TD ALIGN=RIGHT>COM20051.MCU</TD><TD>SMC    </TD><TD>COM20051</TD></TR>
+</TABLE>
+
+<P><BIG>
+<NOBR>ASEM_51.DOC</NOBR> has been updated accordingly, and extended with an
+alphabetical 8051 instruction table. The error messages in appendices A and B
+are now sorted in lexical order, and completed with brief explanations.
+</BIG></P>
+
+<P><BIG>
+The bootstrap program <NOBR>BOOT-51 V1.0</NOBR> has been added to the <NOBR>ASEM-51</NOBR> package.
+It allows an 8051 target system to receive an application program in
+<NOBR>Intel-Hex</NOBR> format over the serial interface, load it into the external RAM,
+and finally start it (provided that the board has a suitable memory map).
+Once installed, <NOBR>BOOT-51</NOBR> leads to very short turn-around cycles in testing.
+For detailed information refer to the ASCII text file <NOBR>BOOT51.DOC</NOBR>
+provided.
+</BIG></P>
+
+<P><BIG>
+An &quot;<NOBR>ASEM-51</NOBR> Updating Guide&quot; has been added to the package.
+It describes, how and where to get a new <NOBR>ASEM-51</NOBR> version!
+For further information see the ASCII file <NOBR>UPDATES.DOC</NOBR> provided.
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="release.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="release.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="releas32.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="release1.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

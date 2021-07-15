@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Customizing BOOT-51 -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Customizing BOOT-51</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>II.2 Customizing BOOT-51</U></STRONG>
+</P>
+
+<P>
+<NOBR>BOOT-51</NOBR> must be customized for the target board, before it
+is ready for assembly. This is performed with an include file
+<NOBR><EM>boot51.inc</EM></NOBR>, containing the required configuration data.
+<NOBR><EM>boot51.inc</EM></NOBR> is generated with the <NOBR>BOOT-51</NOBR>
+Customization Utility <STRONG>CUSTOMIZ</STRONG>.<BR>
+There are two major groups of configuration parameters:
+</P>
+
+<P>
+<UL TYPE=DISC>
+<LI>baudrate generation</LI>
+<LI>memory addresses</LI>
+</UL>
+</P>
+
+<P>
+<STRONG>CUSTOMIZ</STRONG> is invoked as shown below:
+</P>
+
+<P>
+<STRONG><PRE>
+   customiz &lt;baud&gt; [&lt;timer&gt; [&lt;prec&gt; [&lt;clock&gt; [&lt;start&gt; [&lt;user&gt;]]]]]
+</PRE></STRONG>
+</P>
+
+<P>
+The first four parameters are for baudrate generation, and the last two
+parameters are memory addresses. Parameters in brackets are optional.<BR>
+If <STRONG>CUSTOMIZ</STRONG> is invoked without parameters, it displays a help screen.
+</P>
+
+<P>
+<TABLE BORDER=0 CELLPADDING=8>
+<TR><TD VALIGN=TOP><BIG>&lt;baud&gt;</BIG></TD>
+    <TD><BIG>is the desired nominal baudrate (in Baud), <NOBR>BOOT-51</NOBR>
+        should use for communication with the host system.</BIG>
+    </TD>
+</TR>
+<TR><TD VALIGN=TOP><BIG>&lt;timer&gt;</BIG></TD>
+    <TD><BIG>is the <NOBR>on-chip</NOBR> timer or baudrate generator that is
+        used for baudrate generation. <NOBR>Legal values are:</NOBR></BIG><BR>
+        <BR>
+        <NOBR>T1 = timer 1, available on nearly all 8051 derivatives (default)</NOBR><BR>
+        <NOBR>T2 = timer 2, available on 8052/32 and all true compatibles</NOBR><BR>
+        <NOBR>BG = internal baudrate generator on 80C515/35 and 80C517/37</NOBR><BR>
+        <NOBR>BA = internal baudrate generator on 80C515A and 80C517A</NOBR><BR>
+        <NOBR>D1 = timer 1 with clock/12 or clock/4 prescaler on 80C320</NOBR>
+    </TD>
+</TR>
+<TR><TD VALIGN=TOP><BIG>&lt;prec&gt;</BIG></TD>
+    <TD><BIG>is the required relative precision of the baudrate in %.
+        <NOBR>The default precision is 1.0 %.</NOBR></BIG>
+    </TD>
+</TR>
+<TR><TD VALIGN=TOP><BIG>&lt;clock&gt;</BIG></TD>
+    <TD><BIG>is the system clock frequency in MHz.
+        <NOBR>(11.0592 MHz default)</NOBR></BIG>
+    </TD>
+</TR>
+<TR><TD VALIGN=TOP><BIG>&lt;start&gt;</BIG></TD>
+    <TD><BIG>is the start address of <NOBR>BOOT-51</NOBR> on the target
+        system in hex representation. <NOBR>(default is 0000H)</NOBR></BIG>
+    </TD>
+</TR>
+<TR><TD VALIGN=TOP><BIG>&lt;user&gt;</BIG></TD>
+    <TD><BIG>is the usual hex start address of the application programs
+        in the external memory. <NOBR>(default is 8000H)</NOBR></BIG>
+    </TD>
+</TR>
+</TABLE>
+</P>
+
+<P>
+<STRONG><U>Baudrate:</U></STRONG>
+</P>
+<P>
+For the serial interface, the standard UART is used that is available on
+almost every 8051 derivative. <NOBR>BOOT-51</NOBR> is always running the
+UART in <NOBR>Mode 1</NOBR>, that is asynchronous mode, <NOBR>8 data</NOBR>
+bits, <NOBR>1 stop</NOBR> bit, no parity.<BR>
+However, depending on the derivative, there may be various timers or
+prescalers that can be used for baudrate generation.<BR>
+If the desired baudrate cannot be generated or the precision is too bad,
+<STRONG>CUSTOMIZ</STRONG> will display a corresponding error message. In this case,
+try another baudrate generator that is also available on your derivative.
+If this fails, too, try another baudrate that may also do, or think of
+using another oscillator crystal that suits better for the task.
+You should play around with <STRONG>CUSTOMIZ</STRONG>, to explore how to get best
+results. The tables in <NOBR><A HREF="bappende.htm">Appendix&nbsp;E</A></NOBR>
+show the precisions of the most frequently used baudrates that can be
+generated with the supported timers and baudrate generators, for some
+standard clock frequencies.
+In most cases baudrate deviations of 2 to <NOBR>3&nbsp;%</NOBR> are no
+problem for the communication with a PC. Whenever in doubt, try it!<BR>
+<NOBR>BOOT-51</NOBR> can receive data at very high baudrates without the
+need for a handshake protocol. Output is done more slowly with short pauses
+between the characters, to avoid a data overrun of the PC UART. The maximum
+effective output speed of <NOBR>BOOT-51</NOBR> is corresponding to 9600 Baud
+(max. <NOBR>1 character</NOBR> per ms).<BR>
+In general, speed is rather a problem for the PC than for the micro.
+</P>
+
+<P>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+<TR><TD NOWRAP><BIG><STRONG>Example 1:</STRONG></BIG></TD>
+    <TD ROWSPAN=3 WIDTH=30 NOWRAP><BIG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</BIG></TD>
+    <TD NOWRAP><BIG><STRONG><CODE>customiz 9600 BG 0.1 12</CODE></STRONG></BIG></TD></TR>
+<TR><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
+<TR><TD>&nbsp;</TD>
+    <TD><BIG>will generate an include file for <NOBR>BOOT-51</NOBR> that
+        configures it for 9600 Baud, generated with the internal baudrate
+        generator of a SAB80C535 or SAB80C537 that is clocked with
+        <NOBR>12.0 MHz</NOBR>.
+        The required precision is <NOBR>0.1 %</NOBR>.
+        The bootstrap and application program start addresses are set to
+        their default values.</BIG></TD></TR>
+</TABLE>
+</P>
+
+<P>
+<STRONG><U>Addresses:</U></STRONG>
+</P>
+<P>
+<STRONG>&lt;start&gt;</STRONG>:<BR>
+An 8051 starts program execution at CODE address 0000H after reset.
+Thus there must always be ROM at CODE address 0000H to execute the first
+instructions. On most 8051 boards there is EPROM in the range
+<NOBR>0000H-7FFFH</NOBR>, and RAM in the range <NOBR>8000H-FFFFH</NOBR>.
+However, the final application programs will usually start at address 0000H,
+and the 8051 interrupt addresses start at address 0003H.
+If application programs can be loaded into RAM at 8000H,
+this is normally not quite realistic for testing.<BR>
+Hence it would be nice to have <NOBR>CODE/XDATA</NOBR>-RAM at address 0000H
+to load and test application programs. That is why some evaluation boards
+(<NOBR>e.g.</NOBR> the Keil <NOBR>MCB-517</NOBR>) remap the EPROM from
+address 0000H to 8000H, and the RAM from 8000H to 0000H, when the first
+memory access to a CODE address &gt; 7FFFH occurs.<BR>
+To support this, <NOBR>BOOT-51</NOBR> starts with a long jump to its entry
+point, to eventually remap the memory. If you own a corresponding evaluation
+board, specify the <STRONG>&lt;start&gt;</STRONG> address of <NOBR>BOOT-51</NOBR> to
+the location, where it resides after memory remapping!
+</P>
+
+<P>
+<STRONG>&lt;user&gt;</STRONG>:<BR>
+In principle, <NOBR>BOOT-51</NOBR> can load an application program at any
+location in the external RAM and start it there. However, the interrupt
+addresses should be redirected to the location, where application programs
+usually start, e.g. the start address of the external RAM.<BR>
+Hence the <STRONG>&lt;user&gt;</STRONG> address should point to the location, where
+the <NOBR>CODE/XDATA</NOBR>-RAM starts. If it starts at 8000H, interrupt
+0003H is redirected to 8003H, interrupt 000BH to 800BH, and so on.<BR>
+If the <NOBR>CODE/XDATA</NOBR>-RAM starts at 0000H (after remapping), the
+<STRONG>&lt;user&gt;</STRONG> address has no practical meaning and can be left default.
+</P>
+
+<P>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+<TR><TD NOWRAP><BIG><STRONG>Example 2:</STRONG></BIG></TD>
+    <TD ROWSPAN=3 WIDTH=30 NOWRAP><BIG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</BIG></TD>
+    <TD NOWRAP><BIG><STRONG><CODE>customiz 19200 T2 1 11.0592 0 C000</CODE></STRONG></BIG></TD></TR>
+<TR><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
+<TR><TD>&nbsp;</TD>
+    <TD><BIG>will generate an include file for <NOBR>BOOT-51</NOBR> that
+             configures it for 19200 Baud, generated with <NOBR>timer 2</NOBR>
+             of an 80C52 or 80C32 that is clocked with <NOBR>11.0592</NOBR> MHz.
+             The required precision is <NOBR>1&nbsp;%</NOBR>.
+             <NOBR>BOOT-51</NOBR> is located at address 0000H in the EPROM,
+             and the interrupt addresses are redirected to location 0C000H.
+        </BIG></TD></TR>
+</TABLE>
+</P>
+
+<P>
+If <STRONG>CUSTOMIZ</STRONG> aborts with an error message, it returns exit code 1 on
+<NOBR>parameter-</NOBR> and baudrate-errors, and exit code 2 on fatal runtime
+errors. When <STRONG>CUSTOMIZ</STRONG> terminates without error message, it returns
+exit code 0, and a customization header file <NOBR><EM>boot51.inc</EM></NOBR>
+should be present in the default directory.
+With this file, <NOBR>BOOT-51</NOBR> can be assembled as usual with
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+ASEM BOOT51                           (DOS)
+asem boot51.a51                       (Linux)
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Remember that <NOBR>BOOT-51</NOBR> requires <NOBR>ASEM-51 V1.3</NOBR>
+or later!<BR>
+Now there should be an <NOBR>Intel-HEX</NOBR> file
+<NOBR><EM>boot51.hex</EM></NOBR>, which may serve directly as an input for
+the EPROM programmer. We may also convert it to a binary image file with
+the HEXBIN utility:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+HEXBIN BOOT51/LENGTH:4000              (DOS)
+hexbin -l 4000 boot51.hex              (Linux)
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+would generate a binary image file <NOBR><EM>boot51.bin</EM></NOBR> for
+a <NOBR>16 kB</NOBR> EPROM (27C128).<BR>
+(<STRONG>Note:</STRONG> Only <NOBR>1 kB</NOBR> of EPROM is required for the
+<NOBR>BOOT-51</NOBR> program code.)<BR>
+Once in an EPROM, <NOBR>BOOT-51</NOBR> should be ready to run on the
+target system.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="binstall.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bfiles.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bcables.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

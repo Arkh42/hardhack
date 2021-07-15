@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Interactive Operation -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Interactive Operation</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG>
+<BR>
+<STRONG><U>III.1 Interactive Operation</U></STRONG>
+</BIG></P>
+
+<P><BIG>
+<NOBR>BOOT-51</NOBR> implements a simple ASCII user interface for serial
+communication. The bootstrap program can be operated interactively with a
+terminal emulation program running on the PC (<NOBR>e.g.</NOBR> <STRONG>TELIX</STRONG>
+under <NOBR>MS-DOS</NOBR>, or <STRONG>minicom</STRONG> under Linux).
+To perform this, start your terminal emulation program, and configure it for
+the correct baudrate, <NOBR>8 data</NOBR> bits, <NOBR>1 stop</NOBR> bit,
+no parity, and no handshake.
+Then reset the <NOBR>MCS-51</NOBR> target system.<BR>
+(If you have established an <NOBR>RS-232</NOBR> reset line, the target system
+can usually be reset by dropping the <NOBR>RS-232</NOBR> DTR output with the
+&quot;hang-up&quot; function!)
+Now the <NOBR>BOOT-51</NOBR> sign-on message should appear on your screen:
+</BIG></P>
+
+<P><BIG>
+<BLOCKQUOTE>
+<CODE>
+BOOT-51&nbsp;&nbsp;V1.1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Copyright (c) 2002 by W.W. Heinz<BR>
+<BR>
+&gt;
+</CODE>
+</BLOCKQUOTE>
+</BIG></P>
+
+<P><BIG>
+The '&gt;' character indicates that the <NOBR>BOOT-51</NOBR> command line
+interpreter is ready for input. It implements exactly two commands:
+</BIG></P>
+
+<P><BIG>
+<OL TYPE=1>
+<LI>The UPLOAD command:<BR>
+    First press the 'U', and then the return key.<BR>
+    Now the upload prompt ':' should be displayed. <NOBR>BOOT-51</NOBR> is
+    now ready to receive an application program in Intel-HEX format.
+    Send an Intel-HEX file with the ASCII upload function of your terminal
+    emulation program.
+    (Be sure that it terminates every line with a CR and/or LF character!)
+    Now the received Intel-HEX records are loaded to their start addresses
+    specified in the record headers. If an EOF record is received, the upload
+    is terminated and the command prompt '&gt;' is displayed again. Now the
+    command line interpreter is ready for the next command.<BR>
+    When a format error is detected in the Intel-HEX file, <NOBR>BOOT-51</NOBR>
+    waits until no more characters are received for about two seconds, and
+    then aborts with a corresponding error message. &nbsp;
+    (see <A HREF="bappendc.htm">Appendix C</A>)<BR>&nbsp;</LI>
+<LI>The GO TO command:<BR>
+    To start an application program at address 8000H, enter
+    <NOBR>&quot;G 8000&quot;</NOBR> and press return.
+    <NOBR>BOOT-51</NOBR> sets now all MCU registers to reset conditions
+    (as far as possible), and jumps to the start address specified.
+    Now the previously loaded application program should be running!</LI>
+</OL>
+</BIG></P>
+
+<P><BIG>
+Any desired number of Intel-HEX files may be loaded, before entering the
+'G' command. The commands may be entered in upper or lower case letters.
+Interactive operation should be preferred, if the application program
+performs serial I/O. This can easily be supervised with the terminal
+emulation program. In interactive mode, only an <NOBR>RS-232</NOBR> reset
+output is applicable. (A printer port reset cable would be of little use!)
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boperat.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boperat.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bbatch.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

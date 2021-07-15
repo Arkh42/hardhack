@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- ASEM-51 V1.3 Assembler -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>ASEM-51 V1.3 Assembler</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG><BR><STRONG><U>I.2 Assembler</U></STRONG></BIG></P>
+
+<P><BIG>
+With only five new keywords (MACRO, REPT, ENDM, EXITM, LOCAL) and some
+additional control characters, <NOBR>ASEM-51</NOBR> <NOBR>version 1.3</NOBR>
+introduces a full-blown macro processing! It is possible to define named and
+repeated macro blocks.
+Substitution of formal parameters is implemented as well as local symbols.
+Macro calls and definitions can be nested to any depth.<BR>
+Conditional assembly has been extended with the new IFN, IFB, IFNB, ELSEIF,
+ELSEIFN, ELSEIFDEF, ELSEIFNDEF, ELSEIFB, and ELSEIFNB meta instructions.<BR>
+The new control statements $GEN, $NOGEN, $GENONLY, $COND, $NOCOND, $CONDONLY,
+$SAVE, and $RESTORE allow refined listing options for macro expansion and
+conditional assembly. $MACRO and $NOMACRO allow or suppress macro expansion.
+</BIG></P>
+
+<P><BIG>
+The <NOBR>/OMF-51</NOBR> command line option has been introduced for the DOS and Windows
+implementations to generate absolute <NOBR>OMF-51</NOBR> modules instead of <NOBR>Intel-HEX</NOBR>
+files. The Linux implementation recognizes the <NOBR>--omf-51</NOBR> (or -o) option
+respectively. It is also possible to include debug information with the
+$DEBUG assembler control.
+</BIG></P>
+
+<P><BIG>
+The environment variable ASEM51INC has been introduced on all platforms to
+specify a search path for include files.
+</BIG></P>
+
+<P><BIG>
+The new $NOBUILTIN control suppresses predefined symbols (SFR) in the symbol
+table or cross-reference listing, while user-defined symbols are still listed.
+</BIG></P>
+
+<P><BIG>
+The new $ERROR and $WARNING controls allow a more secure configuration
+management of application programs.
+</BIG></P>
+
+<P><BIG>
+For identification of the assembler and its version number, the following
+predefined symbols of the type NUMBER have been introduced:
+</BIG></P>
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=4>
+<TR><TD><BIG><CODE>??ASEM_51</CODE></BIG></TD>
+    <TD ALIGN=CENTER>&nbsp; = &nbsp;</TD>
+    <TD><BIG><CODE>8051H</CODE></BIG></TD>
+    <TD WIDTH=50 NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+    <TD NOWRAP><BIG>ASEM-51</BIG></TD>
+</TR>
+<TR><TD><BIG><CODE>??VERSION</CODE></BIG></TD>
+    <TD ALIGN=CENTER>&nbsp; = &nbsp;</TD>
+    <TD><BIG><CODE>0130H</CODE></BIG></TD>
+    <TD WIDTH=50 NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+    <TD NOWRAP><BIG>version 1.3</BIG></TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+</P>
+
+<P><BIG>
+To improve compatibility with the Intel assembler, more than one assembler
+control is allowed in a control line now, e.g.:<BR>
+<BR>
+<CODE>$ NOMOD51 INCLUDE(80C517.MCU)</CODE>
+</BIG></P>
+
+<P><BIG>
+Include files may now be nested to any depth!
+</BIG></P>
+
+<P><BIG>
+EQU and SET can now be used to define symbols not only for numerical
+constants, but also for registers A and R0 thru R7.
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="release.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="releas31.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="relea311.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="relea313.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

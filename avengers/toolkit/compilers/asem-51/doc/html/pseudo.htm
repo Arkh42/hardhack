@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Pseudo Instructions -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Pseudo Instructions</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.6  Pseudo Instructions</U></STRONG>
+</P>
+
+<P>
+In the subsequent paragraphs, all <NOBR>ASEM-51</NOBR> pseudo instructions are
+described. Lexical symbols are written in lower case letters, while assembler
+keywords are written in upper case.<BR>
+Instruction arguments are represented by &lt;arg&gt;, &lt;arg1&gt; or something like
+that. Numeric expressions are represented by &lt;expr&gt;, &lt;expr1&gt; and so on.
+Syntax elements enclosed in brackets are optional.<BR>
+The ellipsis &quot;...&quot; means always &quot;a list with any number of elements&quot;.
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>DB &lt;arg1&gt; [,&lt;arg2&gt; [,&lt;arg3&gt; ... ]]</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define bytes</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+The DB instruction reserves and initializes a number of bytes with
+the values defined by the arguments. The arguments may either be
+expressions (which must evaluate to 8-bit values) or character
+strings of any length. DB is only allowed in the CODE segment!
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>DB 19,'January',98,(3*7+12)/11</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>DW &lt;expr1&gt; [,&lt;expr2&gt; [,&lt;expr3&gt; ... ]]</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define words</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+The DW instruction reserves and initializes a number of words with
+the values defined by the arguments. Every argument may be an
+arbitrary expression and requires two bytes of space.
+DW is only allowed in the CODE segment!
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>DW 0,0C800H,1999,4711</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>DS &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define space</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+Reserves a number of uninitialized bytes in the current segment.
+The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!
+DS is allowed in every segment, except in the BIT segment!
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>DS 200H</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>DBIT &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define bits</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+Reserves a number of uninitialized bits.
+The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!
+DBIT is only allowed in the BIT segment!
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>DBIT 16</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>NAME &lt;symbol&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define module name</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+Defines a module name for the <NOBR>OMF-51</NOBR> object file.
+If no module name is defined, the module name is derived from the
+source file name.
+When generating <NOBR>Intel-HEX</NOBR> file output, the NAME instruction
+has no effect. The module name must be a legal assembler symbol.
+Only one NAME instruction is allowed within the program. The symbol
+however, may be redefined in the subsequent program.
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>NAME My_1st_Program</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>ORG &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>origin of segment location</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+Sets the location counter of the current segment to the value &lt;expr&gt;.
+The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!
+It must be greater or equal to the segment base address.
+The default value of all location counters at program start is 0.
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>ORG 08000H</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>USING &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>using register bank</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+Sets the register bank used to &lt;expr&gt;, which must be in the range
+of 0...3. The USING instruction only affects the values of the
+special assembler symbols AR0, ... , AR7 representing the direct
+addresses of registers R0, ... , R7 in the current register bank.
+The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!
+The default value for the register bank is 0.
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>USING 1</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>END</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>end of program</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+This must be the last statement in the source file. After the END
+statement only commentary and blank lines are allowed!
+<BR><BR>
+Example: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <CODE>END &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;end of program</CODE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; EQU &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define numeric constant</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; EQU &lt;reg&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define invariant register</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; SET &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define numeric variable</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; SET &lt;reg&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define variable register</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+The EQU instruction defines a symbol for a numeric constant or a
+register. If a numeric expression &lt;expr&gt; is assigned to the symbol,
+it will be of the type NUMBER. If a register &lt;reg&gt; is assigned to
+the symbol, it will be of the type REGISTER. &lt;reg&gt; may be one of the
+special assembler symbols A, R0, R1, R2, R3, R3, R4, R5, R6, or R7.<BR>
+A symbol once defined with EQU can never be changed!<BR>
+The SET instruction is working quite similar to EQU. However, symbols
+defined with SET can be redefined with subsequent SET instructions!
+The values of &lt;expr&gt; and &lt;reg&gt; must be known on <NOBR>pass 1</NOBR>!<BR>
+A symbol that has been SET, cannot be redefined with EQU!<BR>
+A symbol that has been EQU'd cannot be reSET!<BR>
+On <NOBR>pass 2</NOBR>, forward references to a SET symbol always evaluate
+to the last value, the symbol has been SET to on <NOBR>pass 1</NOBR>.<BR>
+Register symbols can be used as instruction operands within the
+whole program instead of the corresponding registers.<BR>
+Forward references to register symbols are not allowed!
+<BR><BR>
+Examples:
+<PRE>
+           MAXMONTH  EQU 12
+           OCTOBER   EQU MAXMONTH-2
+           COUNTREG  EQU R5
+
+           CHAPTER   SET  1
+           CHAPTER   SET  CHAPTER+1
+           CHAPTER   SET  A
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; CODE &nbsp;&lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define ROM address</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; DATA &nbsp;&lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define direct RAM address</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; IDATA &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define indirect RAM address</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; BIT &nbsp; &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define bit address</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>&lt;symbol&gt; XDATA &lt;expr&gt;</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>define external RAM address</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+These instructions define symbolic addresses for the five 8051
+memory segments (address spaces). For DATA, IDATA and BIT type
+symbols, the value of &lt;expr&gt; must not exceed 0FFH!
+The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!<BR>
+Once defined with one of the above instructions, the symbols cannot
+be redefined.
+<BR><BR>
+Examples:
+<PRE>
+           EPROM    CODE  08000H
+           STACK    DATA       7
+           V24BUF   IDATA   080H
+           REDLED   BIT     P1.5
+           SAMPLER  XDATA  0100H
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<BR>
+<P>
+<TABLE WIDTH="85%">
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>CSEG [AT &lt;expr&gt;]</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>switch to CODE &nbsp;segment [at address]</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>DSEG [AT &lt;expr&gt;]</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>switch to DATA &nbsp;segment [at address]</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>ISEG [AT &lt;expr&gt;]</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>switch to IDATA segment [at address]</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>BSEG [AT &lt;expr&gt;]</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>switch to BIT &nbsp; segment [at address]</BIG></TH>
+</TR>
+<TR>
+<TH ALIGN=LEFT NOWRAP><BIG><STRONG><CODE>XSEG [AT &lt;expr&gt;]</CODE></STRONG></BIG></TH>
+<TH ALIGN=RIGHT NOWRAP><BIG>switch to XDATA segment [at address]</BIG></TH>
+</TR>
+</TABLE>
+<BLOCKQUOTE>
+These instructions switch to one of the five 8051 address spaces.
+If a segment base address is specified with &quot;AT &lt;expr&gt;&quot;, a new
+absolute segment is started, and the location counter is set to
+&lt;expr&gt;. If &quot;AT &lt;expr&gt;&quot; is omitted, the location counter keeps the
+previous value of the particular segment.<BR>
+The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!<BR>
+At program start, the default segment is CODE and the base addresses
+and location counters of all segments are set to zero.
+<BR><BR>
+Examples:
+</BLOCKQUOTE>
+<PRE>
+          DSEG           ;switch to previous DATA segment
+
+          CSEG AT 8000h  ;start a new CODE segment at address 8000H
+
+          XSEG at 0      ;start a new XDATA segment at address 0
+</PRE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="instrset.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="segment.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

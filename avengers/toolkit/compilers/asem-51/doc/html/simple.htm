@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Simple Callable Macros -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Simple Callable Macros</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.1 Simple Callable Macros</U></STRONG>
+</P>
+
+<P>
+Macros must first be defined, before they can be called in a program.
+A simple macro definition consists of the macro name, which can be defined
+with the keyword MACRO, the macro body, and a final ENDM (end macro)
+instruction.
+</P>
+
+<P><STRONG>
+<PRE>
+   &lt;macro name&gt; MACRO
+   &lt;body line 1&gt;
+   &lt;body line 2&gt;
+       .
+       .
+   &lt;body line m&gt;
+   ENDM
+</PRE>
+</STRONG></P>
+
+<P>
+The macro name must be a valid, unique symbol. It cannot be redefined later.
+Keywords cannot be used as macro names.<BR>
+The macro body may comprise any number of lines. Body lines may be all kinds
+of assembler instructions, pseudo instructions, controls, meta instructions,
+macro calls and even further macro definitions.<BR>
+The macro body and the whole macro definition is terminated with the ENDM
+instruction.<BR>
+Macros must be defined, before they can be called. Forward references to
+macros are not allowed. Once defined, a macro can be called by its name in
+the subsequent program as often as desired. Whenever a macro is called, the
+macro body will be &quot;inserted&quot; into the program and then assembled as normal
+source lines. This process is called macro expansion.
+</P>
+
+<P>
+<BR>
+<STRONG>Example:</STRONG>
+<PRE>
+        MY_FIRST MACRO  ;definition
+        MOV A,#42
+        ADD A,R5
+        ENDM
+
+        MY_FIRST        ;call
+</PRE>
+<BLOCKQUOTE>
+         After the call of the macro MY_FIRST, the body lines
+</BLOCKQUOTE>
+<PRE>
+        MOV A,#42
+        ADD A,R5
+</PRE>
+<BLOCKQUOTE>
+         are inserted into the program and assembled.
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="params.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

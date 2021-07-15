@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Trouble under Linux -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Trouble under Linux</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG>
+<BR>
+<STRONG><U>IV.3 Trouble under Linux</U></STRONG>
+</BIG></P>
+
+<P><BIG>
+The most popular problems under Linux are permission conflicts and wrong
+(or no) configuration. Problems may even change with the version number
+of the Linux kernel!<BR>
+Note that some changes suggested here will lower your systems security
+against attackers who have login access to your machine. Direct access
+to hardware ports and security do not mix well.<BR>
+On some distributions changes in the /dev directory might be detected
+by periodically run jobs and automatically reverted to the old state.
+</BIG></P>
+
+<P><BIG>
+<OL TYPE=1>
+<LI>The boot script aborts with the error message<BR><BR>
+<CODE>./upload: /dev/ttyS1: Permission denied</CODE><BR><BR>
+    (or something like that).<BR>
+    You don't have read/write access to the serial port in use (ttyS1).<BR>
+    If you are the only user of this computer, you can log in as root,
+    and simply allow read/write operations for all users:<BR><BR>
+    <STRONG><CODE>&nbsp;&nbsp;&nbsp;&nbsp;chmod a+rw /dev/ttyS1</CODE></STRONG><BR><BR>
+    If there are more users who have access to the system, better define
+    a new group called &quot;embedded&quot; (or something) in /etc/group
+    and add all users who need access to this port. Finally do<BR><BR>
+    <STRONG><CODE>&nbsp;&nbsp;&nbsp;&nbsp;chgrp embedded /dev/ttyS1<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;chmod o-rw,ug+rw /dev/ttyS1</CODE></STRONG><BR>
+    &nbsp;</LI>
+<LI>The boot script hangs on any attempt to output an Intel-HEX file to
+    a particular serial port.<BR>
+    There may be an I/O address or interrupt conflict, or the serial ports
+    are not configured correctly, or not at all.<BR>
+    Make sure that every serial port uses a base I/O address and an IRQ
+    that does not conflict with any other hardware installed in your system.
+    (For example, port ttyS3 at 0x2e8 conflicts with an 8514 graphics card!)
+    Check the BIOS setup menu for on-board peripherals, as well as the jumper
+    settings of all the legacy (ISA) boards.<BR>
+    Watch the console output when Linux is booting.
+    There are messages like<BR><BR>
+    <CODE>ttyS00 at 0x03f8 (irq = 4) is a 16550A</CODE><BR><BR>
+    A log file is usually kept in <EM>/var/log</EM>. The file name depends on the
+    Linux distribution and version. Look for <NOBR><EM>boot.msg</EM></NOBR>,
+    <EM>bootlog</EM>, or something.<BR>
+    Linux doesn't really auto-probe the serial ports. It assumes standard
+    port addresses and IRQ numbers. If your hardware doesn't match this
+    default configuration, it will not work. In this case you have to
+    configure your serial ports manually with the <STRONG>setserial</STRONG> command,
+    <NOBR>e.g.</NOBR><BR><BR><STRONG><CODE>
+    &nbsp;&nbsp;&nbsp;&nbsp;setserial -v /dev/ttyS0 port 0x3f8 irq  4 autoconfig<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;setserial -v /dev/ttyS1 port 0x2f8 irq  3 autoconfig<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;setserial -v /dev/ttyS2 port 0x3e8 irq  9 autoconfig<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;setserial -v /dev/ttyS3 port 0x2e8 irq 10 autoconfig
+    </CODE></STRONG><BR><BR>
+    Unfortunately the best place where to put these commands, in order to
+    execute them during system boot, depends on the Linux distribution.
+    For most Linux distributions, <NOBR><EM>/etc/init.d/serial</EM></NOBR>
+    is a good choice!
+    SuSE distributions kept it in <NOBR><EM>/sbin/init.d/serial</EM></NOBR>
+    until version <NOBR>7.0</NOBR>.<BR>
+    For detailed information on serial port configuration refer to the
+    <STRONG>setserial</STRONG> man-pages and the Serial-HOWTO.<BR>
+    &nbsp;</LI>
+<LI>The <STRONG>boot</STRONG> script aborts with an error message like<BR><BR>
+    <CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resetting target system ...<BR>
+    @@@@@ access denied: /dev/lp0 @@@@@</CODE><BR><BR>
+    on a system with a <NOBR>2.2.x</NOBR> (or later) kernel, or with<BR><BR>
+    <CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resetting target system ...<BR>
+    @@@@@ no root privilege @@@@@</CODE><BR><BR>
+    on a system with a <NOBR>2.0.x</NOBR> (or earlier) kernel.<BR>
+    The <STRONG>reset51</STRONG> program needs root privileges for direct access
+    to I/O ports!<BR>
+    If you are the only user of this computer, you can log in as root,
+    and simply allow to run <STRONG>reset51</STRONG> as root for all users:<BR><BR>
+    <STRONG><CODE>&nbsp;&nbsp;&nbsp;&nbsp;chown root reset51<BR>
+             &nbsp;&nbsp;&nbsp;&nbsp;chmod a+x,u+s reset51</CODE></STRONG><BR><BR>
+    Once again a warning: don't do this, if your system should have a higher
+    level of security! If there are more users who have access to the system,
+    better define a special group &quot;embedded&quot; (or something) in
+    <NOBR><EM>/etc/group</EM></NOBR> and add all users who need to run
+    <STRONG>reset51</STRONG>. Then disable execution for all other users:<BR><BR>
+    <STRONG><CODE>&nbsp;&nbsp;&nbsp;&nbsp;chown root reset51<BR>
+             &nbsp;&nbsp;&nbsp;&nbsp;chgrp embedded reset51<BR>
+       &nbsp;&nbsp;&nbsp;&nbsp;chmod o-x,ug+x,u+s reset51</CODE></STRONG><BR><BR>
+    This may considerably improve your system security.<BR>&nbsp;</LI>
+<LI>The <STRONG>boot</STRONG> script aborts with the error message<BR><BR>
+    <CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resetting target system ...<BR>
+    @@@@@ hardware failure: lp0 @@@@@</CODE><BR><BR>
+    although there are two perfectly working printer ports in your PC.<BR>
+    The reason may be that you run a <NOBR>2.0.x</NOBR> (or earlier) Linux
+    kernel, which assigns fixed I/O base addresses to the printer port devices:
+    there is no printer port with base address 0x3bc in your system!<BR>
+    Try <NOBR><EM>/dev/lp1</EM></NOBR> (0x378) and <NOBR><EM>/dev/lp2</EM></NOBR>
+    (0x278) as reset devices, and change your <STRONG>boot</STRONG> script accordingly.
+    <BR>&nbsp;</LI>
+<LI>The <STRONG>boot</STRONG> script aborts with the error message<BR><BR>
+    <CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resetting target system ...<BR>
+    @@@@@ port not found: /dev/lp2 @@@@@</CODE><BR><BR>
+    on a PC with two printer ports and a <NOBR>2.2.x</NOBR> (or later) kernel.<BR>
+    There is no entry for <NOBR><EM>/dev/lp2</EM></NOBR> in
+    <NOBR><EM>/proc/parport/2</EM></NOBR>!<BR><BR>
+    From version <NOBR>2.2.0</NOBR> the Linux kernel provides the parport
+    layer for dynamic printer port assignment, as known from the PC-BIOS.
+    If you have recently updated from a <NOBR>2.0.x</NOBR> (or earlier)
+    kernel, your previous printer port <NOBR><EM>/dev/lp2</EM></NOBR> may now
+    simply be called <NOBR><EM>/dev/lp1</EM></NOBR> in a <NOBR>2.2.x</NOBR>
+    (or later) system.<BR>
+    Try <NOBR><EM>/dev/lp1</EM></NOBR> as reset device, and change your
+    <STRONG>boot</STRONG> script accordingly.<BR>
+    If this doesn't apply, make sure that<BR>&nbsp;
+    <UL TYPE=DISC>
+    <LI>the <EM>/proc</EM> file system is configured and mounted</LI>
+    <LI>the kernel contains the kernel module loader <STRONG>kmod</STRONG></LI>
+    <LI>the kernel is configured for parport support</LI>
+    <LI>the kernel modules <STRONG>lp</STRONG>, <STRONG>parport</STRONG>, and <STRONG>parport_pc</STRONG> are loaded</LI>
+    <LI>all printer ports are configured in <NOBR><EM>/etc/modules.conf</EM></NOBR>, e.g.<BR><BR>
+        <STRONG><CODE>options parport_pc io=0x378,0x278 irq=7,none</CODE></STRONG></LI>
+    </UL>
+    &nbsp;<BR>
+    Configure and recompile your kernel respectively, if necessary.
+    For further information refer to the documentation files
+    <NOBR><EM>parport.txt</EM></NOBR>, <NOBR><EM>modules.txt</EM></NOBR>,
+    <NOBR><EM>kmod.txt</EM></NOBR> and <EM>README</EM> provided with recent
+    kernel sources, or ask a real Linux expert!<BR>(See also chapter
+    <A HREF="bscript.htm">III.4 Shell Script Operation under Linux</A>.)
+    <BR>&nbsp;</LI>
+
+<LI>The <STRONG>boot</STRONG> script aborts with the error message<BR><BR>
+    <CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resetting target system ...<BR>
+    ./upload: /dev/ttyS4: Device or resource busy</CODE><BR><BR>
+    The interrupt of the serial interface may already be used by another
+    driver <NOBR>(i.e.</NOBR> printer port, USB).<BR>
+    Try to find and solve the interrupt conflict. (See items 2 and 5.)</LI>
+</OL>
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="btrouble.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bmsdos.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bappenda.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

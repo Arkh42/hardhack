@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Running ASEM-51 in the Borland-IDE -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Running ASEM-51 in the Borland-IDE</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.1.5 Running <NOBR>ASEM-51</NOBR> in the Borland-IDE</U></STRONG>
+</P>
+
+<P>
+<NOBR>Turbo C++</NOBR> (1.0 thru 3.0) users will appreciate the possibility to
+invoke <NOBR>ASEM-51</NOBR> as a transfer program from the Borland IDE.
+(DOS versions only!)<BR>
+For this, the filter program ASEM2MSG for the <NOBR>ASEM-51</NOBR> error messages
+has been provided. To integrate <NOBR>ASEM-51</NOBR> into the Borland IDE, perform
+the following steps:
+</P>
+
+<P>
+<UL TYPE=DISC>
+<LI>Be sure that <NOBR>ASEM-51</NOBR> has been installed properly as described before,
+    or that ASEM.EXE and ASEM2MSG.EXE are somewhere in your PATH.<BR>&nbsp;</LI>
+<LI>Start the <NOBR>Turbo C++</NOBR> (or <NOBR>Borland C++</NOBR>) IDE for DOS.<BR>&nbsp;</LI>
+<LI>For <NOBR>Turbo C++ 1.0</NOBR>, first click: &nbsp;&nbsp; <CODE>Options | Full menus | ON</CODE><BR>&nbsp;</LI>
+<LI>Click from the menu bar: &nbsp;&nbsp; <CODE>Options | Transfer</CODE><BR>&nbsp;</LI>
+<LI>When the &quot;Transfer&quot; dialog box is active, press the <EM>Edit</EM> button.<BR>&nbsp;</LI>
+<LI>Now the &quot;Modify/New Transfer Item&quot; dialog box should be active.<BR>
+    Fill in the following items:
+<PRE>
+Program Title:   ASEM-~51
+Program Path:    ASEM
+Command Line:    $NOSWAP $SAVE CUR $CAP MSG(ASEM2MSG) $EDNAME /C
+Translator:      [X]
+Hot key:         Shift F8
+</PRE>
+    Then press the <EM>New</EM> button.<BR>&nbsp;</LI>
+<LI>When returned to the &quot;Transfer&quot; dialog box, press the <EM>OK</EM> button.<BR>&nbsp;</LI>
+<LI>Click from the menu bar: &nbsp;&nbsp; <CODE>Options | Save | OK</CODE></LI>
+</UL>
+</P>
+
+<P>
+Now it should be possible, to assemble the file in the active edit
+window with <NOBR>ASEM-51</NOBR>, when pressing <EM>Shift-F8</EM>. The error messages (if any)
+should appear in the &quot;Message&quot; window. You can browse through the errors,
+and jump into the source text by simply pressing <EM>Enter</EM>. This even works,
+if the error is not in the program itself, but in an include file!
+</P>
+
+<P>
+Turbo-<NOBR>Pascal 7.0</NOBR> users can also employ their Borland IDE for assembly.
+To integrate <NOBR>ASEM-51</NOBR> into the Turbo-Pascal IDE, perform the following steps:
+</P>
+
+<P>
+<UL TYPE=DISC>
+<LI>Be sure that <NOBR>ASEM-51</NOBR> has been installed properly as described before,
+    or that ASEM.EXE and ASEM2MSG.EXE are somewhere in your PATH.<BR>&nbsp;</LI>
+<LI>Start the Turbo-<NOBR>Pascal 7.0</NOBR> (or Borland-<NOBR>Pascal 7.0</NOBR>) IDE for DOS.<BR>&nbsp;</LI>
+<LI>Click from the menu bar: &nbsp;&nbsp; <CODE>Options | Tools</CODE><BR>&nbsp;</LI>
+<LI>When the &quot;Tools&quot; dialog box is active, press the <EM>New</EM> button.<BR>&nbsp;</LI>
+<LI>Now the &quot;Modify/New Tool&quot; dialog box should be active.<BR>
+    Fill in the following items:
+<PRE>
+Title:           ASEM-~5~1
+Program path:    ASEM
+Command line:    $NOSWAP $SAVE CUR $CAP MSG(ASEM2MSG) $EDNAME
+Hot keys:        Shift+F8
+</PRE>
+    Then press the <EM>OK</EM> button.<BR>&nbsp;</LI>
+<LI>When returned to the &quot;Tools&quot; dialog box, press the <EM>OK</EM> button.<BR>&nbsp;</LI>
+<LI>Click from the menu bar: &nbsp;&nbsp; <CODE>Options | Environment | Preferences</CODE><BR>&nbsp;</LI>
+<LI>When the &quot;Preferences&quot; dialog box is active, disable the &quot;Close on
+    go to source&quot; item in the &quot;Options&quot; checkbox. Then press the <EM>OK</EM> button.<BR>&nbsp;</LI>
+<LI>Finally click from the menu bar: &nbsp;&nbsp; <CODE>Options | Save</CODE></LI>
+</UL>
+</P>
+
+<P>
+Now <NOBR>ASEM-51</NOBR> can be invoked with <EM>Shift-F8</EM>, to assemble the program in the
+active edit window, while error messages (if any) appear in the &quot;Messages&quot;
+window.
+</P>
+
+<P>
+Users of both <NOBR>Turbo C++</NOBR> and Turbo-Pascal should prefer the
+<NOBR>Turbo C++</NOBR> IDE.
+In the Turbo-<NOBR>Pascal 7.0</NOBR> IDE, the /COLUMNS (or /C) option has no effect!
+Turbo-Pascal versions prior to 7.0 didn't implement the Tools menu.
+</P>
+
+<P>
+Note that the transfer macro $SAVE CUR saves the contents of the active
+edit window (if modified), before ASEM.EXE is invoked! If your assembler
+program includes further source files (which may be currently loaded into
+other edit windows), better specify $SAVE ALL. This will save the contents
+of all (modified) edit windows to disk files, before invoking ASEM.EXE!
+If you are not sure, specify $SAVE PROMPT. This will prompt you for every
+(modified) edit window to save the contents before running ASEM.EXE. For
+further information on transfer macros, refer to the Borland online help!
+</P>
+
+<P>
+<STRONG><U>Important:</U></STRONG> &nbsp; <NOBR>ASEM2MSG.EXE</NOBR>
+is not suitable for Win32 versions of the Borland IDE!
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="doswin.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="dosenv.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="windows.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

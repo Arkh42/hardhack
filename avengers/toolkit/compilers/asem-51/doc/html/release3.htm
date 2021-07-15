@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- ASEM-51 V1.3 Release Notes -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>ASEM-51 V1.3 Release Notes</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><H2>Version 1.3, &nbsp; Dec 31, 2002:</H2></P>
+
+<P><BIG>
+The following changes have been made to the <NOBR>ASEM-51</NOBR>
+package, since <NOBR><A HREF="#BETA3">version 1.3b3</A></NOBR>
+<NOBR>(V1.3 Beta 3):</NOBR>
+</BIG></P>
+
+<P><BIG><BR><STRONG><U>I. Bug Fixes</U></STRONG></BIG></P>
+
+<P><BIG>
+<NOBR>ASEM V1.3b3</NOBR> flagged the following instructions<BR>
+<BLOCKQUOTE><CODE>
+ADD A, direct<BR>
+ADDC A, direct<BR>
+SUBB A, direct<BR>
+ANL A, direct<BR>
+ORL A, direct<BR>
+XRL A, direct<BR>
+MOV A, direct<BR>
+XCH A, direct
+</CODE></BLOCKQUOTE>
+with the error message <NOBR><CODE>@@@@@ illegal operand @@@@@</CODE></NOBR>,
+if the direct expression started with a '('.
+The bug is fixed in <NOBR>ASEM V1.3</NOBR>.
+</BIG></P>
+
+<P><BIG>
+When <NOBR>asem 1.3b3</NOBR> tried to write to a busy character device
+under Linux, it aborted with an unspecific error message, <NOBR>e.g.</NOBR>
+<BLOCKQUOTE>
+<CODE>@@@@@ fatal I/O error 16: /dev/lp0 @@@@@</CODE>
+</BLOCKQUOTE>
+This is fixed in <NOBR>V1.3</NOBR>.
+The new runtime error message is looking like
+<BLOCKQUOTE>
+<CODE>@@@@@ device or resource busy: /dev/lp0 @@@@@</CODE>
+</BLOCKQUOTE>
+</BIG></P>
+
+<P><BIG><BR><STRONG><U>II. Support of 8051 Derivatives</U></STRONG></BIG></P>
+
+<P><BIG>
+With this version, new and updated processor definition files are provided:
+</BIG></P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH>File</TH><TH>Status</TH><TH>Manufacturer</TH><TH>Derivatives covered</TH></TR>
+<TR><TD ALIGN=RIGHT>C505.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Infineon</TD>
+    <TD>C505-2R, C505-L</TD></TR>
+<TR><TD ALIGN=RIGHT>C505C.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Infineon</TD>
+    <TD>C505C-2R, C505C-L</TD></TR>
+<TR><TD ALIGN=RIGHT>C505A.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Infineon</TD>
+    <TD>C505A-4E, C505A-L</TD></TR>
+<TR><TD ALIGN=RIGHT>C505CA.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Infineon</TD>
+    <TD>C505CA-4E, C505CA-L</TD></TR>
+<TR><TD ALIGN=RIGHT>C505L.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Infineon</TD>
+    <TD>C505L</TD></TR>
+<TR><TD ALIGN=RIGHT>C508.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Infineon</TD>
+    <TD>C508-4R, C508-4E</TD></TR>
+<TR><TD ALIGN=RIGHT>C868.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Infineon</TD>
+    <TD>C868-1R, C868-1S</TD></TR>
+<TR><TD ALIGN=RIGHT>80C32X2.MCU</TD><TD ALIGN=CENTER NOWRAP>n</TD><TD>Philips</TD>
+    <TD>80C31X2, 80C32X2, 80C51X2, 80C52X2, 80C54X2, 80C58X2, 87C51X2,
+        87C52X2, 87C54X2, 87C58X2, 89C51X2, 89C52X2, 89C54X2, 89C58X2</TD></TR>
+</TABLE>
+<BR>
+<CENTER>Status: &nbsp; n=new, r=renamed, m=modified, c=commented</CENTER>
+</P>
+
+<P><BIG>
+<STRONG>Credits:</STRONG> &nbsp;
+<NOBR>Michael R.</NOBR> has sent me <NOBR>80C32X2.MCU</NOBR>.
+</BIG></P>
+
+
+<P><A NAME="BETA3">&nbsp;</A></P>
+
+<P><H2>Version 1.3b3, &nbsp; June 25, 2002:</H2></P>
+
+<P><BIG>
+These are the longest release notes I have ever written for an
+<NOBR>ASEM-51</NOBR> version. It seems that I had always some spare time
+to support, maintain, change, extend, improve and port it over and over
+for many years, but never to publish an official new release.<BR>
+The release notes would become even more lengthy (and boring), if I only
+tried to explain the reasons I still remember.
+Let's say, <NOBR>ASEM-51</NOBR> and its author simply are victims of
+<NOBR>circumstances!&nbsp;&nbsp;&nbsp;&nbsp;
+<IMG SRC="smile.gif" ALT="(smile)" WIDTH=15 HEIGHT=15></NOBR>
+</BIG></P>
+
+<P>
+<BIG>
+<OL TYPE=I>
+<LI><A HREF="releas31.htm">New Features</A></LI>
+<OL TYPE=1>
+<LI><A HREF="relea311.htm">Host Platforms</A></LI>
+<LI><A HREF="relea312.htm">Assembler</A></LI>
+<LI><A HREF="relea313.htm">MS-DOS Implementation</A></LI>
+<LI><A HREF="relea314.htm">Support of 8051 Derivatives</A></LI>
+<LI><A HREF="relea315.htm">Documentation</A></LI>
+</OL>
+<BR>
+<LI><A HREF="releas32.htm">Bug Fixes</A></LI>
+</OL>
+</BIG>
+</P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="release.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="release.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="release.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="releas31.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

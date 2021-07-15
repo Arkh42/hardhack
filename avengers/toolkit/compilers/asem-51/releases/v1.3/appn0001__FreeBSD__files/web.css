@@ -1,0 +1,42 @@
+/*    Stylesheet for ASEM-51 Website    */
+/*            Standard Design           */
+/*       W.W. Heinz, 31. 12. 2010       */
+
+/* Background: */
+body { background-color: white; color: black; }
+
+/* Links: */
+a:link    { color: #0000ff; text-decoration: underline; }
+a:visited { color: #990099; text-decoration: underline; }
+a:focus   { color: #009900; text-decoration: underline; }
+a:hover   { color: #009900; text-decoration: underline; }
+a:active  { color: #ff0000; text-decoration: underline; }
+
+/* Navigation: */
+a.navi:link    { color: #0000ff; text-decoration: none; }
+a.navi:visited { color: #990099; text-decoration: none; }
+a.navi:focus   { color: #000000; text-decoration: none; }
+a.navi:hover   { color: #000000; text-decoration: none; }
+a.navi:active  { color: #ff0000; text-decoration: none; }
+
+/* Right Shadow: */
+td.navi1 { background-image: url(rs.gif);
+           background-repeat: repeat-y;
+           background-position: left top;
+         }
+
+/* Bottom Shadow: */
+td.navi2 { background-image: url(us.gif);
+           background-repeat: repeat-x;
+           background-position: left top;
+         }
+
+/* Pressed Button: */
+td.navi3 { background-color: #ffcc99;
+           color: #666666;
+         }
+
+/* Linked Button: */
+td.navi4 { background-color: #ccffcc;
+           color: #0000ff;
+         }

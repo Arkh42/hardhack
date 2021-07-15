@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- BOOT-51 Appendix A -->
+
+<HTML>
+
+<HEAD>
+<TITLE>BOOT-51 Appendix A</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>Appendix A</U></STRONG>
+</P>
+
+<P>
+<STRONG>CUSTOMIZ Error Messages</STRONG>
+</P>
+
+<P>
+<BR>
+<U><A NAME="CUSTPARAMETER">A.1 Parameter Errors:</A></U>
+</P>
+
+<P>
+Parameter errors apply to the correctness and consistency of the command
+line parameters. If one of these errors is detected, it is flagged on the
+console, and <STRONG>CUSTOMIZ</STRONG> is aborting with exit <NOBR>code 1</NOBR>:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH NOWRAP>Error Message</TH><TH NOWRAP>Meaning</TH></TR>
+<TR><TD NOWRAP>accuracy out of range</TD><TD>Baudrate accuracy <NOBR>&lt; 0</NOBR>, or <NOBR>&gt; 5 %</NOBR>.</TD></TR>
+<TR><TD NOWRAP>address out of range</TD><TD>Address is no unsigned <NOBR>16-bit</NOBR> number.</TD></TR>
+<TR><TD NOWRAP>baudrate out of range</TD><TD>Specified baudrate is <NOBR>&lt; 0</NOBR>.</TD></TR>
+<TR><TD NOWRAP>clock frequency out of range</TD><TD>Specified clock frequency is <NOBR>&lt; 0</NOBR>.</TD></TR>
+<TR><TD NOWRAP>illegal real number</TD><TD>Parameter is no valid real number.</TD></TR>
+<TR><TD NOWRAP>invalid hex number</TD><TD>Parameter is no valid hex number.</TD></TR>
+<TR><TD NOWRAP>too many parameters</TD><TD>More than 6 parameters specified.</TD></TR>
+<TR><TD NOWRAP>unknown baudrate generator</TD><TD>Baudrate generator not implemented.</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+<BR>
+<U><A NAME="CUSTBAUDRATE">A.2 Baudrate Errors:</A></U>
+</P>
+
+<P>
+Baudrate errors apply to the results that <STRONG>CUSTOMIZ</STRONG> has derived from the
+given program parameters. If one of these errors is detected, it is flagged
+on the console, and <STRONG>CUSTOMIZ</STRONG> is aborting with exit <NOBR>code 1</NOBR>:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH NOWRAP>Error Message</TH><TH NOWRAP>Meaning</TH></TR>
+<TR><TD NOWRAP>baudrate cannot be generated</TD><TD>Baudrate error is greater than <NOBR>10 %</NOBR>.</TD></TR>
+<TR><TD NOWRAP>insufficient accuracy</TD><TD>Baudrate error is greater than the required accuracy.</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+<BR>
+<U><A NAME="CUSTRUNTIME">A.3 Runtime Errors:</A></U>
+</P>
+
+<P>
+In general, runtime errors are file <NOBR>I/O</NOBR> errors.<BR>
+If one of these errors is detected, it is flagged on the console,
+and <STRONG>CUSTOMIZ</STRONG> is aborting with exit <NOBR>code 2</NOBR>:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH NOWRAP>Error Message</TH><TH NOWRAP>Meaning</TH></TR>
+<TR><TD NOWRAP>access denied</TD><TD>No privilege for attempted operation.</TD></TR>
+<TR><TD NOWRAP>disk full</TD><TD>No more free disk space.</TD></TR>
+<TR><TD NOWRAP>disk write-protected</TD><TD>Attempt to write to a write-protected disk.</TD></TR>
+<TR><TD NOWRAP>drive not ready</TD><TD>Disk drive is off, or no media mounted.</TD></TR>
+<TR><TD NOWRAP>fatal <NOBR>I/O</NOBR> error</TD><TD>General (unknown) disk or device <NOBR>I/O</NOBR> error.</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boot51.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="blinux.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bappendb.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,356 @@
+VI. Support of 8051 Derivatives
+===============================
+Today a large number of 8051 derivatives is available that grows almost
+monthly! They all use the same instruction set of the MCS-51 processor core,
+but are different in peripheral components, to cover a wide range of
+applications. The difference for the assembly language programmer is mainly
+the varying set of special function registers and interrupt addresses.
+It is always good practice to use the same SFR names in a microcontroller
+application program that the manufacturer of the derivative used has defined.
+For this special processor definition files are provided. They all are
+include files with the special function register definitions of a particular
+8051 derivative. However, the predefined symbols of ASEM-51 must be switched
+off prior to including the SFR definitions of another derivative as shown
+below:
+              $NOMOD51
+              $INCLUDE (80C515.MCU)
+
+This would switch off the predefined symbols of the 8051 and include the
+register definitions of the 80C515 or 80C535 respectively.
+Hence it is easy for the user to adapt ASEM-51 to a brandnew 8051 derivative!
+All what he has to do is to write a corresponding include file with the SFR
+definitions derived from the manufacturer's data sheet.
+Usually the name of every processor definition file is corresponding to the
+ROM version of a particular derivative. Of course it also applies to the
+EPROM, OTP, flash, EEPROM, and ROM-less versions (if any) of that derivative.
+By the way, the file 8051.MCU provided contains exactly the predefined
+symbols of ASEM-51, because its internal symbol table has been generated
+from it!
+To switch ASEM-51 to the reduced instruction set of the Philips P83C75x
+family of microcontrollers, the $PHILIPS control can be used.
+The $WINBOND control enables the extended instruction set of the Winbond
+W77xxxx and W925xxxx families of microcontrollers with Turbo-51 core.
+
+Currently the following processor definition files are provided with ASEM-51:
+
+
+     File Name    Manufacturer    Versions
+  -----------------------------------------------------------------------
+      8051.MCU    Intel           8051, 8031, 8751BH
+                  (and others)    8051AH, 8031AH, 8751H, 8051AHP, 8751H-8
+                                  80C51BH, 80C31BH, 87C51, 80C51BHP
+                  Atmel           89C51, 89LV51, 87LV51, 80F51, 87F51
+                  Hynix           GMS90C31, GMS90C51, GMS97C51,
+                                  GMS90L31, GMS90L51, GMS97L51
+      8052.MCU    Intel           8052AH, 8032AH, 8752BH
+                  SIEMENS         80513, 8352-5
+                  Winbond         W78C32C, W78C032C, W78L32
+     80C52.MCU    Intel           80C52, 80C32, 87C52,
+                                  80C54, 87C54, 80C58, 87C58
+   83C51FX.MCU    Intel           83C51FA, 80C51FA, 87C51FA
+                                  83C51FB, 87C51FB, 83C51FC, 87C51FC
+                  Aeroflex        UT69RH051
+    83C51R.MCU    Intel           83C51RA, 80C51RA, 87C51RA,
+                                  83C51RB, 87C51RB, 83C51RC, 87C51RC
+   83C51KB.MCU    Intel           83C51KB
+   83C51GB.MCU    Intel           83C51GB, 80C51GB, 87C51GB
+    83C151.MCU    Intel           83C151SB, 87C151SB, 80C151SB
+                                  83C151SA, 87C151SA
+    83C152.MCU    Intel           80C152JA, 83C152JA, 80C152JB
+                                  80C152JC, 83C152JC, 80C152JD
+    83C452.MCU    Intel           83C452, 80C452
+      8044.MCU    Intel           8044AH, 8344AH, 8744AH
+   83931HA.MCU    Intel           83931HA, 80931HA
+   83931AA.MCU    Intel           83931AA, 80931AA
+     80512.MCU    SIEMENS         80512, 80532
+     80515.MCU    SIEMENS         80515, 80535, 80515K, 83515-4
+    80C515.MCU    SIEMENS         80C515, 80C535, 83C515H
+   83C515A.MCU    SIEMENS         83C515A-5, 80C515A
+    80C517.MCU    SIEMENS         80C517, 80C537
+      C501.MCU    Infineon        C501-1R, C501-1E, C501-L, C501GV
+                  Hynix           GMS90C32, GMS90C52, GMS97C52, GMS90L32,
+                                  GMS90L52, GMS97L52, GMS90C320, GMS90L320
+      C502.MCU    Infineon        C502-2R, C502-L
+      C503.MCU    Infineon        C503-1R, C503-L
+      C504.MCU    Infineon        C504-2R, C504-L
+      C505.MCU    Infineon        C505-2R, C505-L
+     C505C.MCU    Infineon        C505C-2R, C505C-L
+     C505A.MCU    Infineon        C505A-4E, C505A-L
+    C505CA.MCU    Infineon        C505CA-4E, C505CA-L
+     C505L.MCU    Infineon        C505L
+      C508.MCU    Infineon        C508-4R, C508-4E
+      C509.MCU    Infineon        C509-L
+      C511.MCU    Infineon        C511, C511A
+      C513.MCU    Infineon        C513, C513A, C513A-H
+    C513AO.MCU    Infineon        C513AO
+      C515.MCU    Infineon        C515-L, C515-1R
+     C515A.MCU    Infineon        C515A-L, C515A-4R
+     C515C.MCU    Infineon        C515C-8R
+     C517A.MCU    Infineon        C517A-L, C517A-4R, 83C517A-5, 80C517A
+     C540U.MCU    Infineon        C540U
+     C541U.MCU    Infineon        C541U
+      C868.MCU    Infineon        C868-1R, C868-1S
+    80CL51.MCU    Philips         80CL51, 80CL31
+   83CL410.MCU    Philips         83CL410, 80CL410
+   83CL781.MCU    Philips         83CL781, 83CL782
+    83C451.MCU    Philips         83C451, 80C451, 87C451
+    83C453.MCU    Philips         83C453, 87C453
+    83C528.MCU    Philips         83C528, 80C528, 87C528, 83C524, 87C524
+                                  83CE528, 80CE528, 89CE528
+    83C550.MCU    Philips         83C550, 80C550, 87C550
+    83C552.MCU    Philips         83C552, 80C552, 87C552
+    83C554.MCU    Philips         83C554, 80C554, 87C554
+    83C562.MCU    Philips         83C562, 80C562
+    83C575.MCU    Philips         83C575, 80C575, 87C575
+    83C592.MCU    Philips         83C592, 80C592
+    83C652.MCU    Philips         83C652, 80C652, 87C652
+                                  83C654, 87C654, 83CE654, 80CE654
+    83C750.MCU    Philips         83C750, 87C750
+    83C751.MCU    Philips         83C751, 87C751
+                  Tekmos          TK83C751
+    83C752.MCU    Philips         83C752, 87C752
+    83C754.MCU    Philips         83C754, 87C754
+    83C851.MCU    Philips         83C851, 80C851
+    83C852.MCU    Philips         83C852
+  87LPC760.MCU    Philips         87LPC760
+  87LPC761.MCU    Philips         87LPC761
+  87LPC762.MCU    Philips         87LPC762, 87LPC764
+  87LPC767.MCU    Philips         87LPC767
+  87LPC768.MCU    Philips         87LPC768, 87LPC778
+  87LPC769.MCU    Philips         87LPC769, 87LPC779
+    89C660.MCU    Philips         89C660, 89C662, 89C664, 89C668
+  89LPC901.MCU    Philips         89LPC901
+  89LPC902.MCU    Philips         89LPC902
+  89LPC903.MCU    Philips         89LPC903
+  89LPC904.MCU    Philips         89LPC904
+  89LPC906.MCU    Philips         89LPC906
+  89LPC907.MCU    Philips         89LPC907
+  89LPC908.MCU    Philips         89LPC908
+  89LPC910.MCU    Philips         89LPC9103, 89LPC9107
+  89LPC910.SFR    Philips         89LPC9102
+  89LPC912.MCU    Philips         89LPC912
+  89LPC913.MCU    Philips         89LPC913
+  89LPC914.MCU    Philips         89LPC914
+  89LPC915.MCU    Philips         89LPC915
+  89LPC916.MCU    Philips         89LPC916
+  89LPC917.MCU    Philips         89LPC917
+  89LPC920.MCU    Philips         89LPC920, 89LPC921, 89LPC922, 89LPC9221
+  89LPC924.MCU    Philips         89LPC924, 89LPC925
+  89LPC930.MCU    Philips         89LPC930, 89LPC931
+  89LPC932.MCU    Philips         89LPC932, 89LPC932A1
+  89LPC933.MCU    Philips         89LPC933, 89LPC934
+  89LPC935.MCU    Philips         89LPC935, 89LPC936
+  89LPC938.MCU    Philips         89LPC938
+  89C51RX2.MCU    Philips         89C51RA2, 89C51RB2, 89C51RC2, 89C51RD2,
+                                  87C51RA2, 87C51RB2, 87C51RC2, 87C51RD2
+  89V51RD2.MCU    Philips         89V51RD2, 89V51RC2, 89V51RB2,
+                                  89LV51RD2, 89LV51RC2, 89LV51RB2
+   80C32X2.MCU    Philips         80C31X2, 80C32X2,
+                                  80C51X2, 80C52X2, 80C54X2, 80C58X2,
+                                  87C51X2, 87C52X2, 87C54X2, 87C58X2,
+                                  89C51X2, 89C52X2, 89C54X2, 89C58X2
+   89C60X2.MCU    Philips         89C60X2, 89C61X2
+  83C654X2.MCU    Philips         83C654X2, 87C654X2
+  83C660X2.MCU    Philips         83C660X2, 87C660X2
+  83C661X2.MCU    Philips         83C661X2, 87C661X2
+  89LPC952.MCU    NXP             89LPC952, 89LPC954
+    89V660.MCU    NXP             89V660, 89V662, 89V664
+    80C521.MCU    AMD             80C521, 80C541, 87C521, 87C541, 80C321
+    80C324.MCU    AMD             80C324
+    83C154.MCU    OKI             83C154, 80C154, 85C154VS
+   83C154S.MCU    OKI             83C154S, 80C154S, 85C154HVS
+    80CH11.MCU    Dallas          80CH11
+    80C310.MCU    Dallas          80C310
+    80C320.MCU    Dallas          80C320, 87C320, 80C323, 87C323
+    80C390.MCU    Dallas          80C390
+    87C520.MCU    Dallas          87C520, 83C520
+    87C530.MCU    Dallas          87C530, 83C530
+    87C550.MCU    Dallas          87C550
+    89C420.MCU    Dallas          89C420, 89C430, 89C440, 89C450
+    DS5000.MCU    Dallas          5000FP, 5000, 5000T, 2250, 2250T
+    DS5001.MCU    Dallas          5001FP, 5002FP, 5002FPM, 2251T, 2252T
+   MAX7651.MCU    Maxim           MAX7651, MAX7652
+  COM20051.MCU    SMC             COM20051
+     89C52.MCU    Atmel           89C52, 89C55, 89LV52, 89LV55, 87LV52,
+                                  80F52, 87F52
+  89C51AC2.MCU    Atmel           89C51AC2
+  89C51AC3.MCU    Atmel           89C51AC3
+   89C51RC.MCU    Atmel           89C51RC, 87F51RC, 87F55, 87LV55
+   89C1051.MCU    Atmel           89C1051
+                  Hynix           GMS97C1051, GMS97L1051
+   89C2051.MCU    Atmel           89C2051, 89C4051, 89C1051U, 89C2051x2
+                  Hynix           GMS97C2051, GMS97L2051
+  89LP2052.MCU    Atmel           89LP2052, 89LP4052
+   89LP213.MCU    Atmel           89LP213, 89LP214, 89LP216
+   89S2051.MCU    Atmel           89S2051, 89S4051
+   89S8252.MCU    Atmel           89S8252, 89LS8252
+   89S8253.MCU    Atmel           89S8253
+     89S51.MCU    Atmel           89S51
+     89S52.MCU    Atmel           89S52, 89LS52
+     89S53.MCU    Atmel           89S53, 89LS53
+   89S4D12.MCU    Atmel           89S4D12
+   83C5101.MCU    Atmel           T83C5101, T87C5101, T83C5102
+   83C5103.MCU    Atmel           83C5103, 87C5103
+   83C5111.MCU    Atmel           83C5111, 87C5111
+   83C5112.MCU    Atmel           83C5112, 87C5112, 80C5112
+  83EB5114.MCU    Atmel           83EB5114, 89EB5114
+   89C5115.MCU    Atmel           T89C5115
+  89C51C01.MCU    Atmel           89C51CC01
+  89C51C02.MCU    Atmel           89C51CC02
+  89C51C03.MCU    Atmel           89C51CC03
+   73M2910.MCU    TDK             73M2910, 73M2910A
+    AN2131.MCU    Cypress         AN2121, AN2122, AN2125, AN2126,
+                                  AN2131, AN2135, AN2136
+  EZUSBFX2.MCU    Cypress         CY7C68013
+    W77E58.MCU    Winbond         W77E58, W77E058A, W77C58, W77C516,
+                                  W77C32, W77C032A, W77L058A, W77L32,
+                                  W77L032A, W77LE58, W77IE58, W77IC32
+   W77E516.MCU    Winbond         W77E516, W77E516A
+   W77E532.MCU    Winbond         W77E532, W77E532A
+  W77LE516.MCU    Winbond         W77LE516, W77L516A
+  W77LE532.MCU    Winbond         W77LE532, W77L532A
+   W77E468.MCU    Winbond         W77E468
+   W78C33B.MCU    Winbond         W78C33B, W78L33
+   W78E51B.MCU    Winbond         W78E51B, W78E51C, W78E051C, W78C51D,
+                                  W78C051D, W78L51, W78L051A, W78L051C,
+                                  W78LE51, W78LE51C
+   W78E52B.MCU    Winbond         W78E52B, W78E52C, W78E052C, W78C52D,
+                                  W78C052D, W78E54B, W78E54C, W78E054C,
+                                  W78L52, W78L052A, W78L052C, W78L54,
+                                  W78L054A, W78L054C, W78LE52, W78LE52C,
+                                  W78LE54, W78LE54C, W78IE52, W78IE54
+   W78E58B.MCU    Winbond         W78E58B, W78E058B, W78E516B,
+                                  W78L058A, W78L516A, W78LE58, W78LE516
+   W78E365.MCU    Winbond         W78E365, W78E365A, W78E65, W78E065A,
+                                  W78L365A, W78LE365
+    W78C54.MCU    Winbond         W78C54, W78C054A, W78C58, W78E58
+   W78L801.MCU    Winbond         W78L801, W78C801
+  W78LE812.MCU    Winbond         W78LE812, W78L812A
+   W78E858.MCU    Winbond         W78E858
+  W78C438C.MCU    Winbond         W78C438C
+   W78E378.MCU    Winbond         W78E378, W78C378, W78C374
+   W78E354.MCU    Winbond         W78E354, W78C354
+   W78IRD2.MCU    Winbond         W78IRD2, W78IRD2A, W78ERD2, W78ERD2A
+   W79E201.MCU    Winbond         W79E201
+  W79E217A.MCU    Winbond         W79E217A
+  W79E225A.MCU    Winbond         W79E225A, W79E226A, W79E227A
+   W79E532.MCU    Winbond         W79E532, W79E632A, W79L632A
+   W79E548.MCU    Winbond         W79E548, W79L548, W79E648A, W79L648A
+   W79E549.MCU    Winbond         W79E549, W79L549, W79E649A, W79L649A
+  W79E633A.MCU    Winbond         W79E633A, W79L633A
+  W79E658A.MCU    Winbond         W79E658A, W79L658A
+  W79E659A.MCU    Winbond         W79E659A, W79L659A
+  W79E804A.MCU    Winbond         W79E804A, W79E803A, W79E802A
+  W79E8213.MCU    Winbond         W79E8213, W79E8213R
+  W79E825A.MCU    Winbond         W79E825A, W79E824A, W79E823A, W79E823B,
+                                  W79E822A, W79E822B, W79E821A
+  W79E834A.MCU    Winbond         W79E834A, W79E833A, W79E832A
+  W925E625.MCU    Winbond         W925E625, W925C625
+  W925E240.MCU    Winbond         W925E240, W925C240
+  W925EP01.MCU    Winbond         W925EP01
+  W79E2051.MCU    Nuvoton         W79E2051, W79E2051R, W79E4051, W79E4051R
+   ADUC812.MCU    ADI             ADuC812
+   ADUC814.MCU    ADI             ADuC814
+   ADUC816.MCU    ADI             ADuC816
+   ADUC824.MCU    ADI             ADuC824
+   ADUC831.MCU    ADI             ADuC831
+   ADUC832.MCU    ADI             ADuC832
+   ADUC834.MCU    ADI             ADuC834
+   ADUC836.MCU    ADI             ADuC836
+   ADUC841.MCU    ADI             ADuC841
+   ADUC842.MCU    ADI             ADuC842, ADuC843
+   ADUC845.MCU    ADI             ADuC845
+   ADUC847.MCU    ADI             ADuC847
+   ADUC848.MCU    ADI             ADuC848
+   PAGEONE.MCU    Winedge         WE52PO128, WE52PO512
+   ULTRA51.MCU    Winedge         U51F128S, U51F64S
+    CC1010.MCU    Chipcon         CC1010
+  C8051F0X.MCU    Cygnal          C8051F000, C8051F001, C8051F002, C8051F005,
+                                  C8051F006, C8051F007, C8051F010, C8051F011,
+                                  C8051F012, C8051F015, C8051F016, C8051F017
+  C8051F01.MCU    Cygnal          C8051F018, C8051F019
+  C8051F02.MCU    Cygnal          C8051F020, C8051F021, C8051F022, C8051F023
+  C8051F04.MCU    Cygnal          C8051F040, C8051F041, C8051F042, C8051F043,
+                                  C8051F044, C8051F045, C8051F046, C8051F047
+  C8051F06.MCU    Cygnal          C8051F060, C8051F061, C8051F062, C8051F063,
+                                  C8051F064, C8051F065, C8051F066, C8051F067
+  C8051F1X.MCU    Cygnal          C8051F120, C8051F121, C8051F122, C8051F123,
+                                  C8051F124, C8051F125, C8051F126, C8051F127,
+                                  C8051F130, C8051F131, C8051F132, C8051F133
+  C8051F2X.MCU    Cygnal          C8051F206, C8051F220, C8051F221, C8051F226,
+                                  C8051F230, C8051F231, C8051F236
+  C8051F30.MCU    Cygnal          C8051F300, C8051F301, C8051F302, C8051F303,
+                                  C8051F304, C8051F305
+  C8051F31.MCU    Cygnal          C8051F310, C8051F311, C8051F312, C8051F313,
+                                  C8051F314, C8051F315, C8051F316, C8051F317
+  C8051F32.MCU    Cygnal          C8051F320, C8051F321
+  C8051F32.SFR    Silicon Labs    C8051F326, C8051F327
+  C8051F33.MCU    Cygnal,         C8051F330, C8051F331, C8051F330D,
+                  Silicon Labs    C8051F332, C8051F333, C8051F334, C8051F335
+  C8051F33.SFR    Silicon Labs    C8051F336, C8051F337, C8051F338, C8051F339
+  C8051F34.MCU    Silicon Labs    C8051F340, C8051F341, C8051F342, C8051F343,
+                                  C8051F344, C8051F345, C8051F346, C8051F347
+  C8051F35.MCU    Cygnal          C8051F350, C8051F351, C8051F352, C8051F353
+  C8051F36.MCU    Silicon Labs    C8051F360, C8051F361, C8051F362, C8051F363,
+                                  C8051F364, C8051F365, C8051F366, C8051F367,
+                                  C8051F368, C8051F369
+  C8051F41.MCU    Silicon Labs    C8051F410, C8051F411, C8051F412, C8051F413
+  C8051F50.MCU    Silicon Labs    C8051F500, C8051F501, C8051F502, C8051F503,
+                                  C8051F504, C8051F505, C8051F506, C8051F507
+  C8051F5X.MCU    Silicon Labs    C8051F520, C8051F521, C8051F523, C8051F524,
+                                  C8051F526, C8051F527, C8051F530, C8051F531,
+                                  C8051F533, C8051F534, C8051F536, C8051F537
+  C8051F9X.MCU    Silicon Labs    C8051F920, C8051F921, C8051F930, C8051F931
+  C8051T60.MCU    Silicon Labs    C8051T600, C8051T601, C8051T602, C8051T603,
+                                  C8051T604, C8051T605
+  C8051T61.MCU    Silicon Labs    C8051T610, C8051T611, C8051T612, C8051T613,
+                                  C8051T614, C8051T615, C8051T616, C8051T617
+  C8051T63.MCU    Silicon Labs    C8051T630, C8051T631, C8051T632, C8051T633,
+                                  C8051T634, C8051T635
+    VRS540.MCU    Goal            VRS540, VRS550, VRS560
+                  Ramtron         VRS51C540, VRS51C550, VRS51C560,
+                                  VRS51L540, VRS51L550
+    VRS570.MCU    Goal            VRS570, VRS580
+                  Ramtron         VRS51C570, VRS51C580, VRS51L570, VRS51L580
+    VRS700.MCU    Goal            VRS700
+    VRS900.MCU    Goal            VRS900
+                  Ramtron         VMX51C900
+   VRS1000.MCU    Goal            VRS1000
+                  Ramtron         VRS51C1000
+   VRS1001.MCU    Goal            VRS1001 (VERSA1)
+   VRS1100.MCU    Goal            VRS1100
+                  Ramtron         VRS51C1100
+   VMX1016.MCU    Goal            VMX1016
+                  Ramtron         VMX51C1016
+   VMX1020.MCU    Goal            VMX1020
+                  Ramtron         VMX51C1020
+   VRS1050.MCU    Goal            VRS1050
+                  Ramtron         VRS51L1050
+  UPSD3212.MCU    ST              uPSD3212
+  UPSD3233.MCU    ST              uPSD3233, uPSD3234, uPSD3253, uPSD3254
+  UPSD3312.MCU    ST              uPSD3312, uPSD3333, uPSD3334, uPSD3354
+  UPSD3422.MCU    ST              uPSD3422, uPSD3433, uPSD3434, uPSD3454
+    89E51A.MCU    Megawin         89E51A, 89E52A, 89E53A, 89E54A,
+                                  89E58A, 89E515A, 89L51A, 89L52A,
+                                  89L53A, 89L54A, 89L58A, 89L515A
+  89L516X2.MCU    Megawin         89L516X2
+  89L556X2.MCU    Megawin         89L556X2
+      P-51.MCU    CMS             P-51
+    PL-ONE.MCU    Domosys         PL-One
+   IC89E54.MCU    ICSI            IC89E54, IC89E58, IC89E64
+   LZ87010.MCU    Sharp           LZ87010
+     99C51.MCU    Hynix           HMS99C51
+     99C52.MCU    Hynix           HMS99C52
+     90C54.MCU    Hynix           GMS90C54, GMS90L54, GMS97C54, GMS97L54,
+                                  GMS90C56, GMS90L56, GMS97C56, GMS97L56,
+                                  GMS90C58, GMS90L58, GMS97C58, GMS97L58,
+                                  GMS99C58
+
+Note:
+All Cygnal derivatives are now manufactured and sold by Silicon Labs.
+All Dallas derivatives are now manufactured and sold by Maxim.
+All Philips derivatives are now manufactured and sold by NXP.
+All Winbond derivatives are now manufactured and sold by Nuvoton.
+Goal Semiconductor has been acquired by Ramtron in August 2005.
+Chipcon has been acquired by Texas Instruments in January 2006.
+

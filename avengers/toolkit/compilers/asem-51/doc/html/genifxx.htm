@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- General IFxx Construction -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>General IFxx Construction</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.10.1 General IFxx Construction</U></STRONG>
+</P>
+
+<P>
+Simple IFxx ... ENDIF constructions can be used to assemble a number of
+enclosed statements only, if a particluar condition is met:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+IFxx &lt;condition&gt;
+  &lt;statement 1&gt;
+  &lt;statement 2&gt;
+      .               ;assembled if &lt;condition&gt; is TRUE
+      .
+  &lt;statement n&gt;
+ENDIF
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The statements 1 through n are assembled if &lt;condition&gt; is TRUE, otherwise
+they are ignored.
+</P>
+
+<P>
+If it should be possible to select two variants of code depending on a
+particular condition, this can be done with an IFxx .. ELSE .. ENDIF
+construction. If the &lt;condition&gt; in the IFxx statement is TRUE, then
+statements 1 to n are assembled and the statements n+1 to n+m are ignored.
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+IFxx &lt;condition&gt;
+  &lt;statement 1&gt;
+      .               ;assembled if &lt;condition&gt; is TRUE
+  &lt;statement n&gt;
+ELSE
+  &lt;statement n+1&gt;
+      .               ;assembled if &lt;condition&gt; is FALSE
+  &lt;statement n+m&gt;
+ENDIF
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Should &lt;condition&gt; be FALSE, it is exactly vice versa! That means the
+statements 1 to n are ignored and the statements n+1 to n+m are assembled.
+This works also, if the IFxx or ELSE branches contain no statements at all.
+</P>
+
+<P>
+Whenever more than two cases have to be distinguished, a corresponding number
+of ELSEIFxx branches can be inserted between the IFxx and the ELSE branch.
+In such an IFxx .. ELSEIFxx .. ELSE .. ENDIF construction, only the statements
+in the branch with the first TRUE condition are assembled. The statements in
+all other branches are ignored.<BR>
+If none of the conditions is TRUE, only the statements in the ELSE branch
+(if any) are assembled.
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+IFxx &lt;condition 1&gt;
+      .                ;assembled if &lt;condition 1&gt; is TRUE
+      .
+ELSEIFxx &lt;condition 2&gt;
+      .                ;assembled if &lt;condition 1&gt; is FALSE,
+      .                ;and &lt;condition 2&gt; is TRUE
+ELSEIFxx &lt;condition 3&gt;
+      .                ;assembled if &lt;condition 1&gt; and
+      .                ;&lt;condition 2&gt; are FALSE, and
+      .                ;&lt;condition 3&gt; is TRUE
+      .
+      .
+ELSEIFxx &lt;condition n&gt;
+      .                ;assembled if &lt;condition 1&gt; thru
+      .                ;&lt;condition n-1&gt; are FALSE and
+      .                ;&lt;condition n&gt; is TRUE
+ELSE
+      .                ;assembled if &lt;condition 1&gt; thru
+      .                ;&lt;condition n&gt; are FALSE
+ENDIF
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+IFxx ... ELSEIFxx ... ELSE ... ENDIF constructions may be nested to any depth!
+The listing mode of those constructions can be set with the $COND, $NOCOND and
+$CONDONLY controls.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="condit.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="condit.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="ifxxcon.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

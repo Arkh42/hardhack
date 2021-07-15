@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Nested Macro Definitions -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Nested Macro Definitions</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.8 Nested Macro Definitions</U></STRONG>
+</P>
+
+<P>
+A macro body may also contain further macro definitions. However, these
+nested macro definitions aren't valid until the enclosing macro has been
+expanded! That means, the enclosing macro must have been called, before
+the nested macros can be called.
+</P>
+
+<P>
+<BR>
+<STRONG>Example 1:</STRONG>
+<BLOCKQUOTE>
+A macro, which can be used to define macros with arbitrary
+names, may look as follows:
+<PRE>
+        DEFINE MACRO MACNAME
+        MACNAME MACRO
+        DB 'I am the macro &amp;MACNAME.'
+        ENDM
+        ENDM
+</PRE>
+In order not to overload the example with &quot;knowhow&quot;, the nested
+macro only introduces itself kindly with a suitable character string in ROM.
+The call
+<PRE>
+        DEFINE Obiwan
+</PRE>
+would define the macro
+<PRE>
+        Obiwan MACRO
+        DB 'I am the macro Obiwan.'
+        ENDM
+</PRE>
+and the call
+<PRE>
+        DEFINE Skywalker
+</PRE>
+would define the following macro:
+<PRE>
+        Skywalker MACRO
+        DB 'I am the macro Skywalker.'
+        ENDM
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 2:</STRONG>
+<BLOCKQUOTE>
+A macro is to insert a variable number of NOPs into the
+program. For this, a macro with a nested REPT block seems
+to be best-suited:
+<PRE>
+        REPEAT MACRO NOPS
+        REPT NOPS
+        NOP
+        ENDM
+        ENDM
+</PRE>
+The macro call
+<PRE>
+        REPEAT 4
+</PRE>
+results in something like that:
+<PRE>
+        Line  I  Addr  Code            Source
+
+           9+ 1        N      0004     REPT 4
+          10+ 1                        NOP
+          11+ 1                        ENDM
+          12+ 2  0000  00              NOP
+          13+ 2  0001  00              NOP
+          14+ 2  0002  00              NOP
+          15+ 2  0003  00              NOP
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="nestcall.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macrolst.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

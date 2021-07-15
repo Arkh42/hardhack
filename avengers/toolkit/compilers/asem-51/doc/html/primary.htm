@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Primary Controls -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Primary Controls</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.8.1 Primary Controls</U></STRONG>
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TD NOWRAP>$DATE (string)</TD>
+    <TD>Inserts a date string into the list file page header.
+        If $DATE() is specified, the actual date is inserted.
+        Date strings will be truncated to a maximum length of
+        11 characters.<BR>
+        Default is: no date string.<BR>
+        The control has no effect, when the $NOPAGING control has
+        been specified.</TD>
+</TR>
+<TR><TD>$DEBUG</TD>
+    <TD>Includes debug information into the <NOBR>OMF-51</NOBR> module.
+        When generating <NOBR>Intel-HEX</NOBR> file output, $DEBUG has no effect.</TD>
+</TR>
+<TR><TD>$NODEBUG</TD>
+    <TD>Don't include debug information. (Default!)</TD>
+</TR>
+<TR><TD NOWRAP>$MACRO (n)</TD>
+    <TD>Save macro definitions and expand macro calls. (Default!)<BR>
+        Optionally reserve n % of free memory for macro definitions.<BR>
+        (0 &lt;= n &lt;= 100)<BR>
+        Default is n=50.<BR>
+        The control has been implemented for compatibility purposes
+        only. In <NOBR>ASEM-51</NOBR> it has no effect except that it
+        cancels the $NOMACRO control.</TD>
+</TR>
+<TR><TD>$NOMACRO</TD>
+    <TD>Don't save macro definitions and don't expand macro calls.<BR>
+        Reserve all free memory for the symbol table.<BR>
+        The control has been implemented for compatibility purposes only.
+        In <NOBR>ASEM-51</NOBR>, it only suppresses the macro expansion.</TD>
+</TR>
+<TR><TD>$MOD51</TD>
+    <TD>Switches on the built-in 8051 special function register
+        and interrupt symbol definitions. (Default!)</TD>
+</TR>
+<TR><TD>$NOMOD51</TD>
+    <TD>Switches off the built-in 8051 special function register
+        and interrupt symbol definitions. The predefined symbols
+        ??ASEM_51 and ??VERSION cannot be switched off!</TD>
+</TR>
+<TR><TD>$PAGING</TD>
+    <TD>Switches on the page formatting in the list file.
+        (Default!)</TD>
+</TR>
+<TR><TD>$NOPAGING</TD>
+    <TD>Switches off the page formatting in the list file.</TD>
+</TR>
+<TR><TD NOWRAP>$PAGELENGTH (n)</TD>
+    <TD>Sets the list file page length to n lines.<BR>
+        (12 &lt;= n &lt;= 65535)<BR>
+        Default is n=64.<BR>
+        The control has no effect, when the $NOPAGING control has
+        been specified.</TD>
+</TR>
+<TR><TD NOWRAP>$PAGEWIDTH (n)</TD>
+    <TD>Sets the list file page width to n columns.<BR>
+        (72 &lt;= n &lt;= 255)<BR>
+        Default is n=132.</TD>
+</TR>
+<TR><TD>$PHILIPS</TD>
+    <TD>Switches on the Philips 83C75x family support option.
+        This disables the LJMP, LCALL, and MOVX instructions as
+        well as the XDATA and XSEG pseudo instructions. Generic
+        jumps and calls will always assemble to absolute addressing.</TD>
+</TR>
+<TR><TD>$SYMBOLS</TD>
+    <TD>Generates the symbol table at the end of the list file.
+        (Default!)<BR>
+        When the $XREF control is active, $SYMBOLS has no effect!</TD>
+</TR>
+<TR><TD>$NOSYMBOLS</TD>
+    <TD>Suppresses the symbol table at the end of the list file.<BR>
+        When the $XREF control is active, $NOSYMBOLS has no effect!</TD>
+</TR>
+<TR><TD>$NOBUILTIN</TD>
+    <TD>Suppresses the predefined (built-in) symbols in the symbol
+        table or cross-reference listing for a better survey.
+        Only the user-defined symbols are listed.</TD>
+</TR>
+<TR><TD>$NOTABS</TD>
+    <TD>Expands all tab characters in the list file output to
+        blanks.</TD>
+</TR>
+<TR><TD>$XREF</TD>
+    <TD>Generates a cross-reference listing instead of a symbol
+        table. Note that this slightly slows down assembly, and
+        consumes about 67 % more memory space!</TD>
+</TR>
+<TR><TD>$NOXREF</TD>
+    <TD>Generates a symbol table instead of a cross-reference
+        listing. (Default!)</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>
+<BR>
+<STRONG>Examples:</STRONG>
+<PRE>
+      $NOMOD51             ;switch off 8051 SFR symbol definitions
+      $PAGELENGTH(60)      ;set page length to 60 lines per page
+      $PW(80)              ;set page width to 80 characters per line
+      $NOSYMBOLS           ;no symbol table required
+      $NOTABS              ;printer doesn't support tab characters
+      $DATE(2. 8. 95)      ;date of latest version
+      $XREF                ;generate a cross-reference listing
+      $ DEBUG NOPAGING     ;include debugging information into OMF-51
+                           ;modules, and suppress page formatting
+</PRE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="controls.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="controls.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="general.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

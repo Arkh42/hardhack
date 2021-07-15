@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Assembler Controls -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Assembler Controls</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.8  Assembler Controls</U></STRONG>
+</P>
+
+<P>
+<NOBR>ASEM-51</NOBR> implements a number of assembler controls that influence
+the assembly process and list file generation. There are two groups of
+controls: primary and general controls.<BR>
+Primary controls can only be used at the beginning of the program and
+remain in effect throughout the assembly. They may be preceded only
+by control statements, blank and commentary lines. If the same primary
+control is used multiple times with different parameters, the last one
+counts.<BR>
+General controls may be used everywhere in the program. They perform a
+single action, or remain in effect until they are cancelled or changed by
+a subsequent control statement.<BR>
+A control statement starts always with a '$' character, followed by one or
+more assembler controls.<BR>
+Assembler controls may have a number or string type operand, which must
+always be enclosed in parentheses.<BR>
+Number type operands are arithmetic expressions that must be known on <NOBR>pass 1</NOBR>.
+String type operands are character strings which are enclosed in parentheses
+instead of quotes. In analogy to quoted strings, no control characters
+(including tabs) are allowed within these strings! The string delimiter ')'
+can be represented by two subsequent ')' characters.<BR>
+If a control statement changes the listing mode, the control statement itself
+is always listed in the previous listing mode!<BR>
+The following table lists all the implemented controls and their abbreviations:
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=6>
+<TR>
+<TH>Control</TH><TH>Type</TH><TH>Default</TH><TH>Abbreviation</TH><TH>Meaning</TH>
+</TR>
+<TR>
+<TD>$COND<BR>$NOCOND<BR>$CONDONLY</TD>
+<TD ALIGN=CENTER>G<BR>G<BR>G</TD>
+<TD VALIGN=TOP>$COND</TD>
+<TD ALIGN=CENTER NOWRAP>---<BR>---<BR>---</TD>
+<TD NOWRAP>list full IFxx .. ENDIF constructions<BR>don't list lines in false branches<BR>list assembled lines only</TD>
+</TR>
+<TR>
+<TD NOWRAP>$DATE(string)</TD>
+<TD ALIGN=CENTER>P</TD>
+<TD ALIGN=CENTER NOWRAP>''</TD>
+<TD>$DA</TD>
+<TD>inserts date string into page header</TD>
+</TR>
+<TR>
+<TD>$DEBUG<BR>$NODEBUG</TD>
+<TD ALIGN=CENTER>P<BR>P</TD>
+<TD VALIGN=TOP>$NODEBUG</TD>
+<TD>$DB<BR>$NODB</TD>
+<TD NOWRAP>include debug information into object<BR>don't include debug information</TD>
+</TR>
+<TR>
+<TD>$EJECT</TD>
+<TD ALIGN=CENTER>G</TD>
+<TD ALIGN=CENTER>&nbsp;</TD>
+<TD>$EJ</TD>
+<TD>start a new page in list file</TD>
+</TR>
+<TR>
+<TD NOWRAP>$ERROR(string)<BR>$WARNING(string)</TD>
+<TD ALIGN=CENTER>G<BR>G</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN=CENTER NOWRAP>---<BR>---</TD>
+<TD NOWRAP>force a user-defined error<BR>output a warning message to console</TD>
+</TR>
+<TR>
+<TD>$GEN<BR>$NOGEN<BR>$GENONLY</TD>
+<TD ALIGN=CENTER>G<BR>G<BR>G</TD>
+<TD VALIGN=TOP>$GEN</TD>
+<TD>$GE<BR>$NOGE<BR>$GO</TD>
+<TD NOWRAP>list macro calls and expansion lines<BR>list macro calls only<BR>list expansion lines only</TD>
+</TR>
+<TR>
+<TD NOWRAP>$INCLUDE(file)</TD>
+<TD ALIGN=CENTER>G</TD>
+<TD ALIGN=CENTER>&nbsp;</TD>
+<TD>$IC</TD>
+<TD>include a source file</TD>
+</TR>
+<TR>
+<TD>$LIST<BR>$NOLIST</TD>
+<TD ALIGN=CENTER>G<BR>G</TD>
+<TD VALIGN=TOP>$LIST</TD>
+<TD>$LI<BR>$NOLI</TD>
+<TD NOWRAP>list subsequent source lines<BR>don't list subsequent source lines</TD>
+</TR>
+<TR>
+<TD NOWRAP>$MACRO(n)<BR>$NOMACRO</TD>
+<TD ALIGN=CENTER>P<BR>P</TD>
+<TD VALIGN=TOP NOWRAP>$MACRO(50)</TD>
+<TD>$MR<BR>$NOMR</TD>
+<TD NOWRAP>reserve n % of free memory for macros<BR>reserve all for the symbol table</TD>
+</TR>
+<TR>
+<TD>$MOD51<BR>$NOMOD51</TD>
+<TD ALIGN=CENTER>P<BR>P</TD>
+<TD VALIGN=TOP>$MOD51</TD>
+<TD>$MO<BR>$NOMO</TD>
+<TD NOWRAP>enable predefined SFR symbols<BR>disable predefined SFR symbols</TD>
+</TR>
+<TR>
+<TD>$NOBUILTIN</TD>
+<TD ALIGN=CENTER>P</TD>
+<TD ALIGN=CENTER NOWRAP>list SFR</TD>
+<TD ALIGN=CENTER NOWRAP>---</TD>
+<TD>don't list predefined symbols</TD>
+</TR>
+<TR>
+<TD>$NOTABS</TD>
+<TD ALIGN=CENTER>P</TD>
+<TD ALIGN=CENTER NOWRAP>use tabs</TD>
+<TD ALIGN=CENTER NOWRAP>---</TD>
+<TD>don't use tabs in list file</TD>
+</TR>
+<TR>
+<TD>$PAGING<BR>$NOPAGING</TD>
+<TD ALIGN=CENTER>P<BR>P</TD>
+<TD VALIGN=TOP>$PAGING</TD>
+<TD>$PI<BR>$NOPI</TD>
+<TD NOWRAP>enable listing page formatting<BR>disable listing page formatting</TD>
+</TR>
+<TR>
+<TD NOWRAP>$PAGELENGTH(n)</TD>
+<TD ALIGN=CENTER>P</TD>
+<TD ALIGN=CENTER NOWRAP>n=64</TD>
+<TD>$PL</TD>
+<TD>set lines per page for listing</TD>
+</TR>
+<TR>
+<TD NOWRAP>$PAGEWIDTH(n)</TD>
+<TD ALIGN=CENTER>P</TD>
+<TD ALIGN=CENTER NOWRAP>n=132</TD>
+<TD>$PW</TD>
+<TD>set columns per line for listing</TD>
+</TR>
+<TR>
+<TD>$PHILIPS</TD>
+<TD ALIGN=CENTER>P</TD>
+<TD ALIGN=CENTER NOWRAP>MCS-51</TD>
+<TD ALIGN=CENTER NOWRAP>---</TD>
+<TD>switch on 83C75x family support</TD>
+</TR>
+<TR>
+<TD>$SAVE<BR>$RESTORE</TD>
+<TD ALIGN=CENTER>G<BR>G</TD>
+<TD VALIGN=TOP>&nbsp;</TD>
+<TD>$SA<BR>$RS</TD>
+<TD NOWRAP>save current $LIST/$GEN/$COND state<BR>restore old $LIST/$GEN/$COND state</TD>
+</TR>
+<TR>
+<TD>$SYMBOLS<BR>$NOSYMBOLS</TD>
+<TD ALIGN=CENTER>P<BR>P</TD>
+<TD VALIGN=TOP>$SYMBOLS</TD>
+<TD>$SB<BR>$NOSB</TD>
+<TD NOWRAP>create symbol table<BR>don't create symbol table</TD>
+</TR>
+<TR>
+<TD NOWRAP>$TITLE(string)</TD>
+<TD ALIGN=CENTER>G</TD>
+<TD ALIGN=CENTER>copyright</TD>
+<TD>$TT</TD>
+<TD>inserts title string into page header</TD>
+</TR>
+<TR>
+<TD>$XREF<BR>$NOXREF</TD>
+<TD ALIGN=CENTER>P<BR>P</TD>
+<TD VALIGN=TOP>$NOXREF</TD>
+<TD>$XR<BR>$NOXR</TD>
+<TD NOWRAP>create cross reference<BR>don't create cross reference</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>
+The subsequent paragraphs contain detailed explanations of the implemented
+controls.
+</P>
+
+<P>
+<OL TYPE=1>
+<LI><A HREF="primary.htm">Primary Controls</A></LI>
+<LI><A HREF="general.htm">General Controls</A></LI>
+</OL>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="segment.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="primary.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

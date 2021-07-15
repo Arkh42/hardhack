@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Batch File Operation under MS-DOS -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Batch File Operation under MS-DOS</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG>
+<BR>
+<STRONG><U>III.2 Batch File Operation under MS-DOS</U></STRONG>
+</BIG></P>
+
+<P><BIG>
+If serial I/O is only used for program upload, batch file operation may be
+the most convenient way of testing with the shortest turn-around cycles.
+The sample batch job below, shows the principles of operating
+<NOBR>BOOT-51</NOBR> from a PC with <NOBR>MS-DOS</NOBR> batch commands:
+</BIG></P>
+
+<P><BIG>
+<BLOCKQUOTE>
+<STRONG><CODE>
+MODE COM2:9600,N,8,1,P<BR>
+RESET51 LPT1<BR>
+SLEEP 9600<BR>
+ASEM %1<BR>
+ECHO U &gt;COM2<BR>
+COPY %1.HEX COM2<BR>
+ECHO G 8000 &gt;COM2
+</CODE></STRONG>
+</BLOCKQUOTE>
+</BIG></P>
+
+<P><BIG>
+In this example, serial I/O is done over serial port COM2, and the target
+system can be reset over printer port LPT1.<BR>
+First of all, the serial port COM2 is initialized to the desired baudrate
+of 9600 Baud, 8 data bits, 1 stop bit, and no parity with the <STRONG>MODE</STRONG>
+utility.
+Then the <STRONG>RESET51</STRONG> program provided is executed to reset the target
+system via printer port LPT1. After that, the <STRONG>SLEEP</STRONG> program waits
+until <NOBR>BOOT-51</NOBR> has fully output its sign-on message at 9600 Baud
+and is ready for a command. To give the <NOBR>MCS-51</NOBR> board some more
+time to recover from reset, <NOBR>ASEM-51</NOBR> is now invoked to assemble
+the application program.<BR>
+When finished, the <NOBR>BOOT-51</NOBR> upload command 'U' is ECHOed to COM2,
+and the Intel-HEX file is also simply copied to the serial port.<BR>
+Finally the application program is started at address 8000H with the command
+<NOBR>&quot;ECHO G 8000 &gt;COM2&quot;</NOBR>.<BR>
+To test an application program <NOBR><EM>MYPROG.A51</EM></NOBR> with the above
+batch job (stored in a file <NOBR><EM>TEST51.BAT</EM></NOBR>), simply type
+</BIG></P>
+
+<P><BIG>
+<BLOCKQUOTE>
+<STRONG><CODE>
+TEST51 MYPROG
+</CODE></STRONG>
+</BLOCKQUOTE>
+</BIG></P>
+
+<P><BIG>
+at the DOS prompt, and see what you get.<BR>
+Of course this was only a minimized example! In general you will not only
+have to modify serial port, baudrate, reset port, and start address for
+your local requirements, but also to do something for plausibility checking
+and error handling.<BR>
+For this, the more sophisticated batch file <NOBR><EM>BOOT.BAT</EM></NOBR>
+has been provided.
+It allows an easy change of all configuration parameters with any ASCII
+editor. For further information see the commentary inside
+<NOBR><EM>BOOT.BAT</EM></NOBR>.
+In principle, <NOBR><EM>BOOT.BAT</EM></NOBR> contains only those configuration
+data! (The actual work is done by another batch file
+<NOBR><EM>UPLOAD.BAT</EM></NOBR> provided, which is invoked by
+<NOBR><EM>BOOT.BAT</EM></NOBR>.)<BR>
+A program <NOBR><EM>MYPROG.A51</EM></NOBR> can now be assembled, uploaded and
+started with
+</BIG></P>
+
+<P><BIG>
+<BLOCKQUOTE>
+<STRONG><CODE>
+BOOT MYPROG
+</CODE></STRONG>
+</BLOCKQUOTE>
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boperat.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="binter.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="butils.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- The DOS Protected-Mode Assembler ASEMX -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>The DOS Protected-Mode Assembler ASEMX</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.1.8 The DOS Protected-Mode Assembler ASEMX</U></STRONG>
+</P>
+
+<P>
+In general, the proven real-mode assembler ASEM.EXE is sufficient also
+for very large programs. Nevertheless, it may be running out of memory,
+if a program contains a huge number of long user-defined symbols, or lots
+of large macro definitions.<BR>
+To close the gap, the <NOBR>ASEM-51</NOBR> package includes the new protected-mode
+assembler ASEMX.EXE. ASEMX is functionally identical to ASEM, but it can
+use extended memory, to meet extreme workspace requirements.<BR>
+ASEMX is accompanied by Borland's 16-bit DPMI server DPMI16BI.OVL and
+runtime manager RTM.EXE. It requires a 286 CPU (or better), and at least
+512 kB of free XMS memory (1 MB recommended)!<BR>
+When ASEMX is invoked, DPMI16BI.OVL and RTM.EXE must be either
+</P>
+
+<P>
+<UL>
+<LI>in your default directory,</LI>
+<LI>where ASEMX.EXE is, or</LI>
+<LI>somewhere in your PATH</LI>
+</UL>
+</P>
+
+<P>
+During startup, the DPMI server tries to allocate all the remaining free
+XMS memory for use by ASEMX. If you don't want this, you can restrict the
+amount of allocated memory with the DOS environment variable DPMIMEM:
+<BLOCKQUOTE>
+<STRONG><PRE>
+SET DPMIMEM=MAXMEM n
+</PRE></STRONG>
+</BLOCKQUOTE>
+will restrict the XMS memory space, used for the DPMI interface, to n kB.<BR>
+Never set n to a value greater than 16383!!!
+</P>
+
+<P>
+In general, the Borland DPMI interface is very reliable and does normally
+not conflict with other memory managers. ASEMX will also run with other
+versions of DPMI16BI.OVL and RTM.EXE provided with various Borland software
+packages (except <NOBR>TC++ 3.0</NOBR> and <NOBR>BC++ 3.1</NOBR>).
+</P>
+
+<P>
+However, there is trouble ahead on systems with more than 16 MB RAM!
+Without specific installation, there is a fatal tendency to crash, hang,
+or even boot, whenever a DPMI program like ASEMX is invoked.<BR>
+For proper operation of the DPMI interface, <NOBR>MS-DOS&nbsp;5.0</NOBR>
+(or later) is required, and EMM386.EXE must be loaded!<BR>
+If EMM386.EXE has been loaded with parameters (e.g. NOEMS), the Borland
+16-bit DPMI server cannot handle more than 16 MB! However, without
+parameters (i=nnnn, x=nnnn are o.k.) or with other DPMI servers there may
+be more. In these cases, ASEMX can use up to 64 MB of extended memory!
+</P>
+
+<P>
+If ASEMX is running in a system environment with an own DPMI server, e.g.
+the Windows <NOBR>DOS-Box</NOBR>, RTM.EXE will detect this and use the active DPMI
+server instead of DPMI16BI.OVL. In this case, the environment variable DPMIMEM has
+no effect.<BR>
+To restrict (or increase) the available XMS memory for the <NOBR>Windows 3.1x</NOBR>
+DOS prompt, change file DOSPRMPT.PIF in your WINDOWS directory with the Windows
+PIF file editor.<BR>
+For further information on how to make more or less XMS memory available
+to application programs in other system environments, see the corresponding
+user manuals.
+</P>
+
+<P>
+Another interesting alternative is the Borland 32-bit DPMI server with
+virtual memory management. It cannot be provided with the <NOBR>ASEM-51</NOBR> package
+for license reasons, but is contained in Borland's Turbo-<NOBR>Assembler 4.0</NOBR>
+and 5.0, <NOBR>Borland C++ 4.5x</NOBR> and 5.0x, and maybe others. It has originally been
+developed for the Borland command line tools, but it also works with ASEMX.
+It requires a 386 CPU (or better), and allows to extend the free physical
+memory with a swap file that can be created with the program MAKESWAP.EXE.
+Apart of that, the 32-bit DPMI server DPMI32VM.OVL and the runtime manager
+32RTM.EXE are required.<BR>
+The batch file ASEM32.BAT, provided with the <NOBR>ASEM-51</NOBR> package, shows how to
+run ASEMX with 64 MB of virtual memory, using Borland's 32-bit DPMI server.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="doswin.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="brief.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="asemw.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

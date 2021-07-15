@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Macro Operators -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Macro Operators</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.5 Macro Operators</U></STRONG>
+</P>
+
+<P>
+There are some special control characters, which are very useful for macro
+definition, call and expansion:
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TD ALIGN=CENTER NOWRAP><BIG>;;</BIG></TD>
+    <TD NOWRAP><STRONG>Macro commentary</STRONG></TD>
+    <TD>Normally, comments in body lines are also contained in the expanded
+        lines. If a commentary begins with ';;' however, it is not stored
+        during macro definition. Therefore, it doesn't consume memory space,
+        and appears in the list file in the macro definition only, but not
+        in the expanded lines.</TD>
+</TR>
+<TR><TD ALIGN=CENTER NOWRAP><BIG>!</BIG></TD>
+    <TD NOWRAP><STRONG>Literal operator</STRONG></TD>
+    <TD>If the escape character '!' precedes another printable character in
+        a macro argument, the assembler is forced to treat that character
+        literally. This means it will be passed to the macro, even if it is
+        a control character, while the literal operator itself is removed.</TD>
+</TR>
+<TR><TD ALIGN=CENTER NOWRAP><BIG>&lt;&nbsp;&gt;</BIG></TD>
+    <TD NOWRAP><STRONG>Literal brackets</STRONG></TD>
+    <TD>If a macro argument is intended to contain separation or control
+        characters, it must be enclosed in literal brackets &lt; ... &gt; to pass
+        it to the macro as one argument string, while the outermost pair of
+        brackets is removed. Literal brackets can be nested to any depth.</TD>
+</TR>
+<TR><TD ALIGN=CENTER NOWRAP><BIG>%</BIG></TD>
+    <TD NOWRAP><STRONG>Evaluation</STRONG></TD>
+    <TD>If a macro argument is preceded by the evaluation operator '%', it
+        is interpreted as an expression, which will be evaluated before it
+        is passed to the macro. The actual argument string will not be the
+        expression itself, but a decimal ASCII representation of its value.
+        The expression must be known on <NOBR>pass 1</NOBR>.</TD>
+</TR>
+<TR><TD ALIGN=CENTER NOWRAP><BIG>&amp;</BIG></TD>
+    <TD NOWRAP><STRONG>Substitution</STRONG></TD>
+    <TD>The '&amp;' character separates parameter names (local symbols) from
+        surrounding text. Outside quoted strings and commentary it serves
+        only as a general separation character. This applies always when
+        a local symbol directly precedes or follows another alphanumeric
+        string. Inside quoted strings and commentary, a local symbol must
+        be preceded by '&amp;' if it is to be substituted there.<BR>
+        During every macro expansion, the assembler removes exactly one '&amp;'
+        from every sequence of '&amp;' characters. This allows for example, to
+        define a nested macro inside a macro body, which also uses the
+        substitution operator '&amp;': one writes simply '&amp;&amp;'!</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 1:</STRONG>
+<BLOCKQUOTE>
+The commentary should only be visible in the definition
+of the macro LICENSE:
+<PRE>
+        LICENSE MACRO
+        DB 'Copyright'  ;;legal stuff
+        ENDM
+</PRE>
+When called, the expanded macro body is looking
+like this in the list file:
+<PRE>
+        DB 'Copyright'
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 2:</STRONG>
+<BLOCKQUOTE>
+<PRE>
+        SPECIAL !;
+</PRE>
+passes a semicolon to the macro SPECIAL as a literal
+argument. This could also be done with
+<PRE>
+        SPECIAL &lt;;&gt;
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 3:</STRONG>
+<BLOCKQUOTE>
+The macro CONST defines a 16-bit constant in ROM:
+<PRE>
+        CONST MACRO NUMB
+        DW NUMB
+        ENDM
+</PRE>
+If it is called as shown below,
+<PRE>
+        CONST 0815H+4711-42
+</PRE>
+the parameter NUMB would be substituted as follows:
+<PRE>
+        DW 0815H+4711-42
+</PRE>
+If the same macro argument is preceded by a '%' however,
+<PRE>
+        CONST %0815H+4711-42
+</PRE>
+the substitution will result in:
+<PRE>
+        DW 6738
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 4:</STRONG>
+<BLOCKQUOTE>
+During substitution, both arguments of the macro CONCAT
+should form a seamless symbol name:
+<PRE>
+        CONCAT MACRO NAM, NUM
+        MOV R3,#0
+NAM&amp;NUM: DJNZ R3,NAM&amp;NUM
+        ENDM
+</PRE>
+When CONCAT is called as follows,
+<PRE>
+        CONCAT LABEL, 08
+</PRE>
+the parameters NAM and NUM are substituted during macro
+expansion as shown below:
+<PRE>
+        MOV R3,#0
+LABEL08: DJNZ R3,LABEL08
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="local.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="exitm.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

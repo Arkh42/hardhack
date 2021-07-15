@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Local Symbols -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Local Symbols</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.4 Local Symbols</U></STRONG>
+</P>
+
+<P>
+Local symbols are symbols, which are only known within a macro body, but not
+outside the macro. Symbols that are defined for the whole program, will
+subsequently be called &quot;global symbols&quot; for better understanding.
+We are already familiar with a special case of local symbols: formal macro
+parameters. They appear in the macro definition only. Since they are
+substituted during macro expansion, we don't have further problems with them.
+But what happens with symbols that are defined in a macro body?
+</P>
+
+<P>
+<BR>
+<STRONG>Example 1:</STRONG>
+<BLOCKQUOTE>
+The following simple macro is intended to read a character
+from the 8051 UART, and to return it in A:
+<PRE>
+        RECEIVE MACRO
+UARTIN: JNB RI,UARTIN
+        MOV A,SBUF
+        CLR RI
+        ENDM
+</PRE>
+This will work only once! If the macro RECEIVE is called
+multiple times, the label UARTIN will be multiply defined.
+</BLOCKQUOTE>
+</P>
+
+<P>
+This can be solved by simply declaring the symbol UARTIN local.
+For this, the LOCAL statement has been introduced. After the keyword
+LOCAL, a list of local symbols can be specified, separated by commas.
+These symbols will only be valid inside the macro that contains the LOCAL
+statement. LOCAL statements may only be placed directly after the MACRO
+or REPT statement, preceding the first body line. They may contain any
+number of local symbols. The macro body may be preceded by an arbitrary
+number of LOCAL statements.<BR>
+Local symbols must be valid symbols, unique within the macro, and different
+from the formal parameters (if any). Keywords cannot be used as local symbol
+names. If a local symbol has the same name as a global symbol, the local
+scope takes precedance during substitution.<BR>
+When a macro is expanded, its local symbols are always substituted: the
+formal parameters are replaced by the macro arguments, and the local symbols
+that have been declared in a LOCAL statement are replaced by unique, global
+symbol names, which the assembler generates during every expansion. These
+have always the format ??xxxx, where xxxx is a unique symbol number.
+</P>
+
+<P>
+<BR>
+<STRONG>Example 2:</STRONG>
+<BLOCKQUOTE>
+After a redesign of our previous macro RECEIVE using
+local symbols, it is looking as follows:
+<PRE>
+        RECEIVE MACRO
+        LOCAL UARTIN
+UARTIN: JNB RI,UARTIN
+        MOV A,SBUF
+        CLR RI
+        ENDM
+</PRE>
+Enhanced as shown above, the macro will work correctly,
+as often as desired. When RECEIVE is called for the first
+time, the local symbol UARTIN will be replaced by ??0000,
+<PRE>
+??0000: JNB RI,??0000
+        MOV A,SBUF
+        CLR RI
+</PRE>
+when it is called for the second time, UARTIN will be
+replaced by ??0001, and so on:
+<PRE>
+??0001: JNB RI,??0001
+        MOV A,SBUF
+        CLR RI
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+However, it is recommended not to define global symbols in the format ??xxxx,
+to avoid name conflicts with substituted local symbols from expanded macros.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="repeat.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="operator.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

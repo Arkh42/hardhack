@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Linux Command Line Operation -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Linux Command Line Operation</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.2.3 Linux Command Line Operation</U></STRONG>
+</P>
+
+<P>
+Under Linux, the assembler is invoked by typing:
+<BLOCKQUOTE>
+<STRONG><PRE>
+asem [&lt;options&gt;] &lt;source&gt; [&lt;object&gt; [&lt;listing&gt;]]
+</PRE></STRONG>
+</BLOCKQUOTE>
+where &lt;source&gt; is the 8051 assembler source, &lt;object&gt; is the output
+file, and &lt;listing&gt; is the assembler list file.<BR>
+All file names that are specified explicitly, are left unchanged.<BR>
+The parameters &lt;object&gt; and &lt;listing&gt; are optional. When omitted, the
+&lt;object&gt; file name is derived from the &lt;source&gt; file name, but with
+extension &quot;.hex&quot; (or &quot;.omf&quot;). When the &lt;listing&gt; file name is omitted,
+it is derived from the &lt;object&gt; file name, but with extension &quot;.lst&quot;:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH ALIGN=LEFT><BIG>file</BIG></TH><TH ALIGN=LEFT><BIG>extension</BIG></TH></TR>
+<TR><TD><BIG>&lt;object&gt;</BIG></TD><TD NOWRAP><BIG>.hex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (with -o option: .omf)</BIG></TD></TR>
+<TR><TD><BIG>&lt;listing&gt;</BIG></TD><TD><BIG>.lst</BIG></TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+Instead of file names you may also specify device names to redirect the
+output to I/O devices. Device names are assumed to start with &quot;/dev/&quot;.
+Of course no extensions will be added to device names!<BR>
+It is not checked, whether the device is existing or suitable for the task.
+Although it is possible to read the source file from a character device
+instead of a file, this cannot be recommended: Since <NOBR>ASEM-51</NOBR> is a two-pass
+assembler, it always reads the source file twice!<BR>
+The maximum length of a file parameter is limited to 255 characters!
+</P>
+
+<P>
+asem recognizes the following options:
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH NOWRAP><BIG>short options</BIG></TH><TH NOWRAP><BIG>long options</BIG></TH></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-i path1:path2:path3</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--includes=path1:path2:path3</CODE></STRONG></BIG></TD></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-d symbol[:value[:type]]</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--define=symbol[:value[:type]]</CODE></STRONG></BIG></TD></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-o</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--omf-51</CODE></STRONG></BIG></TD></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-c</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--columns</CODE></STRONG></BIG></TD></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-v</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--verbose</CODE></STRONG></BIG></TD></TR>
+</TABLE>
+</P>
+
+<P>
+The short and long options in the same row are equivalent.<BR>
+Long options may be abbreviated as long as they remain unique.<BR>
+All option names are case-sensitive!
+</P>
+
+<P>
+When the <NOBR>--includes</NOBR> option is used, the assembler searches the specified
+path for include files that cannot be found in the working directory.
+The path may be any number of directories separated by ':' characters.
+The directories will be searched from left to right.<BR>
+The path, specified with the <NOBR>--includes</NOBR> option, is searched
+before the path, defined with the (optional) environment variable ASEM51INC!<BR>
+The maximum path length is limited to 255 characters.
+</P>
+
+<P>
+The <NOBR>--define</NOBR> option is useful for selecting particular program variants
+from the command line that have been implemented with conditional assembly.
+It allows to define a symbol with a value and a segment type in the
+command line. Value and type are optional. The segment type of the symbol
+defaults to NUMBER, if omitted. The symbol value defaults to 0, if omitted.
+The symbol value may be any numerical constant. The symbol type must be one
+of the following characters:
+<BLOCKQUOTE>
+<STRONG><PRE>
+    C   =   CODE
+    D   =   DATA
+    I   =   IDATA
+    X   =   XDATA
+    B   =   BIT
+    N   =   NUMBER    (default)
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+By default, <NOBR>ASEM-51</NOBR> generates an object file in <NOBR>Intel-HEX</NOBR> format. When
+the <NOBR>--omf-51</NOBR> option is specified, an absolute <NOBR>OMF-51</NOBR> module is generated.
+</P>
+
+<P>
+<BR>
+<STRONG>Examples:</STRONG>
+<BLOCKQUOTE>
+<STRONG><PRE>
+0.)    asem
+</PRE></STRONG>
+<BLOCKQUOTE>
+When invoked without parameters, the assembler displays a help screen:
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<PRE>
+           MCS-51 Family Macro Assembler ASEM-51 V1.3
+
+           usage:     asem [options] &lt;source&gt; [&lt;object&gt; [&lt;listing&gt;]]
+
+           options:   -i   --includes=path1:path2:path3
+                      -d   --define=symbol[:value[:type]]
+                      -o   --omf-51
+                      -c   --columns
+                      -v   --verbose
+</PRE>
+<BLOCKQUOTE>
+<STRONG><PRE>
+1.)    asem program.a51
+</PRE></STRONG>
+<BLOCKQUOTE>
+will assemble the 8051 assembly language program program.a51 and produce
+an <NOBR>Intel-HEX</NOBR> file program.hex and a listing program.lst.
+</BLOCKQUOTE>
+<STRONG><PRE>
+2.)    asem tarzan.asm jane jungle.prn
+</PRE></STRONG>
+<BLOCKQUOTE>
+will assemble the 8051 assembly language program tarzan.asm and
+produce an <NOBR>Intel-HEX</NOBR> file jane and a listing jungle.prn.
+</BLOCKQUOTE>
+<STRONG><PRE>
+3.)    asem project eprom
+</PRE></STRONG>
+<BLOCKQUOTE>
+will assemble the 8051 assembly language program project and
+produce an <NOBR>Intel-HEX</NOBR> file eprom and a listing eprom.lst.
+</BLOCKQUOTE>
+<STRONG><PRE>
+4.)    asem -o rover.a51
+</PRE></STRONG>
+<BLOCKQUOTE>
+will assemble the 8051 assembly language program rover.a51 and produce
+an absolute <NOBR>OMF-51</NOBR> object module rover.omf and a listing rover.lst.
+</BLOCKQUOTE>
+<STRONG><PRE>
+5.)    asem sample.a51 /dev/ttyS0 /dev/null
+</PRE></STRONG>
+<BLOCKQUOTE>
+will assemble the 8051 assembly language program sample.a51, send
+the HEX file output to the serial interface /dev/ttyS0 and suppress
+the list file output by sending it to the /dev/null device.
+</BLOCKQUOTE>
+<STRONG><PRE>
+6.)    asem -i /usr/local/include/asem-51:~/8051/inc app.a51
+</PRE></STRONG>
+<BLOCKQUOTE>
+will assemble the program app.a51, while all required include
+files will be searched first in the default directory, then in
+<NOBR>/usr/local/include/asem-51</NOBR>, and finally in ~/8051/inc.
+</BLOCKQUOTE>
+<STRONG><PRE>
+7.)    asem --define=Eva_Board:8000H:C universal.a51
+</PRE></STRONG>
+<BLOCKQUOTE>
+will assemble the program universal.a51, while the CODE symbol
+EVA_BOARD will be predefined with value 8000H during assembly.
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+When program errors are detected, corresponding error messages are output
+to standard error. This may look as follows:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+    applicat.a51(14): must be known on first pass
+    userbits.inc(6): attempt to divide by zero
+    defines.inc(37): symbol not defined
+    applicat.a51(20): symbol not defined
+    applicat.a51(27): no END statement found
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Every error is flagged with the name of the source or include file, the
+local line number where it was found, and the error message itself.
+This output format provides a hook to run <NOBR>ASEM-51</NOBR> from third-party IDEs.
+A perfect fit may be reached with the <NOBR>--columns</NOBR> option. When specified,
+the column numbers of program errors are output additionally after the
+line numbers:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+    applicat.a51(14,12): must be known on first pass
+    userbits.inc(6,27): attempt to divide by zero
+    defines.inc(37,18): symbol not defined
+    applicat.a51(20,18): symbol not defined
+    applicat.a51(27,1): no END statement found
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+If errors are detected in macro expansion lines, there is no corresponding
+location in the source file. Therefore, the error is flagged with the name
+of the source or include file, and the local line number from where the
+macro expansion has been invoked. (For callable macros this is the line
+with the macro call, and for repeat blocks this is the ENDM line.)
+To give the user a hint, the macro name and expansion line (and optionally
+column) number are inserted before the actual error message:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+    uartio.a51(44,1): RECEIVE(3,22): segment type mismatch
+    uartio.a51(87,1): REPT(4,19): symbol not defined
+    uartio.a51(87,1): REPT(8,19): symbol not defined
+    uartio.a51(87,1): REPT(12,19): symbol not defined
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The expansion line number is the number of the expansion line within the
+corresponding macro expansion, starting with 1. If the error occurs during
+expansion of a repeat block, the keyword REPT replaces the macro name.
+</P>
+
+<P>
+By default, <NOBR>ASEM-51</NOBR> is totally &quot;quiet&quot;, if no errors are detected.
+If the <NOBR>--verbose</NOBR> option is specified, additional product, version, and
+error summary information is written to standard output:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+    MCS-51 Family Macro Assembler ASEM-51 V1.3
+
+    uartio.a51(44,1): RECEIVE(3,22): segment type mismatch
+    uartio.a51(87,1): REPT(4,19): symbol not defined
+    uartio.a51(87,1): REPT(8,19): symbol not defined
+    uartio.a51(87,1): REPT(12,19): symbol not defined
+
+         4 errors detected
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+When terminating, <NOBR>ASEM-51</NOBR> returns an exit code to the calling process:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH ALIGN=LEFT><BIG>situation</BIG></TH><TH><BIG>exit code</BIG></TH></TR>
+<TR><TD NOWRAP><BIG>no errors</BIG></TD><TD ALIGN=CENTER><BIG>0</BIG></TD></TR>
+<TR><TD NOWRAP><BIG>program errors detected</BIG></TD><TD ALIGN=CENTER><BIG>1</BIG></TD></TR>
+<TR><TD NOWRAP><BIG>fatal runtime error</BIG></TD><TD ALIGN=CENTER><BIG>2</BIG></TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+<TABLE CELLPADDING=8>
+<TR><TD VALIGN=TOP><BIG><STRONG>Note:</STRONG></BIG></TD>
+    <TD><BIG>Warnings are also output on standard error,
+             but do not influence the exit code!</BIG></TD></TR>
+</TABLE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="linux.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="linstall.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="linuxenv.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

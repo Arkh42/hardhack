@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Support of 8051 Derivatives -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Support of 8051 Derivatives</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>VI. Support of 8051 Derivatives</U></STRONG>
+</P>
+
+<P>
+Today a large number of 8051 derivatives is available that grows almost
+monthly! They all use the same instruction set of the <NOBR>MCS-51</NOBR>
+processor core, but are different in peripheral components, to cover a wide
+range of applications. The difference for the assembly language programmer
+is mainly the varying set of special function registers and interrupt addresses.
+It is always good practice to use the same SFR names in a microcontroller
+application program that the manufacturer of the derivative used has defined.
+For this the processor definition files *.MCU are provided. They all are
+include files with the special function register definitions of a particular
+8051 derivative. However, the predefined symbols of <NOBR>ASEM-51</NOBR> must
+be switched off prior to including the SFR definitions of another derivative
+as shown below:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+$NOMOD51
+$INCLUDE (80C515.MCU)
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+This would switch off the predefined symbols of the 8051 and include the
+register definitions of the 80C515 or 80C535 respectively.<BR>
+Hence it is easy for the user to adapt <NOBR>ASEM-51</NOBR> to a brandnew
+8051 derivative!
+All what he has to do is to write a corresponding include file with the SFR
+definitions derived from the manufacturer's data sheet.<BR>
+The name of every processor definition file is corresponding to the ROM
+version of a particular derivative. Of course it also applies to the EPROM,
+EEPROM, flash, and ROM-less versions (if any) of that derivative.<BR>
+By the way, the file 8051.MCU provided contains exactly the predefined
+symbols of <NOBR>ASEM-51</NOBR>, because its internal symbol table has been
+generated from it!<BR>
+To switch <NOBR>ASEM-51</NOBR> to the reduced instruction set of the Philips
+83C75x family of microcontrollers, the $PHILIPS control can be used.
+</P>
+
+<P>
+Currently the following processor definition files are provided with
+<NOBR>ASEM-51</NOBR>:
+</P>
+
+<P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<TR><TH>Name</TH><TH>Manufacturer</TH><TH>Versions</TH></TR>
+
+<TR><TD ALIGN=RIGHT ROWSPAN=2>8051.MCU</TD><TD>Intel<BR>(and&nbsp;others)</TD><TD>8051, 8031, 8751BH, 8051AH, 8031AH, 8751H, 8051AHP, 8751H-8, 80C51BH, 80C31BH, 87C51, 80C51BHP</TD></TR>
+<TR>                                       <TD>Atmel</TD><TD>89C51, 89LV51, 87LV51, 80F51, 87F51</TD></TR>
+
+<TR><TD ALIGN=RIGHT ROWSPAN=2>8052.MCU</TD><TD>Intel</TD><TD>8052AH, 8032AH, 8752BH</TD></TR>
+<TR>                                       <TD>SIEMENS</TD><TD>80513, 8352-5</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C52.MCU</TD><TD>Intel</TD><TD>80C52, 80C32, 87C52, 80C54, 87C54, 80C58, 87C58</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C51FX.MCU</TD><TD>Intel</TD><TD>83C51FA, 80C51FA, 87C51FA, 83C51FB, 87C51FB, 83C51FC, 87C51FC</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C51R.MCU</TD><TD>Intel</TD><TD>83C51RA, 80C51RA, 87C51RA, 83C51RB, 87C51RB, 83C51RC, 87C51RC</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C51KB.MCU</TD><TD>Intel</TD><TD>83C51KB</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C51GB.MCU</TD><TD>Intel</TD><TD>83C51GB, 80C51GB, 87C51GB</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C151.MCU</TD><TD>Intel</TD><TD>83C151SB, 87C151SB, 80C151SB, 83C151SA, 87C151SA</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C152.MCU</TD><TD>Intel</TD><TD>80C152JA, 83C152JA, 80C152JB, 80C152JC, 83C152JC, 80C152JD</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C452.MCU</TD><TD>Intel</TD><TD>83C452, 80C452</TD></TR>
+
+<TR><TD ALIGN=RIGHT>8044.MCU</TD><TD>Intel</TD><TD>8044AH, 8344AH, 8744AH</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83931HA.MCU</TD><TD>Intel</TD><TD>83931HA, 80931HA</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83931AA.MCU</TD><TD>Intel</TD><TD>83931AA, 80931AA</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80512.MCU</TD><TD>SIEMENS</TD><TD>80512, 80532</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80515.MCU</TD><TD>SIEMENS</TD><TD>80515, 80535, 80515K, 83515-4</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C515.MCU</TD><TD>SIEMENS</TD><TD>80C515, 80C535, 83C515H</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C515A.MCU</TD><TD>SIEMENS</TD><TD>83C515A-5, 80C515A</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C517.MCU</TD><TD>SIEMENS</TD><TD>80C517, 80C537</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C501.MCU</TD><TD>Infineon</TD><TD>C501-1R, C501-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C502.MCU</TD><TD>Infineon</TD><TD>C502-2R, C502-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C503.MCU</TD><TD>Infineon</TD><TD>C503-1R, C503-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C504.MCU</TD><TD>Infineon</TD><TD>C504-2R, C504-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C505.MCU</TD><TD>Infineon</TD><TD>C505-2R, C505-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C505C.MCU</TD><TD>Infineon</TD><TD>C505C-2R, C505C-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C505A.MCU</TD><TD>Infineon</TD><TD>C505A-4E, C505A-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C505CA.MCU</TD><TD>Infineon</TD><TD>C505CA-4E, C505CA-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C505L.MCU</TD><TD>Infineon</TD><TD>C505L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C508.MCU</TD><TD>Infineon</TD><TD>C508-4R, C508-4E</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C509.MCU</TD><TD>Infineon</TD><TD>C509-L</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C511.MCU</TD><TD>Infineon</TD><TD>C511, C511A</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C513.MCU</TD><TD>Infineon</TD><TD>C513, C513A, C513A-H</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C513AO.MCU</TD><TD>Infineon</TD><TD>C513AO</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C515.MCU</TD><TD>Infineon</TD><TD>C515-L, C515-1R</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C515A.MCU</TD><TD>Infineon</TD><TD>C515A-L, C515A-4R</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C515C.MCU</TD><TD>Infineon</TD><TD>C515C-8R</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C517A.MCU</TD><TD>Infineon</TD><TD>C517A-L, C517A-4R, 83C517A-5, 80C517A</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C540U.MCU</TD><TD>Infineon</TD><TD>C540U</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C541U.MCU</TD><TD>Infineon</TD><TD>C541U</TD></TR>
+
+<TR><TD ALIGN=RIGHT>C868.MCU</TD><TD>Infineon</TD><TD>C868-1R, C868-1S</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C451.MCU</TD><TD>Philips</TD><TD>83C451, 80C451, 87C451</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C528.MCU</TD><TD>Philips</TD><TD>83C528, 80C528, 87C528, 83C524, 87C524, 83CE528, 80CE528, 89CE528</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C550.MCU</TD><TD>Philips</TD><TD>83C550, 80C550, 87C550</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C552.MCU</TD><TD>Philips</TD><TD>83C552, 80C552, 87C552</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C562.MCU</TD><TD>Philips</TD><TD>83C562, 80C562</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C652.MCU</TD><TD>Philips</TD><TD>83C652, 80C652, 87C652, 83C654, 87C654, 83CE654, 80CE654</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C750.MCU</TD><TD>Philips</TD><TD>83C750, 87C750</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C751.MCU</TD><TD>Philips</TD><TD>83C751, 87C751</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C752.MCU</TD><TD>Philips</TD><TD>83C752, 87C752</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C754.MCU</TD><TD>Philips</TD><TD>83C754, 87C754</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C851.MCU</TD><TD>Philips</TD><TD>83C851, 80C851</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C852.MCU</TD><TD>Philips</TD><TD>83C852</TD></TR>
+
+<TR><TD ALIGN=RIGHT>87LPC762.MCU</TD><TD>Philips</TD><TD>87LPC762</TD></TR>
+
+<TR><TD ALIGN=RIGHT>87LPC768.MCU</TD><TD>Philips</TD><TD>87LPC768</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C32X2.MCU</TD><TD>Philips</TD><TD>80C31X2, 80C32X2, 80C51X2, 80C52X2, 80C54X2, 80C58X2, 87C51X2, 87C52X2, 87C54X2, 87C58X2, 89C51X2, 89C52X2, 89C54X2, 89C58X2</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C521.MCU</TD><TD>AMD</TD><TD>80C521, 80C541, 87C521, 87C541, 80C321</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C324.MCU</TD><TD>AMD</TD><TD>80C324</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C154.MCU</TD><TD>OKI</TD><TD>83C154, 80C154, 85C154VS</TD></TR>
+
+<TR><TD ALIGN=RIGHT>83C154S.MCU</TD><TD>OKI</TD><TD>83C154S, 80C154S, 85C154HVS</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C310.MCU</TD><TD>DALLAS</TD><TD>80C310</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C320.MCU</TD><TD>DALLAS</TD><TD>80C320, 87C320, 80C323, 87C323</TD></TR>
+
+<TR><TD ALIGN=RIGHT>80C390.MCU</TD><TD>DALLAS</TD><TD>80C390</TD></TR>
+
+<TR><TD ALIGN=RIGHT>87C520.MCU</TD><TD>DALLAS</TD><TD>87C520, 83C520</TD></TR>
+
+<TR><TD ALIGN=RIGHT>87C530.MCU</TD><TD>DALLAS</TD><TD>87C530, 83C530</TD></TR>
+
+<TR><TD ALIGN=RIGHT>87C550.MCU</TD><TD>DALLAS</TD><TD>87C550</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89C420.MCU</TD><TD>DALLAS</TD><TD>89C420</TD></TR>
+
+<TR><TD ALIGN=RIGHT>DS5000.MCU</TD><TD>DALLAS</TD><TD>5000FP, 5000, 5000T, 2250, 2250T</TD></TR>
+
+<TR><TD ALIGN=RIGHT>DS5001.MCU</TD><TD>DALLAS</TD><TD>5001FP, 5002FP, 5002FPM, 2251T, 2252T</TD></TR>
+
+<TR><TD ALIGN=RIGHT>MAX7651.MCU</TD><TD>Maxim</TD><TD>MAX7651, MAX7652</TD></TR>
+
+<TR><TD ALIGN=RIGHT>COM20051.MCU</TD><TD>SMC</TD><TD>COM20051</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89C52.MCU</TD><TD>Atmel</TD><TD>89C52, 89C55, 89LV52, 89LV55, 87LV52, 80F52, 87F52</TD></TR>
+
+<TR><TD ALIGN=RIGHT>87F51RC.MCU</TD><TD>Atmel</TD><TD>87F51RC, 87F55, 87LV55</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89C1051.MCU</TD><TD>Atmel</TD><TD>89C1051</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89C2051.MCU</TD><TD>Atmel</TD><TD>89C2051, 89C4051, 89C1051U</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89S8252.MCU</TD><TD>Atmel</TD><TD>89S8252, 89LS8252</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89S51.MCU</TD><TD>Atmel</TD><TD>89S51</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89S52.MCU</TD><TD>Atmel</TD><TD>89S52, 89LS52</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89S53.MCU</TD><TD>Atmel</TD><TD>89S53, 89LS53</TD></TR>
+
+<TR><TD ALIGN=RIGHT>89S4D12.MCU</TD><TD>Atmel</TD><TD>89S4D12</TD></TR>
+
+<TR><TD ALIGN=RIGHT>73M2910.MCU</TD><TD>TDK</TD><TD>73M2910, 73M2910A</TD></TR>
+
+<TR><TD ALIGN=RIGHT>AN2131.MCU</TD><TD>Cypress</TD><TD>AN2121, AN2122, AN2125, AN2126, AN2131, AN2135, AN2136</TD></TR>
+
+</TABLE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="listfile.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_a.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

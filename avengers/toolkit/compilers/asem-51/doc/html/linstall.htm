@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Installation under Linux -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Installation under Linux</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.2.2 Installation under Linux</U></STRONG>
+</P>
+
+<P>
+<NOBR>ASEM-51</NOBR> for Linux is available as a tar archive and
+an rpm package.<BR>
+If you have got the rpm package, login as root and simply type
+</P>
+
+<P><BLOCKQUOTE><CODE>
+rpm -i asem51-1.3-1.i386.rpm
+</CODE></BLOCKQUOTE></P>
+
+<P>
+The rpm package has been tested on <NOBR>S.u.S.E.</NOBR>-Linux only,
+but should also work on other Linux distributions that meet the FHS
+directory standard.<BR>
+If you have got the tar archive, perform the following steps:
+</P>
+
+<P><BLOCKQUOTE><CODE>
+gzip -d asem51-1.3-ELF.tar.gz<BR>
+tar xvf asem51-1.3-ELF.tar<BR>
+cd asem51<BR>
+sh install.sh
+</CODE></BLOCKQUOTE></P>
+
+<P>
+If you are installing <NOBR>ASEM-51</NOBR> as root (preferred), the
+installation script <NOBR>install.sh</NOBR> will install the whole package
+in <NOBR>/usr/local/share/asem-51/1.3</NOBR>, and establish some symbolic
+links in <NOBR>/usr/local/bin</NOBR> and <NOBR>/usr/local/man/man1</NOBR>.
+</P>
+
+<P>
+If you are installing <NOBR>ASEM-51</NOBR> under another <NOBR>user-id</NOBR>,
+<NOBR>install.sh</NOBR> tries to install the software in your home directory
+under <NOBR>~/asem-51/1.3</NOBR>, and establish some symbolic links in
+<NOBR>~/bin</NOBR> and <NOBR>~/man/man1</NOBR>.
+</P>
+
+<P>
+For details see the messages, <NOBR>install.sh</NOBR> is displaying on the
+console, and do some fine-tuning accordingly:
+</P>
+
+<P>
+If you haven't installed <NOBR>ASEM-51</NOBR> as root, it may be necessary
+to add <NOBR>~/bin</NOBR> to your <STRONG>PATH</STRONG>, and
+<NOBR>~/man</NOBR> to your <STRONG>MANPATH</STRONG>.
+</P>
+
+<P>
+To specify a search path for the include files <NOBR>*.mcu</NOBR> provided,
+you can define an optional environment variable <STRONG>ASEM51INC</STRONG>.
+For this, bash, ksh, and sh users should insert the following lines into
+their <NOBR>.profile</NOBR> file:
+</P>
+
+<P><BLOCKQUOTE><CODE>
+ASEM51INC=/usr/local/share/asem-51/1.3/mcu<BR>
+export ASEM51INC
+</CODE></BLOCKQUOTE></P>
+
+<P>
+csh, tcsh, and zsh users should insert the following line into their
+<NOBR>.login</NOBR> file respectively:
+</P>
+
+<P><BLOCKQUOTE><CODE>
+setenv ASEM51INC /usr/local/share/asem-51/1.3/mcu
+</CODE></BLOCKQUOTE></P>
+
+<P>
+If you have installed <NOBR>ASEM-51</NOBR> in your home directory,
+<STRONG>ASEM51INC</STRONG> should point to <NOBR>~/asem-51/1.3/mcu</NOBR>
+of course.
+</P>
+
+<P>
+To read the HTML manuals, invoke your web browser and bookmark the index page
+</P>
+
+</BIG>
+
+<P>
+<BLOCKQUOTE>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR><TD NOWRAP><BIG><CODE>/usr/local/share/asem-51/1.3/html/docs.htm</CODE></BIG></TD>
+    <TD NOWRAP><BIG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</BIG></TD>
+    <TD NOWRAP><BIG>(installation as root)</BIG></TD></TR>
+<TR><TD NOWRAP><BIG><CODE>~/asem-51/1.3/html/docs.htm</CODE></BIG></TD>
+    <TD NOWRAP><BIG>&nbsp;</BIG></TD>
+    <TD NOWRAP><BIG>(local installation)</BIG></TD></TR>
+</TABLE>
+</BLOCKQUOTE>
+</P>
+
+<BIG>
+
+<P>
+Note that you cannot reset your 8051 target system with a PC printer port,
+if you haven't installed <NOBR>ASEM-51</NOBR> as root!
+(For details see the <NOBR>BOOT-51</NOBR> documentation provided.)
+</P>
+
+<P>
+If you have installed <NOBR>ASEM-51</NOBR>, but you don't like it, you can
+easily uninstall it. If you have installed the rpm package, simply type
+</P>
+
+<P><BLOCKQUOTE><CODE>
+rpm -e asem51
+</CODE></BLOCKQUOTE></P>
+
+<P>
+If you have installed the generic tar archive, be sure to uninstall
+<NOBR>ASEM-51</NOBR> under the same <NOBR>user-id</NOBR> you previously
+used for installation! Run
+</P>
+
+<P><BLOCKQUOTE><CODE>
+uninst51.sh
+</CODE></BLOCKQUOTE></P>
+
+<P>
+and that's it.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="linux.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="lfiles.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="linuxcmd.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

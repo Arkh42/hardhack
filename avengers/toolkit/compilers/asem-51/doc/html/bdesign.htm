@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Design of MCS-51 Evaluation Boards -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Design of MCS-51 Evaluation Boards</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>II.4 Design of MCS-51 Evaluation Boards</U></STRONG>
+</P>
+
+<P>
+When developing embedded systems, debugging aspects should be taken into
+account as soon as possible. That is why <NOBR>MCS-51</NOBR> prototype
+boards should always be armed with a download RAM in the hardware design
+phase, even if the serial model (probably) doesn't need an external RAM!<BR>
+A $3 RAM can save a $3000 <NOBR>in-circuit</NOBR> emulator and weeks of trouble!
+</P>
+
+<P>
+Before discussing the basic concepts of program download, it is essential
+to understand the memory organization of the <NOBR>MCS-51</NOBR> architecture.<BR>
+First of all, there is an <NOBR>8-bit</NOBR> address space for internal RAM.
+Parts of it are directly addressable (DATA space), indirectly addressable
+(IDATA space), or bit-addressable (BIT space). These address spaces are fully
+or partly overlapping. Furthermore, the four register banks and the Special
+Function Registers (SFR) are mapped into this internal address space. This
+is hard to understand for newbies, but plays no role for program download.<BR>
+Aside of the internal memory, the <NOBR>MCS-51</NOBR> architecture provides
+a bus interface for external memory. There are two separate <NOBR>16-bit</NOBR>
+address spaces for 64K of program memory (ROM) and 64K of data memory (RAM).
+Program memory (CODE space) can only be read with the <NOBR><STRONG>-PSEN</STRONG></NOBR>
+bus signal, and data memory (XDATA space) can be read and written with the
+<NOBR><STRONG>-RD</STRONG></NOBR> and <NOBR><STRONG>-WR</STRONG></NOBR> bus signals. The
+<NOBR><STRONG>-PSEN</STRONG></NOBR> signal becomes active during instruction fetch cycles
+and MOVC instructions. The <NOBR><STRONG>-RD</STRONG></NOBR> and <NOBR><STRONG>-WR</STRONG></NOBR>
+signals become active during read and write operations with MOVX instructions.
+</P>
+
+<P>
+The obvious problem is: a downloaded program can only be stored in external
+RAM, mapped into the XDATA space, whereas program code can only be executed
+from memory in the CODE space.<BR>
+There must be a way to execute a downloaded program, although it is stored
+in external RAM! Fortunately, there is a simple trick to solve this:<BR>
+The <NOBR><STRONG>-OE</STRONG></NOBR> input of the (usually static) RAM must be driven
+by a logic AND of the <NOBR><STRONG>-RD</STRONG></NOBR> and <NOBR><STRONG>-PSEN</STRONG></NOBR>
+signals of the MCU, rather than by <NOBR><STRONG>-RD</STRONG></NOBR> alone.
+That's all!<BR>
+Then the external RAM can be read and written with MOVX instructions
+(using <NOBR><STRONG>-RD</STRONG></NOBR> and <NOBR><STRONG>-WR</STRONG></NOBR>), and program code
+can be executed from it (using <NOBR><STRONG>-PSEN</STRONG></NOBR>).
+</P>
+
+<P>
+For example, a typical 8051 evaluation board could be designed as follows:<BR>
+A 32K EPROM (<NOBR>e.g.</NOBR> 27C256) is mapped into the CODE space from
+address 0000H to 7FFFH, containing <NOBR>BOOT-51</NOBR> at address 0000H.<BR>
+A 32K static RAM (<NOBR>e.g.</NOBR> 62256) is mapped into both the CODE and
+XDATA spaces from address 8000H to FFFFH.<BR>
+After reset, the MCU starts program execution at address 0000H, and
+<NOBR>BOOT-51</NOBR> is running, waiting for commands. When it receives an
+<EM>UPLOAD</EM> command from the host computer, it reads an Intel-HEX file and
+stores it at its start address in the external RAM (<NOBR>e.g.</NOBR> 8000H).
+If <NOBR>BOOT-51</NOBR> receives a <NOBR><EM>GO TO 8000</EM></NOBR> command, it
+jumps to the specified address 8000H, and the downloaded program is running.<BR>
+A memory map like this can be obtained with a minimum of hardware:<BR>
+The <NOBR><STRONG>-CE</STRONG></NOBR> (chip enable) input of the EPROM must be driven
+by the <NOBR><STRONG>A15</STRONG></NOBR> signal (<NOBR>P2.7</NOBR>) of the MCU, and
+<NOBR><STRONG>-CE</STRONG></NOBR> of the RAM with the inverted <NOBR><STRONG>A15</STRONG></NOBR>
+signal respectively, to avoid bus conflicts in the CODE space.<BR>
+The <NOBR><STRONG>-OE</STRONG></NOBR> (output enable) input of the EPROM must be driven
+by the <NOBR><STRONG>-PSEN</STRONG></NOBR> signal of the MCU, as usual for CODE memory.<BR>
+The <NOBR><STRONG>-WE</STRONG></NOBR> (write enable) input of the RAM must be driven by
+the <NOBR><STRONG>-WR</STRONG></NOBR> signal (<NOBR>P3.6</NOBR>) of the MCU, as usual
+for XDATA memory.<BR>
+Only the <NOBR><STRONG>-OE</STRONG></NOBR> (output enable) input of the RAM must be
+driven by that famous logical AND of the <NOBR><STRONG>-RD</STRONG></NOBR> and
+<NOBR><STRONG>-PSEN</STRONG></NOBR> signals of the MCU, to map the RAM into both the
+XDATA and CODE space. That's it!
+</P>
+
+<P>
+Because this is so simple, cheap and (in contrast to many
+<NOBR>in-circuit</NOBR> emulators) absolutely reliable, most
+<NOBR>MCS-51</NOBR> family evaluation boards are working like this or
+similar.<BR>
+In most cases, it is easy to establish a suitable memory map, even on
+target boards that do not originally support it.
+</P>
+
+<P>
+If there is no spare AND gate, it may also do, to simply connect the
+<NOBR><STRONG>-OE</STRONG></NOBR> input of the RAM to the <NOBR><STRONG>-PSEN</STRONG></NOBR>
+signal of the MCU only.
+In this case, the RAM can still be written, but no longer be read with MOVX
+instructions. Since program code can also be executed from it, this minimized
+version can still be used as download RAM, but no longer as external data
+RAM.<BR>
+(In cases of emergency, it can be read with MOVC instructions, however!)
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="binstall.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bcables.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boperat.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

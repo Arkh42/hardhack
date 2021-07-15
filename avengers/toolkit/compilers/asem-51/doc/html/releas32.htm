@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- ASEM-51 V1.3 Bug Fixes -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>ASEM-51 V1.3 Bug Fixes</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG><BR><STRONG><U>II. Bug Fixes</U></STRONG></BIG></P>
+
+<P><BIG>
+An attempt to redefine a predefined (SFR) symbol with the /DEFINE command
+line option was sometimes sufficient to totally confuse <NOBR>ASEM V1.2</NOBR>!
+In these cases, <NOBR>version 1.3</NOBR> now aborts with a proper runtime error message.
+</BIG></P>
+
+<P><BIG>
+<NOBR>ASEM V1.2</NOBR> didn't notice, if number type operands of control statements
+were not enclosed in parentheses. This has been fixed with <NOBR>version 1.3</NOBR>!
+</BIG></P>
+
+<P><BIG>
+If the location counter symbol $ appeared as the first operand of an
+instruction starting in column 1, <NOBR>ASEM V1.2</NOBR> has flagged it with the
+error message
+</BIG></P>
+
+<P>
+<PRE>
+   25:    0007  80 00           SJMP $
+                                     ^
+                          @@@@@ illegal control statement @@@@@
+</PRE>
+</P>
+
+<P><BIG>
+This has been fixed with <NOBR>version 1.3</NOBR>!
+</BIG></P>
+
+<P>
+<BIG>
+<NOBR>ASEM V1.3</NOBR> does no longer accept the following constructions:
+</BIG>
+<UL TYPE=DISC>
+<LI><BIG>The start of absolute BIT or DATA segments with BSEG or DSEG
+         at base addresses above 7FH.</BIG></LI>
+<LI><BIG>Memory reservation statements in BIT or DATA segments with
+         DBIT or DS at locations above 7FH.</BIG></LI>
+<LI><BIG>Setting the location counter in BIT or DATA segments with
+         ORG to locations above 7FH.</BIG></LI>
+<LI><BIG>Setting the location counter with ORG to locations below
+         the segment base address. (Applies to all segments!)</BIG></LI>
+</UL>
+</P>
+
+<P>
+<BIG>If the first operand of the following instructions</BIG>
+<STRONG><PRE>
+        ANL direct, #const8
+        ORL direct, #const8
+        XRL direct, #const8
+        MOV direct, #const8
+        MOV direct, direct
+        DB  const8, const8
+        DW  const16, const16
+</PRE></STRONG>
+<BIG>contained forward references on <NOBR>pass 1</NOBR>, and was flagged
+with one of the following error messages</BIG>
+<PRE>
+        @@@@@ segment type mismatch @@@@@
+        @@@@@ attempt to divide by zero @@@@@
+        @@@@@ invalid bit number @@@@@
+        @@@@@ invalid base address @@@@@
+        @@@@@ expression out of range @@@@@
+</PRE>
+<BIG>on <NOBR>pass 2</NOBR>, <NOBR>ASEM V1.2</NOBR> calculated the code lengths of
+these instructions different on <NOBR>pass 1</NOBR> and <NOBR>pass 2</NOBR>,
+causing a</BIG>
+<PRE>
+        @@@@@ phase error @@@@@
+</PRE>
+<BIG>for all subsequent label definitions in the same CODE segment.
+This has been fixed with <NOBR>version 1.3</NOBR>!</BIG>
+</P>
+
+<P><BIG>
+If a frequently used special character like # or @ is read in a position
+where an expression is expected, <NOBR>ASEM V1.3</NOBR> does no longer flag it with
+the confusing error message &quot;unary operator expected&quot;, but with
+&quot;illegal operand&quot;.
+</BIG></P>
+
+<P><BIG>
+If <NOBR>ASEM.EXE V1.2</NOBR> had aborted with a runtime error on <NOBR>pass 1</NOBR>,
+the previous HEX and list files were left unchanged, because the old output files
+were first overwritten between <NOBR>pass 1</NOBR> and <NOBR>pass 2</NOBR>.
+In some cases this was very confusing for the users (and for batch files as well).<BR>
+Provided the command line parameters are correct, the old output files are
+now overwritten by <NOBR>version 1.3</NOBR> prior to <NOBR>pass 1</NOBR>.
+</BIG></P>
+
+<P><BIG>
+The processor definition file <NOBR>89C1051.MCU</NOBR>, provided with
+<NOBR>version 1.2</NOBR>, was containing the definitions for the AT89C2051
+rather than for the AT89C1051! Since the two parts are not register-compatible,
+<NOBR>89C1051.MCU</NOBR> has been renamed to <NOBR>89C2051.MCU</NOBR>,
+and <NOBR>89C1051.MCU</NOBR> has been rewritten.
+</BIG></P>
+
+<P><BIG>
+Sometimes <NOBR>BOOT-51 V1.0</NOBR> lost characters, if the
+<NOBR>&quot;<STRONG>GO&nbsp;TO</STRONG>&quot;</NOBR> command was sent in batch
+mode with baudrates greater than 9600 Baud. This has been fixed with
+<NOBR>version 1.1</NOBR>.<BR>
+<NOBR>BOOT-51 V1.1</NOBR> is now accepting <NOBR>Intel-HEX</NOBR> file
+uploads with CR, LF, or <NOBR>CR/LF</NOBR> at the end of line.<BR>
+<NOBR>BOOT51.DOC</NOBR> has been updated accordingly.
+</BIG></P>
+
+<P><BIG>
+Due to a limitation of the Turbo-Pascal 7.01 runtime system, the program
+<NOBR>RESET.EXE</NOBR> crashed with <NOBR>&quot;Runtime error 200&quot;</NOBR>
+on <NOBR>200 MHz</NOBR> (and faster) Pentium systems!
+This has been fixed with <NOBR>release 1.3</NOBR>.<BR>
+<U>Note:</U> &nbsp; The program has been renamed to <NOBR>RESET51.EXE</NOBR>
+to avoid name conflicts.
+</BIG></P>
+
+<P><BIG>
+When assembling short programs on fast computers and uploading them
+to the <NOBR>MCS-51</NOBR> target board at low baudrates with
+<NOBR>BOOT.BAT</NOBR>, it could happen that the upload of the HEX file
+started before <NOBR>BOOT-51</NOBR> had fully recovered from (an automatic)
+reset. Since <NOBR>BOOT-51</NOBR> needs some time to output its sign-on
+message and prompt, it sometimes missed the upload command, because
+<NOBR>ASEM.EXE</NOBR> had finished too fast!&nbsp;&nbsp;&nbsp;&nbsp;
+<IMG SRC="smile.gif" ALT="(smile)" WIDTH=15 HEIGHT=15><BR>
+To fix this, a small delay program <NOBR>SLEEP.EXE</NOBR> is provided,
+which is always invoked after <NOBR>RESET51.EXE</NOBR>.
+(see <NOBR>UPLOAD.BAT</NOBR>)
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="release.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="release3.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="relea315.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="release2.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

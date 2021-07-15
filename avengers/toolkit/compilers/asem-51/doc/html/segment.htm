@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Segment Type -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Segment Type</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.7  Segment Type</U></STRONG>
+</P>
+
+<P>
+Every assembly time expression is assigned a segment type, depending on
+its operands and operators. The segment type indicates the address space,
+the expression result might belong to, if it were used as an address.
+There are six possible segment types:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+CODE
+DATA
+IDATA
+XDATA
+BIT
+NUMBER     (typeless)
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Most expression results have the segment type NUMBER. That means they are
+assumed to be typeless. However, in some cases it may be useful to assign
+a particular segment type!
+The following six rules apply when the segment type is evaluated:
+</P>
+
+<P>
+<OL TYPE=1>
+<LI>Numerical constants are always typeless.<BR>
+    Consequently their segment type is NUMBER.<BR>
+    &nbsp;</LI>
+<LI>Symbols are assigned a segment type during definition.
+    Symbols that are defined with EQU or SET have no segment type.
+    Labels get the segment type of the currently active segment.<BR>
+    &nbsp;</LI>
+<LI>The result of a unary operation (+, -, NOT, HIGH, LOW) will have
+    the segment type of its operand.<BR>
+    &nbsp;</LI>
+<LI>The results of all binary operations
+    (except &quot;+&quot;, &quot;-&quot; and &quot;.&quot;)
+    will have no segment type.<BR>
+    &nbsp;</LI>
+<LI>If only one operand in a binary &quot;+&quot; or &quot;-&quot; operation
+    has a segment type, then the result will have that segment type, too.
+    In all other cases, the result will have no segment type.<BR>
+    &nbsp;</LI>
+<LI>The result of the bit operation &quot;.&quot; will always have the
+    segment type BIT.</LI>
+</OL>
+</P>
+
+<P>
+<BR>
+<STRONG>Examples:</STRONG>
+<BLOCKQUOTE>
+The following symbols have been defined in a program:
+<PRE>
+        OFFSET  EQU   16
+        START   CODE  30H
+        DOIT    CODE  0100H
+        REDLED  BIT   P1.3
+        VARIAB4 DATA  20H
+        PORT    DATA  0C8H
+        RELAY   EQU   5
+</PRE>
+<TABLE>
+<TR><TD NOWRAP><BIG>1.)</BIG></TD><TD NOWRAP><BIG>The expression</BIG></TD><TD NOWRAP><BIG>START+OFFSET+3</BIG></TD><TD NOWRAP><BIG>will have the segment type CODE.</BIG></TD></TR>
+<TR><TD NOWRAP><BIG>2.)</BIG></TD><TD NOWRAP><BIG>The expression</BIG></TD><TD NOWRAP><BIG>START+DOIT    </BIG></TD><TD NOWRAP><BIG>will be typeless.               </BIG></TD></TR>
+<TR><TD NOWRAP><BIG>3.)</BIG></TD><TD NOWRAP><BIG>The expression</BIG></TD><TD NOWRAP><BIG>DOIT-REDLED   </BIG></TD><TD NOWRAP><BIG>will be typeless.               </BIG></TD></TR>
+<TR><TD NOWRAP><BIG>4.)</BIG></TD><TD NOWRAP><BIG>The expression</BIG></TD><TD NOWRAP><BIG>2*VARIAB4     </BIG></TD><TD NOWRAP><BIG>will be typeless.               </BIG></TD></TR>
+<TR><TD NOWRAP><BIG>5.)</BIG></TD><TD NOWRAP><BIG>The expression</BIG></TD><TD NOWRAP><BIG>PORT.RELAY    </BIG></TD><TD NOWRAP><BIG>will have the segment type BIT. </BIG></TD></TR>
+</TABLE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The segment type is checked, when expressions appear as addresses. If the
+expression result is not typeless and does not have the segment type of the
+corresponding segment, the instruction is flagged with an error message.<BR>
+The only exceptions are the segment types DATA and IDATA, which are assumed
+to be compatible in the address range of 0 to 7FH. Since <NOBR>ASEM-51</NOBR>
+does only support absolute segments, those addresses are really always
+pointing to the same physical location in the internal memory.
+</P>
+
+<P>
+<BR>
+<STRONG>Example:</STRONG>
+</P>
+</BIG>
+<P>
+<BLOCKQUOTE>
+<PRE>
+Line  I  Addr  Code            Source
+
+   1:          N        30             DSEG AT 030H     ;internal RAM
+   2:      30  N        01     COUNT:  DS 1             ;counter variable
+   3:
+   4:                                  CSEG             ;ROM
+   5:    0000  C2 30           START:  CLR COUNT
+                                                ^
+                         @@@@@ segment type mismatch @@@@@
+</PRE>
+</BLOCKQUOTE>
+</P>
+<BIG>
+<P>
+<BLOCKQUOTE>
+The CLR instruction is flagged with the error message &quot;segment type mismatch&quot;
+in the assembler list file, because only a BIT type address is allowed here.
+However, COUNT is a label with the segment type DATA!
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="pseudo.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="controls.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

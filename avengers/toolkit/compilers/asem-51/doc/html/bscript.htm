@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Shell Script Operation under Linux -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Shell Script Operation under Linux</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG>
+<BR>
+<STRONG><U>III.4 Shell Script Operation under Linux</U></STRONG>
+</BIG></P>
+
+<P><BIG>
+If serial I/O is only used for program upload, shell script operation may be
+the most convenient way of testing with the shortest turn-around cycles.
+The sample script file below, shows the principles of operating
+<NOBR>BOOT-51</NOBR> from a PC, running under Linux, with shell commands:
+</BIG></P>
+
+<P>
+<STRONG><CODE>
+&nbsp;&nbsp;#!/bin/sh<BR>
+&nbsp;&nbsp;stty 9600 sane clocal -crtscts -hupcl &lt;/dev/ttyS1 &nbsp;&nbsp;&nbsp; # until stty 1.16<BR>
+&nbsp;&nbsp;# stty -F /dev/ttyS1 9600 sane clocal -crtscts -hupcl # stty 2.0 or later<BR>
+&nbsp;&nbsp;reset51 /dev/lp0<BR>
+&nbsp;&nbsp;sleep 1<BR>
+&nbsp;&nbsp;asem $1.a51<BR>
+&nbsp;&nbsp;echo &quot;U&quot; &gt;/dev/ttyS1<BR>
+&nbsp;&nbsp;cp $1.hex /dev/ttyS1<BR>
+&nbsp;&nbsp;echo &quot;G 8000&quot; &gt;/dev/ttyS1<BR>
+</CODE></STRONG>
+</P>
+
+<P><BIG>
+In this example, serial I/O is done over serial port <EM>/dev/ttyS1</EM>,
+and the target system can be reset over printer port <EM>/dev/lp0</EM>.<BR>
+First of all, the serial port <EM>/dev/ttyS1</EM> is initialized to the desired
+baudrate of 9600 Baud, <NOBR>8 data</NOBR> bits, <NOBR>1 stop</NOBR> bit,
+no parity and no handshake with the <STRONG>stty</STRONG> command.
+(If your <STRONG>stty</STRONG> is version <NOBR>2.0</NOBR> or later, better use
+the new command syntax with the <NOBR>-F</NOBR> option, as shown in commentary!)<BR>
+Then the <STRONG>reset51</STRONG> program provided is executed to reset the target
+system via printer port <EM>/dev/lp0</EM>. After that, the <STRONG>sleep</STRONG> command
+waits until <NOBR>BOOT-51</NOBR> has recovered from reset, fully output
+its sign-on message, and is ready for a command.<BR>
+Now <NOBR>ASEM-51</NOBR> is invoked to assemble the application program.<BR>
+When finished, the <NOBR>BOOT-51</NOBR> upload command 'U' is echoed to
+<EM>/dev/ttyS1</EM>, and the Intel-HEX file is also simply copied to that
+serial port.<BR>
+Finally the application program is started at address 8000H with the
+command <NOBR>'echo &quot;G 8000&quot; &gt;/dev/ttyS1'</NOBR>.<BR>
+To test an application program <NOBR><EM>myprog.a51</EM></NOBR> with the above
+shell script (stored in a file <EM>test51</EM>), simply type
+</BIG></P>
+
+<P><BIG>
+<BLOCKQUOTE>
+<STRONG><CODE>test51 myprog</CODE></STRONG>
+</BLOCKQUOTE>
+</BIG></P>
+
+<P><BIG>
+at the shell prompt, and see what you get.<BR>
+Of course this was only a minimized example! In general you will not only
+have to modify serial port, baudrate, reset port, and start address for
+your local requirements, but also to do something for plausibility checking
+and error handling.<BR>
+For this, the more sophisticated script file <STRONG>boot</STRONG> has been provided.
+It allows an easy change of all configuration parameters with any ASCII
+editor. For further information see the commentary inside <STRONG>boot</STRONG>.<BR>
+In principle, <STRONG>boot</STRONG> contains only those configuration data!
+(The actual work is done by another script <STRONG>upload</STRONG> provided, which is
+invoked by <STRONG>boot</STRONG>. If your <STRONG>stty</STRONG> command is version 2.0 or later,
+better use the script file <STRONG>upload.new</STRONG> instead!)<BR>
+A program <NOBR><EM>myprog.a51</EM></NOBR> can now be assembled, uploaded and
+started with
+</BIG></P>
+
+<P><BIG>
+<BLOCKQUOTE>
+<STRONG><CODE>boot myprog</CODE></STRONG>
+</BLOCKQUOTE>
+</BIG></P>
+
+<P><BIG>
+To get the <STRONG>boot</STRONG> script running, ensure that you have full read/write
+access to the serial port used as upload device!<BR>
+If a printer port is employed as reset device, the <STRONG>reset51</STRONG> program
+requires root privileges! &nbsp; (see below)
+</BIG></P>
+
+<P><BIG>
+Finally, the <STRONG>reset51</STRONG> program provided, may be worth a detailed explanation:
+When invoked, <STRONG>reset51</STRONG> forms a reset pulse of the duration &lt;pulsewidth&gt;
+at the D0 and D1 outputs of a PC printer &lt;port&gt;, or at the DTR output of a
+serial &lt;port&gt;:
+</BIG></P>
+
+<P><BLOCKQUOTE><BIG><STRONG><CODE>
+reset51 /dev/&lt;port&gt; [&lt;pulsewidth&gt;]
+</CODE></STRONG></BIG></BLOCKQUOTE></P>
+
+<P>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR><TD VALIGN=TOP><BIG>Legal &lt;port&gt; values are:</BIG></TD>
+    <TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+    <TD NOWRAP><BIG>lp0, lp1, lp2,<BR>
+                         ttyS0, ttyS1, ttyS2, ttyS3,<BR>
+                         cua0, cua1, cua2, cua3,<BR>
+                         null</BIG></TD></TR>
+</TABLE>
+</P>
+
+<P><BIG>
+Under Linux with kernels <NOBR>2.0.x</NOBR> the printer ports are assigned
+to fixed I/O base addresses
+<NOBR>(lp0 = 3BCH</NOBR>, <NOBR>lp1 = 378H</NOBR>, <NOBR>lp2 = 278H)</NOBR>.<BR>
+From kernel <NOBR>2.2.0</NOBR>, the parport layer has been introduced,
+providing dynamic printer port assignment. If your <NOBR>2.2.x</NOBR> kernel
+doesn't contain parport layer support or the <EM>/proc</EM> file system, you
+should recompile it respectively. This should also make PCI bus printer ports
+available as reset devices.<BR>
+<STRONG>reset51</STRONG> can only handle the four standard PC serial ports ttyS0 thru ttyS3.
+(However, the <STRONG>boot</STRONG> script described above should also work with non-standard
+serial ports, because it operates them with the <STRONG>stty</STRONG> command only!)<BR>
+The serial ports ttyS0 and cua0 are equivalent, and so are ttyS1 and cua1,
+and so on.<BR>
+If <EM>/dev/null</EM> is specified as &lt;port&gt;, <STRONG>reset51</STRONG> delays only
+for &lt;pulsewidth&gt; ms.
+</BIG></P>
+
+<P><BIG>
+The optional parameter &lt;pulsewidth&gt; is the duration of the reset pulse in ms.<BR>
+Legal values are: &nbsp;&nbsp;
+1 &nbsp; &lt;= &nbsp; &lt;pulsewidth&gt; &nbsp; &lt;= &nbsp; 65535.
+&nbsp;&nbsp; (default is 50)<BR>
+When invoked without parameters, a help screen is displayed.<BR>
+In case of error, <STRONG>reset51</STRONG> returns the exit code 1, 0 otherwise.<BR>
+When executed, <STRONG>reset51</STRONG> forms a positive pulse at D0 <NOBR>(pin 2)</NOBR>,
+and a negative pulse at D1 <NOBR>(pin 3)</NOBR> of a PC printer port, or a
+&quot;high&quot; pulse <NOBR>(-12 V !!!)</NOBR> at the DTR output of a serial
+port respectively.<BR>
+If the default pulse width of <NOBR>50 ms</NOBR> is too short to reset the
+<NOBR>MCS-51</NOBR> board, specify a greater pulse width.
+</BIG></P>
+
+<P><BIG>
+Since <STRONG>reset51</STRONG> needs direct access to I/O ports, it requires root privileges!
+To make it available for all users, set the owner to &quot;root&quot; and set the
+<NOBR>&quot;set-user-id&quot;-bit</NOBR>:
+</BIG></P>
+
+<P><BIG>
+<BLOCKQUOTE>
+<STRONG><CODE>
+chown root reset51<BR>
+chmod u+s reset51
+</CODE></STRONG>
+</BLOCKQUOTE>
+</BIG></P>
+
+<P><BIG>
+For shell script operation, a reset line is highly recommended! If you don't
+have it, you will always have to press the reset button of the target system,
+before invoking the <STRONG>boot</STRONG> script. Since this may easily be forgotten,
+it is better to automate this step.
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boperat.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="butils.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bblink.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

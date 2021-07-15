@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Tailoring the Cables -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Tailoring the Cables</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>II.3 Tailoring the Cables</U></STRONG>
+</P>
+
+<P>
+Application programs are uploaded to the target system over a serial
+interface. The serial ports of the PC may have <NOBR>9-pin</NOBR> or
+<NOBR>25-pin</NOBR> male <NOBR>D-Shell</NOBR> connectors. Suitable
+<NOBR>RS-232</NOBR> cables for the <NOBR>MCS-51</NOBR> board can be
+tailored as follows:
+</P>
+
+</BIG>
+
+<P>
+<CENTER>
+<IMG SRC="cable25s.gif" ALT="RS-232 cable with 25-pin female D-Shell connector" WIDTH=460 HEIGHT=230>
+<BR>RS-232 cable with 25-pin female D-Shell connector
+</CENTER>
+</P>
+
+<BR>
+<BIG>
+
+<P>
+Shortening the modem control signals is absolutely required for batch
+operation under <NOBR>MS-DOS</NOBR>! If the CTS-, DSR-, or DCD-input is not
+set to logic low <NOBR>(+12V)</NOBR>, the PC will hang during character
+output to the serial port.<BR>
+For shell script operation under Linux, only the Tx-, Rx-, and ground
+lines are required, and the handshake inputs may be left open.
+The same is true for interactive operation with most terminal emulation
+programs. (For further information refer to the documentation of your
+terminal emulation program.)<BR>
+If there is a spare <NOBR>RS-232</NOBR> line receiver on your
+<NOBR>MCS-51</NOBR> board, it can be employed as a reset input! In this
+case, the target system can be reset in batch (or script) files with the
+<STRONG>reset</STRONG> program provided, and from terminal emulation programs
+(by dropping the DTR output with the <NOBR>hang-up</NOBR> function).
+</P>
+
+</BIG>
+
+<P>
+<CENTER>
+<IMG SRC="cable9s.gif" ALT="RS-232 cable with 9-pin female D-Shell connector" WIDTH=460 HEIGHT=230>
+<BR>RS-232 cable with 9-pin female D-Shell connector
+</CENTER>
+</P>
+
+<BR>
+<BIG>
+
+<P>
+If you own a <NOBR>9/25-pin</NOBR> mouse adaptor with all pins connected,
+the <NOBR>9-pin</NOBR> version of the cable should be preferred!<BR>
+If your <NOBR>MCS-51</NOBR> board has no spare <NOBR>RS-232</NOBR> line
+receivers, but a TTL reset input (or you can establish one), the target
+system can also be reset in batch (or script) files over a printer port of
+the PC. For this, a suitable reset cable must be tailored as shown below:
+</P>
+
+</BIG>
+
+<P>
+<CENTER>
+<IMG SRC="cable25p.gif" ALT="Reset cable with 25-pin male D-Shell connector" WIDTH=460 HEIGHT=120>
+<BR>Reset cable with 25-pin male D-Shell connector
+</CENTER>
+</P>
+
+<BR>
+<BIG>
+
+<P>
+In practice, only one of the two reset lines will be required.
+When the <STRONG>reset</STRONG> program is invoked, a positive reset pulse appears
+at D0 (8031, 8032), and a negative pulse at D1 (80C535, 80C537).
+For detailed information on the <STRONG>reset</STRONG> program, refer to chapters
+<NOBR><A HREF="bbatch.htm">III.2 Batch File Operation under MS-DOS</A></NOBR>, and
+<NOBR><A HREF="bscript.htm">III.4 Shell Script Operation under Linux</A></NOBR>.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="binstall.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bcustom.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bdesign.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

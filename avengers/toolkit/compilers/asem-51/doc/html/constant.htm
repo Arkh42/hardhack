@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Constants -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Constants</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.3 Constants</U></STRONG>
+</P>
+
+<P>
+Numeric constants consist of a sequence of digits, followed by a radix
+specifier. The first character must always be a decimal digit.
+The legal digits and radix specifiers are:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH>constant</TH><TH>digits </TH><TH>radix    </TH></TR>
+<TR><TD>binary  </TD><TD NOWRAP>0 ... 1</TD><TD NOWRAP>B        </TD></TR>
+<TR><TD>octal   </TD><TD NOWRAP>0 ... 7</TD><TD NOWRAP>Q or O   </TD></TR>
+<TR><TD>decimal </TD><TD NOWRAP>0 ... 9</TD><TD NOWRAP>D or none</TD></TR>
+<TR><TD>hex     </TD><TD NOWRAP>0 ... F</TD><TD NOWRAP>H        </TD></TR>
+</TABLE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Thus, for example, the following constants are equivalent:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+1111111B      binary
+    177Q      octal
+    177o      octal
+     127      decimal
+    127d      decimal
+    07FH      hex
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Character constants may be used wherever a numeric value is allowed.
+A character constant consists of one or two printing characters enclosed
+in single or double quotes. The quote character itself can be represented
+by two subsequent quotes. For example:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+ 'X'       8 bit constant:       58H
+&quot;a@&quot;      16 bit constant:     6140H
+''''       8 bit constant:       27H
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+In DB statements, character constants may have any length.
+In this case, we call it a character string. For example:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+'This is only text!'
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="symbols.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="express.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

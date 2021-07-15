@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- DOS Environment -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>DOS Environment</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.1.4 DOS Environment</U></STRONG>
+</P>
+
+<P>
+To specify a search path for include files, an optional environment variable
+ASEM51INC can be defined:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+        SET ASEM51INC=&lt;path&gt;
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+&lt;path&gt; may be any number of directories separated by ';' characters.
+Be sure that the whole definition doesn't contain any blanks or tabs!
+If ASEM51INC is defined, the assembler searches the specified &lt;path&gt; for
+include files that can neither be found in the working directory, nor in
+the search path specified with the /INCLUDES option.
+The &lt;path&gt; directories will be searched from left to right.
+</P>
+
+<P>
+<BR>
+<STRONG>Examples:</STRONG>
+<BLOCKQUOTE>
+<STRONG><PRE>
+1.)    SET ASEM51INC=C:\ASEM51\MCU;D:\MICROS\MCS51\INCL
+</PRE></STRONG>
+<BLOCKQUOTE>
+If include files can neither be found in the working directory,
+nor in the /INCLUDES path (if specified), the assembler searches
+next C:\ASEM51\MCU and finally D:\MICROS\MCS51\INCL.
+</BLOCKQUOTE>
+<STRONG><PRE>
+2.)    SET ASEM51INC=C:\ASEM51\MCU;%PATH%
+</PRE></STRONG>
+<BLOCKQUOTE>
+If ASEM51INC is defined as above in AUTOEXEC.BAT after the PATH
+statement, the assembler finally searches the directory C:\ASEM51\MCU
+and then all the directories, contained in the DOS program search
+path, from left to right!
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The maximum length of &lt;path&gt; is limited to 255 characters. This cannot be
+exceeded with the SET command of the DOS command interpreter COMMAND.COM,
+but with third party command interpreters like 4DOS (max. 512 characters)!
+</P>
+
+<P>
+Note that trailing blanks and tabs behind the names of environment variables
+seem to be considered significant under <NOBR>MS-DOS</NOBR>!
+If one subsequently defines
+<STRONG><PRE>
+             SET ASEM51INC =C:\ASEM51\MCU
+and          SET ASEM51INC=C:\8051\MCU
+</PRE></STRONG>
+there will be two (!) entries concurrently in the DOS environment! However,
+the assembler will recognize the second one only. Since DOS doesn't truncate
+trailing blanks and tabs from variable names, the assembler can't do this
+either! That is why you should be sure, to always define the environment
+variable without blanks and tabs.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="doswin.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="doscmd.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="borland.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

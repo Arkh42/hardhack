@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Installation under MS-DOS or Windows -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Installation under MS-DOS or Windows</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.1.2 Installation under <NOBR>MS-DOS</NOBR> or Windows</U></STRONG>
+</P>
+
+<P>
+In principle <NOBR>ASEM-51</NOBR> doesn't require a fuzzy software installation or
+configuration. In the simplest case you can copy all files of the package
+to your working directory, and enjoy the benefits of true plug-and-play
+compatibility!<BR>
+On the other hand, an installation of <NOBR>ASEM-51</NOBR> under <NOBR>MS-DOS</NOBR> is very simple:
+</P>
+
+<P>
+<UL TYPE=DISC>
+<LI>Create a new, empty scratch directory on your harddisk.<BR>&nbsp;</LI>
+<LI>Unpack your <NOBR>ASEM-51</NOBR> distribution archive into this directory,
+    or copy all files of the <NOBR>ASEM-51</NOBR> package into it.<BR>&nbsp;</LI>
+<LI>Make the scratch directory default, run the batch file
+    INSTALL.BAT provided, and follow the instructions.</LI>
+</UL>
+</P>
+
+<P>
+If you don't like anything that is running automatically, or things are not
+quite clear, <NOBR>ASEM-51</NOBR> can also be installed manually as follows:
+</P>
+
+<P>
+<UL TYPE=DISC>
+<LI>Create a new directory on your harddisk, e.g. C:\ASEM51.<BR>&nbsp;</LI>
+<LI>Copy all files of the <NOBR>ASEM-51</NOBR> package into this directory.<BR>&nbsp;</LI>
+<LI>Append it to your PATH statement in file AUTOEXEC.BAT, e.g.<BR><BR>
+    <NOBR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>PATH&nbsp;C:\DOS;C:\UTIL;C:\ASEM51</CODE></NOBR><BR>&nbsp;</LI>
+<LI>If this has not already been done while unpacking the distribution
+    archive, create a subdirectory, e.g. C:\ASEM51\MCU, and move all
+    the *.MCU files provided to this subdirectory, for better survey.<BR>&nbsp;</LI>
+<LI>Create another subdirectory, e.g. C:\ASEM51\HTML, and move all
+    the *.HTM, *.GIF and *.JPG files to this subdirectory, respectively.
+    (To read that HTML manual, invoke your web browser and start with
+     file C:\ASEM51\HTML\DOCS.HTM!)<BR>&nbsp;</LI>
+<LI>Optionally define a DOS environment variable ASEM51INC in
+    AUTOEXEC.BAT, to specify a search path for include files, e.g.<BR><BR>
+    <NOBR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>SET&nbsp;ASEM51INC=C:\ASEM51\MCU;D:\MICROS\MCS51\INCL</CODE></NOBR><BR>&nbsp;</LI>
+<LI>For a proper operation of the Borland 16-bit DPMI server on computers
+    with more than 16 MB RAM, be sure that EMM386.EXE (included in DOS&nbsp;5.0
+    or later) is loaded, and define the environment variable DPMIMEM in
+    AUTOEXEC.BAT as follows:<BR><BR>
+    <NOBR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>SET&nbsp;DPMIMEM=MAXMEM&nbsp;16383</CODE></NOBR><BR>&nbsp;</LI>
+<LI>Reboot your PC.</LI>
+</UL>
+</P>
+
+<P>
+The installation batch file <NOBR>INSTALL.BAT</NOBR> should work properly on
+<NOBR>MS-DOS</NOBR>, Windows <NOBR>3.1x</NOBR>, and Windows 9x systems.
+It has not yet been tested on other Windows versions.
+Especially for the NT-based Windows versions <NOBR>NT 4.0</NOBR>, 2000 and XP,
+a manual installation is recommended.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="doswin.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="files.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="doscmd.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

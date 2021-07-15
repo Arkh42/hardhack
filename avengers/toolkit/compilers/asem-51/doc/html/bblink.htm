@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- The BLINK Program -->
+
+<HTML>
+
+<HEAD>
+<TITLE>The BLINK Program</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.5 The BLINK Program</U></STRONG>
+</P>
+
+<P>
+When <NOBR>BOOT-51</NOBR> is customized and blown into an EPROM, and the
+target board is connected to the host PC, it would be nice to verify,
+whether the whole configuration is working together correctly.
+This can be done with a short test program that performs a well-defined
+action when started. For this purpose the tiny assembly program
+<EM>blink.a51</EM> has been provided.
+It simply toggles the logic level of a port pin (roughly) once a second
+(great if connected to a LED) to verify, whether all the components in
+the chain
+</P>
+
+<P>
+<CENTER><STRONG>
+assembly <NOBR>&nbsp;--&raquo;&nbsp;</NOBR> <NOBR>serial interface</NOBR>
+<NOBR>&nbsp;--&raquo;&nbsp;</NOBR> <NOBR>target system</NOBR>
+<NOBR>&nbsp;&laquo;--&raquo;&nbsp;</NOBR> <NOBR>bootstrap program</NOBR>
+</STRONG></CENTER>
+</P>
+
+<P>
+are working together correctly.<BR>
+It can be adapted to your requirements with little efforts:
+</P>
+
+<P>
+<OL TYPE=1>
+<LI>If your target system carries a LED that can be switched with a
+    bit-addressable port pin, please change the BIT symbol <STRONG>LEDPIN</STRONG>
+    accordingly. Then the program will make the LED blink.<BR>
+    &nbsp;<BR>
+    If your LED can only be switched with a non-bit-addressable
+    port pin (say bit 2 of a port <STRONG>P6</STRONG>), simply replace the
+    <NOBR>statement &nbsp;</NOBR>
+    <NOBR><CODE>CPL LEDPIN&nbsp;</CODE></NOBR>
+    <NOBR>by &nbsp;</NOBR>
+    <NOBR><CODE>XRL P6,#00000100B&nbsp;</CODE></NOBR>
+    or something like that.<BR>
+    &nbsp;</LI>
+<LI>Change the program start address <STRONG>START</STRONG> to the location, where
+    user programs are usually loaded on your target system.<BR>
+    The program code itself is position-independent!</LI>
+</OL>
+</P>
+
+<P>
+If there is no LED on your target system, connect the port pin to
+a volt-meter. This may also do. Aside of <STRONG>P0</STRONG> and <STRONG>P2</STRONG> you
+may use every port with LEDs or spare outputs. Now the command
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+boot blink
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+should reset the <NOBR>MCS-51</NOBR> board, assemble the test program,
+upload it to the target system, and finally start it.<BR>
+<IMG SRC="redbled.gif" ALIGN=LEFT HSPACE=8 VSPACE=4 ALT="red LED" WIDTH=28 HEIGHT=28>
+If the LED is blinking, everything is now perfectly installed and ready
+for daily work. If not, you should read the next chapter!
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boperat.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bscript.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="btrouble.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

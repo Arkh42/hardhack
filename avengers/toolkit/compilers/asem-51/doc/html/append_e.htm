@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Appendix E -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Appendix E</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>Appendix E</U></STRONG>
+</P>
+
+<P>
+<STRONG>Specification of the <NOBR>Intel-HEX</NOBR> Format</STRONG>
+</P>
+
+<P>
+This object file format is supported by many cross assemblers, utilities,
+and most EPROM programmers.<BR>
+An <NOBR>Intel-HEX</NOBR> file is a <NOBR>7-bit</NOBR> ASCII text file,
+that contains a sequence of data records and an end record. Every record
+is a line of text that starts with a colon and ends with CR and LF.<BR>
+Data records contain up to 16 data bytes, a <NOBR>16-bit</NOBR> load
+address, a record type byte and an <NOBR>8-bit</NOBR> checksum. All
+numbers are represented by upper case <NOBR>ASCII-hex</NOBR> characters.
+</P>
+
+<P>
+<BLOCKQUOTE>
+DATA RECORD:
+</BLOCKQUOTE>
+<PRE>
+    Byte 1               colon (:)
+         2 and 3         number of binary data bytes for this record
+         4 and 5         load address for this record, high byte
+         6 and 7         load address  &quot;    &quot;     &quot;     low byte
+         8 and 9         record type: 00  (data record)
+        10 to  x         data bytes, two characters each
+       x+1 to  x+2       checksum (two characters)
+       x+3 to  x+4       CR and LF
+</PRE>
+<BLOCKQUOTE>
+A typical data record looks like
+</BLOCKQUOTE>
+<PRE>
+                      :10E0000002E003E4F588758910F58DF58BD28E302A
+</PRE>
+</P>
+
+<P>
+The end record is the last line of the file.<BR>
+In principle it is structured like a data record, but the number of data
+bytes is 00, the record type is 01 and the load-address field is 0000.
+</P>
+
+<P>
+<BLOCKQUOTE>
+END RECORD:
+</BLOCKQUOTE>
+<PRE>
+    Byte 1               colon (:)
+         2 and 3         00   (number of data bytes)
+         4 and 5         00   (load address, high byte)
+         6 and 7         00   (load address, low byte)
+         8 and 9         record type: 01  (end record)
+        10 and 11        checksum (two characters)
+        12 and 13        CR and LF
+</PRE>
+<BLOCKQUOTE>
+The typical END record looks like
+</BLOCKQUOTE>
+<PRE>
+                      :00000001FF
+</PRE>
+</P>
+
+<P>
+The checksum is the two's complement of the <NOBR>8-bit</NOBR> sum, without
+carry, of the byte count, the two load address bytes, the record type byte
+and all data bytes.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_d.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_f.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

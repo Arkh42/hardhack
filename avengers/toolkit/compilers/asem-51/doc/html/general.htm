@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- General Controls -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>General Controls</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.8.2 General Controls</U></STRONG>
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TD>$COND</TD>
+    <TD>List full IFxx .. ELSEIFxx .. ELSE .. ENDIF constructions.
+        (Default!)<BR>
+        The Control is overridden by $NOLIST.</TD>
+</TR>
+<TR><TD>$NOCOND</TD>
+    <TD>Don't list lines in false IFxx .. ELSEIFxx .. ELSE .. ENDIF
+        branches.<BR>
+        The Control is overridden by $NOLIST.</TD>
+</TR>
+<TR><TD>$CONDONLY</TD>
+    <TD>List lines in true IFxx .. ELSEIFxx .. ELSE .. ENDIF
+        branches only, without the IFxx, ELSEIFxx, ELSE and ENDIF
+        statements itself.<BR>
+        The Control is overridden by $NOLIST.</TD>
+</TR>
+<TR><TD>$EJECT</TD>
+    <TD>Starts a new page in the list file.<BR>
+        The control has no effect, when the $NOPAGING control has
+        been specified.</TD>
+</TR>
+<TR><TD NOWRAP>$ERROR (string)</TD>
+    <TD>Forces an assembly error with a user-defined error message.
+        This is intended to support configuration management and
+        can be applied sensefully with conditional assembly only.</TD>
+</TR>
+<TR><TD NOWRAP>$WARNING (string)</TD>
+    <TD>Outputs a user-defined warning message to the console, and
+        increments the warning count. This is also intended to ease
+        configuration management.</TD>
+</TR>
+<TR><TD>$GEN</TD>
+    <TD>List macro calls and expanded macros. (Default!)<BR>
+        The listing fully shows the nesting of macro calls.<BR>
+        The Control is overridden by $NOLIST.</TD>
+</TR>
+<TR><TD>$NOGEN</TD>
+    <TD>List macro calls only. The expanded macros are not listed.<BR>
+        The Control is overridden by $NOLIST.</TD>
+</TR>
+<TR><TD>$GENONLY</TD>
+    <TD>List the expanded macro bodies only. Macro calls and EXITM
+        statements are not listed.<BR>
+        The Control is overridden by $NOLIST.</TD>
+</TR>
+<TR><TD NOWRAP>$INCLUDE (file)</TD>
+    <TD>Includes an external source file into the assembler program
+        just behind the $INCLUDE statement. If the include file has
+        not been specified with an absolute path, and it cannot be
+        found in the default directory, the path specified with the
+        /INCLUDES (Linux: -i) command line option (if present) is
+        searched from left to right, and if it cannot be found there
+        either, the path specified with the environment variable
+        ASEM51INC (if defined) is searched from left to right as well.<BR>
+        Include files may be nested to any depth.</TD>
+</TR>
+<TR><TD>$LIST</TD>
+    <TD>List source code lines. (Default!)</TD>
+</TR>
+<TR><TD>$NOLIST</TD>
+    <TD>Do not list source code lines, provided they do not contain
+        errors, until the next $LIST statement occurs.</TD>
+</TR>
+<TR><TD>$SAVE</TD>
+    <TD>Saves the current $LIST/$GEN/$COND state on a $SAVE-stack.<BR>
+        $SAVE statements can be nested to any depth.</TD>
+</TR>
+<TR><TD>$RESTORE</TD>
+    <TD>Restores a previously saved $LIST/$GEN/$COND state.</TD>
+</TR>
+<TR><TD NOWRAP>$TITLE (string)</TD>
+    <TD>Inserts a title string into the list file page header.
+        Titles may be truncated according to the specified (or
+        default) page width.<BR>
+        Default: <NOBR>ASEM-51</NOBR> copyright information.<BR>
+        The control has no effect, when the $NOPAGING control has
+        been specified.</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>
+<BR>
+<STRONG>Examples:</STRONG>
+<PRE>
+  $NOLIST                ;switch off listing
+  $INCLUDE (8052.MCU)    ;include 8052 SFR symbol definition file
+  $LIST                  ;switch on listing
+  $TITLE (Computer-Controlled Combustion Unit for Motorcycles)
+  $EJ                    ;new page with new title
+  $ERROR(invalid configuration: buffer size &gt; external RAM size)
+  $WARNING(int. RAM doesn't meet minimum stack size requirements)
+  $SAVE GENONLY CONDONLY ;save old $LIST/$GEN/$COND status, and list
+                         ;only source lines that are really assembled
+  $RESTORE               ;restore previous listing mode
+</PRE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="controls.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="primary.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="predef.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

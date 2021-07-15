@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Premature End of a Macro Expansion -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Premature End of a Macro Expansion</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.6 Premature End of a Macro Expansion</U></STRONG>
+</P>
+
+<P>
+Sometimes it is useful, if a macro expansion can be terminated, before
+the end of the macro body is reached. This can be forced with the EXITM
+(exit macro) instruction. However, this makes sense in conjunction with
+conditional assembly only.
+</P>
+
+<P>
+<BR>
+<STRONG>Example:</STRONG>
+<BLOCKQUOTE>
+<PRE>
+        FLEXIBLE MACRO QUANTITY
+        DB 'Text'
+        IF QUANTITY LE 255
+        EXITM
+        ENDIF
+        DW QUANTITY
+        ENDM
+</PRE>
+The macro FLEXIBLE always has to insert the string 'Text'
+into the CODE space. After that, it should insert a 16-bit
+constant only, if the numerical value of the parameter
+QUANTITY is greater than 255.<BR>
+Otherwise the macro expansion should be terminated with
+EXITM before. If the macro is called as follows,
+<PRE>
+        FLEXIBLE 42
+</PRE>
+it will be expanded to
+<PRE>
+        DB 'Text'
+</PRE>
+in list mode $GENONLY/$CONDONLY.<BR>
+However, if it is called like this,
+<PRE>
+        FLEXIBLE 4711
+</PRE>
+it will be expanded to:
+<PRE>
+        DB 'Text'
+        DW 4711
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+When a macro expansion is terminated with EXITM, all IFxx constructions that
+have been opened within the macro body so far, are closed.<BR>
+Of course macro bodies may also contain control statements. If an include
+file is inserted into a macro body with a $INCLUDE control, and this include
+file, or a nested include file, contains an EXITM instruction, all include
+file levels up to the next macro level are closed at this point, and the
+expansion of that macro is terminated immediately.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="operator.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="nestcall.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

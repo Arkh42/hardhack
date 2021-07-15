@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Repeat Macros -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Repeat Macros</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.3 Repeat Macros</U></STRONG>
+</P>
+
+<P>
+Repeat macros don't have a macro name, and therefore cannot be called
+multiple times. They are always expanded immediately after their definition.
+During expansion, their macro body is repeated n times (0 &lt;= n &lt;= 65535).
+Repeat macros start with the keyword REPT, followed by an expression, which
+must be known on <NOBR>pass 1</NOBR>. In analogy to callable macros, there is a macro
+body, which must be terminated with an ENDM instruction:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+REPT &lt;expression&gt;
+&lt;body line 1&gt;
+&lt;body line 2&gt;
+    .
+    .
+&lt;body line m&gt;
+ENDM
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The expression value specifies how many times the macro body is to be
+repeated. Since repeat macros start with the keyword REPT, they are
+sometimes also called &quot;REPT blocks&quot;.
+</P>
+
+<P>
+<BR>
+<STRONG>Example:</STRONG>
+<BLOCKQUOTE>
+<PRE>
+        REPT 5
+        NOP
+        ENDM
+</PRE>
+This REPT block will expand to five NOP instructions
+immediately after its definition:
+<PRE>
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="params.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="local.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

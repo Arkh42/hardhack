@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Nested and Recursive Macro Calls -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Nested and Recursive Macro Calls</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.7 Nested and Recursive Macro Calls</U></STRONG>
+</P>
+
+<P>
+Macro bodies may also contain macro calls, and so may the bodies of those
+called macros, and so forth.<BR>
+If a macro call is seen throughout the expansion of a macro, the assembler
+starts immediately with the expansion of the called macro. For this, its
+its expanded body lines are simply inserted into the expanded macro body of
+the calling macro, until the called macro is completely expanded. Then the
+expansion of the calling macro is continued with the body line following
+the nested macro call.
+</P>
+
+<P>
+<BR>
+<STRONG>Example 1:</STRONG>
+<PRE>
+        INSIDE MACRO
+        SUBB A,R3
+        ENDM
+
+        OUTSIDE MACRO
+        MOV A,#42
+        INSIDE
+        MOV R7,A
+        ENDM
+</PRE>
+<BLOCKQUOTE>
+In the body of the macro OUTSIDE, the macro ISIDE is called.
+If OUTSIDE is called (and the list mode is set to $GENONLY),
+one gets something like the following expansion:
+</BLOCKQUOTE>
+<PRE>
+        Line  I  Addr  Code            Source
+
+          15+ 1  0000  74 2A           MOV A,#42
+          17+ 2  0002  9B              SUBB A,R3
+          18+ 1  0003  FF              MOV R7,A
+</PRE>
+</P>
+
+<P>
+Since macro calls can be nested to any depth (while there is free memory),
+the macro expansion level is shown in the I-column of the list file.
+Since macro and include file levels can be nested in arbitrary sequence and
+depth, the nesting level is counted through all macro and include file
+levels regardless. For better distinction, the character following the
+global line number is ':' for include file levels, and '+' for macro levels.
+</P>
+
+<P>
+If macros are calling themselves, one speaks of recursive macro calls.
+In this case, there must be some stop criterion, to prevent the macro of
+calling itself over and over until the assembler is running out of memory!
+Here again, conditional assembly is the solution:
+</P>
+
+<P>
+<BR>
+<STRONG>Example 2:</STRONG>
+<BLOCKQUOTE>
+The macro COUNTDOWN is to define 16-bit constants from
+1 thru n in descending order in ROM. n can be passed to
+the macro as a parameter:
+</BLOCKQUOTE>
+<PRE>
+        COUNTDOWN MACRO DEPTH
+        IF DEPTH GT 0
+        DW DEPTH
+        COUNTDOWN %DEPTH-1
+        ENDIF
+        ENDM
+</PRE>
+<BLOCKQUOTE>
+If COUNTDOWN is called like this,
+</BLOCKQUOTE>
+<PRE>
+        COUNTDOWN 7
+</PRE>
+<BLOCKQUOTE>
+something like the following macro expansion results
+(in list mode $GENONLY/$CONDONLY):
+</BLOCKQUOTE>
+<PRE>
+        Line  I  Addr  Code            Source
+
+          16+ 1  0000  00 07           DW 7
+          19+ 2  0002  00 06           DW 6
+          22+ 3  0004  00 05           DW 5
+          25+ 4  0006  00 04           DW 4
+          28+ 5  0008  00 03           DW 3
+          31+ 6  000A  00 02           DW 2
+          34+ 7  000C  00 01           DW 1
+</PRE>
+</P>
+
+<P>
+After the Dark Ages, when the dust was settling and the sun broke through
+the gloom, computer science discovered the method of recursive programming.
+There was no doubt that this was the <EM>Solution</EM>!<BR>
+And the computer scientists started to explain this to the students.
+But it seemed that the students didn't get it. They always complained
+that recursive calculation of n! is a silly example indeed.<BR>
+All the scientists felt stronly that there was still something missing.
+After 10 more years of hard research work, they also found the <EM>Problem</EM>:
+</P>
+
+<P>
+<BR>
+<STRONG>Example 3:</STRONG>
+<BLOCKQUOTE>
+<STRONG>The Towers of Hanoi</STRONG><BR>
+<BR>
+There are three vertical sticks on the table. On stick 1
+there are n discs with different diameters and a hole in
+the middle, the smallest disc on top, the biggest on the bottom.<BR>
+<BR>
+<CENTER>
+<IMG SRC="hanoi.gif" ALT="The Towers of Hanoi" WIDTH=432 HEIGHT=163>
+</CENTER>
+<BR>
+The <EM>Problem</EM> is to transfer the tower of discs from stick 1
+to stick 2 with a minimum of moves. But only the topmost
+disc on a tower may be moved at one time, and no disc may
+be layed on a smaller disc. Stick 3 may be used for scratch
+purposes. This is a <EM>Solution</EM> with <NOBR>ASEM-51</NOBR> macros:
+</BLOCKQUOTE>
+<PRE>
+       ;The Towers of Hanoi
+
+       $GENONLY CONDONLY
+
+       DISCS EQU 3     ;number of discs
+
+       HANOI MACRO n, SOURCE, DESTINATION, SCRATCH
+         IF n &gt; 0
+           HANOI %(n-1), SOURCE, SCRATCH, DESTINATION
+       ;   move topmost disc from stick &amp;SOURCE to stick &amp;DESTINATION
+           HANOI %(n-1), SCRATCH, DESTINATION, SOURCE
+         ENDIF
+       ENDM
+
+       HANOI DISCS, 1, 2, 3
+
+       END
+</PRE>
+<BLOCKQUOTE>
+The recursive macro HANOI generates an instruction manual
+for the <EM>Problem</EM>, where the instructions appear as comment
+lines in the list file. The symbol DISCS must be set to
+the desired number of discs. If HANOI is called like this,
+</BLOCKQUOTE>
+<PRE>
+       HANOI 3, 1, 2, 3
+</PRE>
+<BLOCKQUOTE>
+the following &quot;instruction manual&quot; is generated:
+</BLOCKQUOTE>
+<PRE>
+       27+ 3       ;   move topmost disc from stick 1 to stick 2
+       35+ 2       ;   move topmost disc from stick 1 to stick 3
+       44+ 3       ;   move topmost disc from stick 2 to stick 3
+       53+ 1       ;   move topmost disc from stick 1 to stick 2
+       64+ 3       ;   move topmost disc from stick 3 to stick 1
+       72+ 2       ;   move topmost disc from stick 3 to stick 2
+       81+ 3       ;   move topmost disc from stick 1 to stick 2
+</PRE>
+<BLOCKQUOTE>
+The GENONLY and CONDONLY controls ensure that the table
+doesn't contain all the macro calls and IF constructions.<BR>
+<BR>
+<STRONG>Exercise 1:</STRONG>
+<BLOCKQUOTE>
+Modify the macro HANOI so that it is generating a move
+table in ROM, which could directly be used as an input
+for an 8051-controlled robot-arm that really plays the
+game with 3 real sticks and n real discs.
+</BLOCKQUOTE>
+<STRONG>Exercise 2:</STRONG>
+<BLOCKQUOTE>
+Prove that the minimum number of moves is 2<SMALL><SUP>n</SUP></SMALL> - 1.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<IMG SRC="smile.gif" ALT="(smile)" WIDTH=15 HEIGHT=15>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="exitm.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="nestdefs.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

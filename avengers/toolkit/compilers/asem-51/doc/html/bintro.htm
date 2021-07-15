@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- BOOT-51 Introduction -->
+
+<HTML>
+
+<HEAD>
+<TITLE>BOOT-51 Introduction</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG>
+<BR>
+<STRONG><U>I. Introduction</U></STRONG>
+</BIG></P>
+
+<P><BIG>
+Usually an 8051 application program is not running correctly from scratch,
+and it is not quite easy to debug it without a suitable test equipment.
+It is very inconvenient, to burn the program into an EPROM after every
+change. Instead it would be nice to load the program into the external
+RAM of the target board and then start it. This would dramatically speed
+up the turn-around cycles. However, three problems must be solved first:
+</BIG></P>
+
+<P><BIG>
+<OL TYPE=1>
+<LI>There must be a suitable interface to transmit the application
+    program from the host (PC) to the target (8051) system.<BR>
+    &nbsp;</LI>
+<LI>The target board needs a suitable firmware that can receive a program
+    from the host computer, store it in the external RAM, and finally
+    execute it.<BR>
+    &nbsp;</LI>
+<LI>Once loaded, the application program must be executable, although
+    it is stored in the external RAM, which is usually mapped into the
+    XDATA address space.<BR>
+    (Programs can only be executed in the CODE address space!)</LI>
+</OL>
+</BIG></P>
+
+<P><BIG>The corresponding three solutions are:</BIG></P>
+
+<P><BIG>
+<OL TYPE=1>
+<LI>an <NOBR>RS-232</NOBR> interface between the PC and the 8051 board</LI>
+<LI>a bootstrap program</LI>
+<LI>external RAM that is mapped into both the CODE and XDATA address space</LI>
+</OL>
+</BIG></P>
+
+<P><BIG>
+Nearly all evaluation boards for 8051 derivatives are meeting requirements
+1 and 3. In most cases, it is easy to establish a memory map according to
+requirement 3, even on target boards that do not originally support it.<BR>
+(See chapter <A HREF="bdesign.htm">II.4 Design of <NOBR>MCS-51</NOBR> Evaluation Boards</A>.)
+</BIG></P>
+
+<P><BIG>
+Requirement 2 can be met by burning a customized version of
+<NOBR>BOOT-51</NOBR> into the EPROM of the target board. After system reset,
+it can receive an Intel-HEX file over the serial interface, store it in the
+external RAM, and finally jump to the program start address.
+</BIG></P>
+
+<P><BIG>
+<NOBR>BOOT-51</NOBR> itself doesn't need any external RAM, and requires only
+1 kB of EPROM. In principle, it is not restricted to a PC-based host system,
+but presently only the host platforms <NOBR>MS-DOS</NOBR>, <NOBR>Windows 9x</NOBR>,
+and Linux (i386) are supported.
+</BIG></P>
+
+<P><BIG>
+Sure, a bootstrap program cannot replace a target debugger, but it's a start.
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boot51.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="boot51.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="binstall.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

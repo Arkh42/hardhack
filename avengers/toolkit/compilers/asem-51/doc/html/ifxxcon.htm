@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- IFxx and ELSEIFxx Instructions -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>IFxx and ELSEIFxx Instructions</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.10.2 IFxx and ELSEIFxx Instructions</U></STRONG>
+</P>
+<P>
+The particular IFxx instructions are working as follows:
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TD NOWRAP>IF &lt;expr&gt;</TD>
+    <TD>The IF condition is TRUE, if the expression &lt;expr&gt; is not equal to 0.<BR>
+        The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!</TD>
+</TR>
+<TR><TD NOWRAP>IFN &lt;expr&gt;</TD>
+    <TD>The IFN condition is TRUE, if the expression &lt;expr&gt; is equal to 0.<BR>
+        The value of &lt;expr&gt; must be known on <NOBR>pass 1</NOBR>!</TD>
+</TR>
+<TR><TD NOWRAP>IFDEF &lt;symbol&gt;</TD>
+    <TD>The IFDEF condition is TRUE, if the &lt;symbol&gt; is defined in the program.<BR>
+        Forward references to &lt;symbol&gt; are not allowed!</TD>
+</TR>
+<TR><TD NOWRAP>IFNDEF &lt;symbol&gt;</TD>
+    <TD>The IFNDEF condition is TRUE, if the &lt;symbol&gt; is not defined in the program.<BR>
+        Forward references to &lt;symbol&gt; are not allowed!</TD>
+</TR>
+<TR><TD NOWRAP>IFB &lt;literal&gt;</TD>
+    <TD>The IFB (if blank) condition is TRUE, if the &lt;literal&gt; is empty.<BR>
+        &lt;literal&gt; is a string, enclosed in angle brackets.</TD>
+</TR>
+<TR><TD NOWRAP>IFNB &lt;literal&gt;</TD>
+    <TD>The IFNB (if not blank) condition is TRUE, if the &lt;literal&gt; is not empty.<BR>
+        &lt;literal&gt; is a string, enclosed in angle brackets.</TD>
+</TR>
+<TR><TD NOWRAP>&nbsp;</TD>
+    <TD>Although the IFB and IFNB statements are valid also outside of
+        macros, they can be applied sensefully in macro bodies only.
+        Usually they are used to decide, whether macro arguments have
+        been left blank, or not.</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>
+The corresponding ELSEIFxx instructions are working respectively.
+</P>
+
+<P>
+<BR>
+<STRONG>Example 1:</STRONG>
+<BLOCKQUOTE>
+IF .. ELSE .. ENDIF construction
+</BLOCKQUOTE>
+<PRE>
+        TARGET EQU 0    ;configuration:  1 for application board
+                        ;--------------  0 for evaluation board
+        IF TARGET
+          ORG 0         ;program start address of application board
+        ELSE
+          ORG 8000H     ;program start address of evaluation board
+        ENDIF
+</PRE>
+<BLOCKQUOTE>
+Currently the program is configured for the evaluation board
+version.
+</BLOCKQUOTE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 2:</STRONG>
+<BLOCKQUOTE>
+IFNDEF .. ELSE .. ENDIF construction
+</BLOCKQUOTE>
+<PRE>
+       ;EVA_537 EQU 0     ;symbol undefined: 80C537 application board
+                          ;symbol defined:   80C537 evaluation board
+        IFNDEF EVA_537
+          CLOCK EQU 16    ;clock frequency of application board
+          CSEG  AT  0     ;program start address of application board
+        ELSE
+          CLOCK EQU 12    ;clock frequency of evaluation board
+          CSEG  AT  8000H ;program start address of evaluation board
+        ENDIF
+</PRE>
+<BLOCKQUOTE>
+Currently the program is configured for the application board
+version.
+</BLOCKQUOTE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 3:</STRONG>
+<BLOCKQUOTE>
+IFB .. ELSE .. ENDIF construction
+</BLOCKQUOTE>
+<PRE>
+        DECIDE MACRO X, Y
+          IFB &lt;X&amp;Y&gt;
+            NOP
+            NOP
+          ELSE
+            DB '&amp;X,&amp;Y'
+          ENDIF
+        ENDM
+</PRE>
+<BLOCKQUOTE>
+If the above macro is invoked as follows,
+</BLOCKQUOTE>
+<PRE>
+        DECIDE Nonsense
+</PRE>
+<BLOCKQUOTE>
+the parameter X will be replaced by &quot;Nonsense&quot; and the
+parameter Y by a zero length string. Thus the IFB literal
+becomes &lt;Nonsense&gt;, and the macro will be expanded to:
+</BLOCKQUOTE>
+<PRE>
+        DB 'Nonsense,'
+</PRE>
+<BLOCKQUOTE>
+If the macro will be invoked without arguments,
+</BLOCKQUOTE>
+<PRE>
+        DECIDE
+</PRE>
+<BLOCKQUOTE>
+the parameters X and Y will be replaced by zero length
+strings both, and the IFB literal becomes &lt;&gt;. Thus the
+macro will be expanded to:
+</BLOCKQUOTE>
+<PRE>
+        NOP
+        NOP
+</PRE>
+<BLOCKQUOTE>
+<A HREF="macros.htm">Macros</A> are explained in detail in chapter &quot;III.11 Macro Processing&quot;.
+</BLOCKQUOTE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example 4:</STRONG>
+<BLOCKQUOTE>
+IFNDEF .. ELSEIF .. ELSEIF .. ELSE .. ENDIF construction<BR><BR>
+The symbol BAUDRATE serves to define the UART baudrate:
+</BLOCKQUOTE>
+<PRE>
+        IFNDEF BAUDRATE
+          LJMP AUTOBAUD            ;automatic baudrate detection
+        ELSEIF BAUDRATE EQ 9600
+          MOV TH1, #0FDH           ;9600 baud
+        ELSEIF BAUDRATE EQ 1200
+          MOV TH1, #0E8H           ;1200 baud
+        ELSE
+          $ERROR(baudrate not implemented)
+        ENDIF
+</PRE>
+<BLOCKQUOTE>
+If the symbol BAUDRATE is not defined at all, a jump to
+the label AUTOBAUD is performed.<BR>
+If the symbol BAUDRATE is defined with one of the legal
+values 9600 or 1200, timer 1 is initialized accordingly.<BR>
+If the symbol BAUDRATE is defined with another value, a
+corresponding user-defined error message is generated.
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="condit.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="genifxx.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

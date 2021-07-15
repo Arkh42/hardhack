@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Conditional Assembly -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Conditional Assembly</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.10 Conditional Assembly</U></STRONG>
+</P>
+
+<P>
+Conditional assembly allows to assemble or ignore selected parts of code.
+This can be used to keep the code for various program variants in a single
+source, to ease configuration control and maintenance. Conditional assembly
+is also useful to write fancy macros.<BR>
+The following fourteen meta instructions have been implemented:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+IF     &lt;expr&gt;            ELSEIF     &lt;expr&gt;
+IFN    &lt;expr&gt;            ELSEIFN    &lt;expr&gt;
+IFDEF  &lt;symbol&gt;          ELSEIFDEF  &lt;symbol&gt;
+IFNDEF &lt;symbol&gt;          ELSEIFNDEF &lt;symbol&gt;
+IFB    &lt;literal&gt;         ELSEIFB    &lt;literal&gt;
+IFNB   &lt;literal&gt;         ELSEIFNB   &lt;literal&gt;
+ENDIF                    ELSE
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Meta instructions overlay the Intel <NOBR>MCS-51</NOBR> assembly language, but
+are not part of it! C programmers may compare them to C preprocessor commands.<BR>
+In the subsequent text, IFxx is used as a collective name for the
+IF/IFN/IFDEF/IFNDEF/IFB/IFNB instructions. In analogy ELSEIFxx is used as a
+collective name for the ELSEIF/ELSEIFN/ELSEIFDEF/ELSEIFNDEF/ELSEIFB/ELSEIFNB
+instructions (not including ELSE).
+</P>
+
+<P>
+<OL TYPE=1>
+<LI><A HREF="genifxx.htm">General IFxx Construction</A></LI>
+<LI><A HREF="ifxxcon.htm">IFxx and ELSEIFxx Instructions</A></LI>
+</OL>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="predef.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="genifxx.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

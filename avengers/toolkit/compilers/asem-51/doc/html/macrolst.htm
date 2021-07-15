@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Representation in the List File -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Representation in the List File</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.11.9 Representation in the List File</U></STRONG>
+</P>
+
+<P>
+Sometimes macro expansions tend to produce much more listing lines than
+resulting code. To list or not to list - that is the question!
+The requirements to either get a better overall view or more detailed
+information may vary in different development phases or program sections.
+To always get the best results, a number of
+<NOBR><A HREF="general.htm">general controls</A></NOBR> has been introduced,
+which influence the representation of macro expansions and IFxx constructions
+in the list file (see chapter
+<NOBR>&quot;<A HREF="controls.htm">III.8 Assembler Controls</A>&quot;</NOBR>):
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR>
+<TH>Control</TH><TH>Type</TH><TH>Default</TH><TH>Abbreviation</TH><TH>Meaning</TH>
+</TR>
+<TR>
+<TD NOWRAP>$GEN<BR>$NOGEN<BR>$GENONLY</TD>
+<TD NOWRAP ALIGN=CENTER>G<BR>G<BR>G</TD>
+<TD NOWRAP VALIGN=TOP>$GEN</TD>
+<TD NOWRAP>$GE<BR>$NOGE<BR>$GO</TD>
+<TD NOWRAP>list macro calls and expansion lines<BR>list macro calls only<BR>list expansion lines only</TD>
+</TR>
+<TR>
+<TD NOWRAP>$COND<BR>$NOCOND<BR>$CONDONLY</TD>
+<TD NOWRAP ALIGN=CENTER>G<BR>G<BR>G</TD>
+<TD NOWRAP VALIGN=TOP>$COND</TD>
+<TD NOWRAP ALIGN=CENTER>---<BR>---<BR>---</TD>
+<TD NOWRAP>list full IFxx .. ENDIF constructions<BR>don't list lines in false branches<BR>list assembled lines only</TD>
+</TR>
+<TR>
+<TD NOWRAP>$SAVE<BR>$RESTORE</TD>
+<TD NOWRAP ALIGN=CENTER>G<BR>G</TD>
+<TD NOWRAP>&nbsp;</TD>
+<TD NOWRAP>$SA<BR>$RS</TD>
+<TD NOWRAP>save current $LIST/$GEN/$COND state<BR>restore old $LIST/$GEN/$COND state</TD>
+</TR>
+</TABLE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="macros.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="nestdefs.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="compatib.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

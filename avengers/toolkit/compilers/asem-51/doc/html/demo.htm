@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- The DEMO Program -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>The DEMO Program</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.3 The DEMO Program</U></STRONG>
+</P>
+
+<P>
+For getting started with a new assembler, it is always helpful to have
+a program that can be assembled with it. For this purpose, the 8051
+assembler program <NOBR><STRONG>DEMO.A51</STRONG></NOBR> is provided, which
+can be used for a first test of the <NOBR>ASEM-51</NOBR> installation.
+For this, you should either have installed <NOBR>ASEM-51</NOBR> as described
+above, or keep all files of the <NOBR>ASEM-51</NOBR> package directly in your
+working directory!
+</P>
+
+<P>
+Under <NOBR>MS-DOS</NOBR> or in a Windows <NOBR>DOS-Box</NOBR> simply type
+<BLOCKQUOTE>
+<STRONG><PRE>
+ASEM DEMO
+HEXBIN DEMO
+</PRE></STRONG>
+</BLOCKQUOTE>
+at the DOS prompt. ASEM and HEXBIN should finish without errors and you
+should have the following new files on your disk:
+<BLOCKQUOTE>
+<STRONG><PRE>
+DEMO.HEX          Intel-HEX file
+DEMO.LST          assembler list file of DEMO.A51
+DEMO.BIN          binary image file of DEMO.HEX
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Under Linux type
+<BLOCKQUOTE>
+<STRONG><PRE>
+asem demo.a51
+hexbin demo.hex
+</PRE></STRONG>
+</BLOCKQUOTE>
+Again asem and hexbin should finish without errors and you should have
+the following new files on your disk:
+<BLOCKQUOTE>
+<STRONG><PRE>
+demo.hex          Intel-HEX file
+demo.lst          assembler list file of demo.a51
+demo.bin          binary image file of demo.hex
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+If something goes wrong, either <NOBR>ASEM-51</NOBR> is not properly
+installed, there may be files missing in your distribution, or the
+assembler simply cannot find the include file
+<NOBR><STRONG>8052.mcu</STRONG></NOBR>!<BR>
+<NOBR>demo.a51</NOBR> may also serve as a sample assembler program that
+includes examples for (nearly) all machine instructions, pseudo instructions,
+assembler controls, and meta instructions that have been implemented in
+<NOBR>ASEM-51</NOBR>. Whenever in doubt how to use a particular command,
+<NOBR>demo.a51</NOBR> may be a valuable help.<BR>
+Unlike other assemblers, the <NOBR>ASEM-51</NOBR>
+<NOBR><A HREF="listfile.htm">list file</A></NOBR> is no alibi feature!
+It is really instructive to compare the original source to the generated
+code in the listing.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="getting.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="hexbinl.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

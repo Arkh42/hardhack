@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- General Trouble -->
+
+<HTML>
+
+<HEAD>
+<TITLE>General Trouble</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG>
+<BR>
+<STRONG><U>IV.1 General Trouble</U></STRONG>
+</BIG></P>
+
+<P><BIG>
+These are problems that may occur on all host platforms:
+</BIG></P>
+
+<P><BIG>
+<OL TYPE=1>
+<LI>The <STRONG>RESET51</STRONG> program terminates without any error, but the target
+    system is not reset.<BR>
+    The (reset) cable may be plugged into the wrong (printer) port.<BR>
+    First of all try the other ports.<BR>
+    There may also be something wrong with the cable itself.<BR>
+    Employ the <NOBR>BOOT-51</NOBR> User's Manual and the circuit diagram
+    of the target board, and check the cable.<BR>
+    Furthermore, the reset pulse may be too short.<BR>
+    Specify a greater pulse width.<BR>
+    You may also decrease the reset capacitor of the <NOBR>MCS-51</NOBR>
+    system.<BR>&nbsp;</LI>
+<LI>The target system is reset all the time.<BR>
+    When tailoring the reset cable, you may have mixed up the
+    <STRONG>RESET</STRONG> and <STRONG>-RESET</STRONG> lines. Simply interchange them.<BR>
+    &nbsp;</LI>
+<LI>In batch (or script) mode everything seems to work fine on the PC, but
+    on the target system you get absolutely nothing.<BR>
+    Try the interactive mode and reset the target system. If nothing happens,
+    you may have mixed up the receive and transmit lines of the target board.
+    If you get some garbage, the baudrates and/or serial data formats of the
+    target system and the PC are probably different.<BR>
+    Configure your terminal emulation program correctly, and change
+    <NOBR><EM>BOOT.BAT</EM></NOBR> (under MS-DOS) or the boot script
+    (under Linux) accordingly.<BR>
+    (correct data format: 8 data bits, 1 stop bit, no parity)<BR>&nbsp;</LI>
+<LI>Everything is working fine in batch (or script) mode, but when you try
+    to upload the same HEX file in interactive mode, <NOBR>BOOT-51</NOBR>
+    aborts with the error message &quot;unexpected character&quot;.<BR>
+    Check the ASCII upload configuration parameters of your terminal
+    emulation program. It has to terminate every line with a CR and/or LF
+    character, and it must not send any pace characters!<BR>
+    Of course it is always best, to send the HEX file exactly as it is.</LI>
+</OL>
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="btrouble.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="btrouble.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bmsdos.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

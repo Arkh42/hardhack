@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- ASEM-51 User's Manual -->
+
+<HTML>
+
+<HEAD>
+<TITLE>ASEM-51 User's Manual</TITLE>
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<P><CENTER><STRONG><H2>MCS-51 Microcontroller Family Macro Assembler</H2></STRONG></CENTER></P>
+<P>
+<CENTER>
+<IMG SRC="asem51.gif" ALT="ASEM-51" WIDTH=337 HEIGHT=58>
+</CENTER>
+</P>
+<P><CENTER><STRONG><H2>U S E R ' S &nbsp; M A N U A L</H2></STRONG></CENTER></P>
+<BR>
+<P><CENTER>Version 1.3</CENTER></P>
+<P><CENTER>December 31, 2002</CENTER></P>
+
+<HR>
+
+<P><CENTER><STRONG><U><H3>TABLE OF CONTENTS</H3></U></STRONG></CENTER></P>
+
+<P>
+<BLOCKQUOTE>
+<A HREF="foreword.htm">Foreword to Version 1.0</A><BR>
+<A HREF="foreword.htm#FOREWORD12">Foreword to Version 1.2</A><BR>
+<A HREF="foreword.htm#FOREWORD13">Foreword to Version 1.3</A>
+</BLOCKQUOTE>
+</P>
+<P>
+<OL TYPE=I>
+<LI><A HREF="intro.htm">Introduction</A><BR>&nbsp;</LI>
+<LI><A HREF="getting.htm">Getting started</A></LI>
+<OL TYPE=1>
+<LI><A HREF="doswin.htm">DOS and Windows Implementation</A></LI>
+<OL TYPE=1>
+<LI><A HREF="files.htm">Files</A></LI>
+<LI><A HREF="dinstall.htm">Installation under MS-DOS or Windows</A></LI>
+<LI><A HREF="doscmd.htm">DOS Command Line Operation</A></LI>
+<LI><A HREF="dosenv.htm">DOS Environment</A></LI>
+<LI><A HREF="borland.htm">Running ASEM-51 in the Borland-IDE</A></LI>
+<LI><A HREF="windows.htm">Running ASEM-51 from Windows 3.1x</A></LI>
+<LI><A HREF="brief.htm">Running ASEM-51 from BRIEF</A></LI>
+<LI><A HREF="asemx.htm">The DOS Protected-Mode Assembler ASEMX</A></LI>
+<LI><A HREF="asemw.htm">The Win32 Console-Mode Assembler ASEMW</A></LI>
+<LI><A HREF="hexbin.htm">The HEXBIN Utility</A></LI>
+</OL>
+<LI><A HREF="linux.htm">Linux Implementation</A></LI>
+<OL TYPE=1>
+<LI><A HREF="lfiles.htm">Files</A></LI>
+<LI><A HREF="linstall.htm">Installation under Linux</A></LI>
+<LI><A HREF="linuxcmd.htm">Linux Command Line Operation</A></LI>
+<LI><A HREF="linuxenv.htm">Linux Environment</A></LI>
+<LI><A HREF="hexbinl.htm">The HEXBIN Utility</A></LI>
+</OL>
+<LI><A HREF="demo.htm">The DEMO Program</A><BR>&nbsp;</LI>
+</OL>
+<LI><A HREF="language.htm">The ASEM-51 Assembly Language</A></LI>
+<OL TYPE=1>
+<LI><A HREF="statemen.htm">Statements</A></LI>
+<LI><A HREF="symbols.htm">Symbols</A></LI>
+<LI><A HREF="constant.htm">Constants</A></LI>
+<LI><A HREF="express.htm">Expressions</A></LI>
+<LI><A HREF="instrset.htm">The 8051 Instruction Set</A></LI>
+<LI><A HREF="pseudo.htm">Pseudo Instructions</A></LI>
+<LI><A HREF="segment.htm">Segment Type</A></LI>
+<LI><A HREF="controls.htm">Assembler Controls</A></LI>
+<OL TYPE=1>
+<LI><A HREF="primary.htm">Primary Controls</A></LI>
+<LI><A HREF="general.htm">General Controls</A></LI>
+</OL>
+<LI><A HREF="predef.htm">Predefined Symbols</A></LI>
+<LI><A HREF="condit.htm">Conditional Assembly</A></LI>
+<OL TYPE=1>
+<LI><A HREF="genifxx.htm">General IFxx Construction</A></LI>
+<LI><A HREF="ifxxcon.htm">IFxx and ELSEIFxx Instructions</A></LI>
+</OL>
+<LI><A HREF="macros.htm">Macro Processing</A></LI>
+<OL TYPE=1>
+<LI><A HREF="simple.htm">Simple Callable Macros</A></LI>
+<LI><A HREF="params.htm">Macro Parameters</A></LI>
+<LI><A HREF="repeat.htm">Repeat Macros</A></LI>
+<LI><A HREF="local.htm">Local Symbols</A></LI>
+<LI><A HREF="operator.htm">Macro Operators</A></LI>
+<LI><A HREF="exitm.htm">Premature End of a Macro Expansion</A></LI>
+<LI><A HREF="nestcall.htm">Nested and Recursive Macro Calls</A></LI>
+<LI><A HREF="nestdefs.htm">Nested Macro Definitions</A></LI>
+<LI><A HREF="macrolst.htm">Representation in the List File</A><BR>&nbsp;</LI>
+</OL>
+</OL>
+<LI><A HREF="compatib.htm">Compatibility with the Intel Assembler</A></LI>
+<OL TYPE=1>
+<LI><A HREF="compatib.htm#RESTRICTIONS">Restrictions</A></LI>
+<LI><A HREF="compatib.htm#EXTENSIONS">Extensions</A></LI>
+<LI><A HREF="compatib.htm#DIFFERENCES">Further Differences</A><BR>&nbsp;</LI>
+</OL>
+<LI><A HREF="listfile.htm">List File Format</A><BR>&nbsp;</LI>
+<LI><A HREF="derivat.htm">Support of 8051 Derivatives</A></LI>
+</OL>
+</P>
+
+<HR>
+
+<P><CENTER><STRONG><U><H3>APPENDIX</H3></U></STRONG></CENTER></P>
+<P>
+<OL TYPE=A>
+<LI><A HREF="append_a.htm">ASEM-51 Error Messages</A></LI>
+<OL TYPE=1>
+<LI><A HREF="append_a.htm#ASEMASSEMBLY">Assembly Errors</A></LI>
+<LI><A HREF="append_a.htm#ASEMRUNTIME">Runtime Errors</A><BR>&nbsp;</LI>
+</OL>
+<LI><A HREF="append_b.htm">HEXBIN Error Messages</A></LI>
+<OL TYPE=1>
+<LI><A HREF="append_b.htm#HEXBINCONVERSION">Conversion Errors</A></LI>
+<LI><A HREF="append_b.htm#HEXBINRUNTIME">Runtime Errors</A><BR>&nbsp;</LI>
+</OL>
+<LI><A HREF="append_c.htm">Predefined Symbols</A><BR>&nbsp;</LI>
+<LI><A HREF="append_d.htm">Reserved Keywords</A><BR>&nbsp;</LI>
+<LI><A HREF="append_e.htm">Specification of the Intel-HEX Format</A><BR>&nbsp;</LI>
+<LI><A HREF="append_f.htm">The ASCII Character Set</A><BR>&nbsp;</LI>
+<LI><A HREF="append_g.htm">Literature</A><BR>&nbsp;</LI>
+<LI><A HREF="append_h.htm">Trademarks</A><BR>&nbsp;</LI>
+<LI><A HREF="append_i.htm">8051 Instructions in numerical Order</A><BR>&nbsp;</LI>
+<LI><A HREF="append_j.htm">8051 Instructions in lexical Order</A></LI>
+</OL>
+</P>
+
+</BIG>
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="docs.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="foreword.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+<HR>
+
+<ADDRESS>
+<P>
+<CENTER> Copyright &copy; 1994, 1996, 2002 &nbsp; by &nbsp; <A HREF="mailto:w.w.heinz@web.de">W.W. Heinz</A></CENTER>
+</P>
+<P>
+<CENTER>Last revised: &nbsp; December 31, 2002</CENTER>
+</P>
+</ADDRESS>
+
+<!-- Seitentext Ende -->
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+</HTML>

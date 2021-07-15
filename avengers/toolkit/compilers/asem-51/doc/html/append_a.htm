@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Appendix A -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Appendix A</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>Appendix A</U></STRONG>
+</P>
+
+<P>
+<STRONG><NOBR>ASEM-51</NOBR> Error Messages</STRONG>
+</P>
+
+<P>
+<BR>
+<U><A NAME="ASEMASSEMBLY">A.1 Assembly Errors:</A></U>
+</P>
+
+<P>
+Assembly errors apply to the consistency of the assembly language
+program in syntax and semantics. If one of these errors is detected,
+it is flagged in the list file, and program execution continues.
+When assembly is finished, ASEM terminates with exit code&nbsp;1:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<TR><TH NOWRAP>Error Message</TH><TH NOWRAP>Meaning</TH></TR>
+<TR><TD NOWRAP>address below segment base</TD>
+    <TD>Attempt to set the location counter of the current segment below the
+        segment base address.</TD>
+</TR>
+<TR><TD NOWRAP>address out of range</TD>
+    <TD>The address of a jump or call instruction cannot be reached with the
+        selected addressing mode.</TD>
+</TR>
+<TR><TD NOWRAP>already a macro parameter</TD>
+    <TD>In a macro definition, a local symbol is equal to a previously
+        defined parameter name.</TD>
+</TR>
+<TR><TD NOWRAP>argument exceeds end of line</TD>
+    <TD>A macro argument contains more opening than closing angle brackets.</TD>
+</TR>
+<TR><TD NOWRAP>attempt to divide by zero</TD>
+    <TD>During evaluation of an assembly time expression, the assembler has
+        to divide by zero.</TD>
+</TR>
+<TR><TD NOWRAP>binary operator expected</TD>
+    <TD>In this position of an expression, only binary operators are allowed.</TD>
+</TR>
+<TR><TD NOWRAP>comma expected</TD>
+    <TD>There should be a ',' character in the marked position.</TD>
+</TR>
+<TR><TD NOWRAP>commands after END statement</TD>
+    <TD>The END statement is followed by further assembler statements.</TD>
+</TR>
+<TR><TD NOWRAP>constant out of range</TD>
+    <TD>A numerical constant is greater than 65535.</TD>
+</TR>
+<TR><TD NOWRAP>duplicate local symbol</TD>
+    <TD>In a macro definition, a local symbol is defined multiple times or
+        equal to a previously defined parameter name.</TD>
+</TR>
+<TR><TD NOWRAP>duplicate parameter name</TD>
+    <TD>The parameter names of a macro are not all different.</TD>
+</TR>
+<TR><TD NOWRAP>ENDIF statement expected</TD>
+    <TD>There are pending IFxx constructions, which are not terminated with
+        an ENDIF meta instruction.</TD>
+</TR>
+<TR><TD NOWRAP>ENDM statement expected</TD>
+    <TD>There are macro definitions, which are not terminated with an ENDM
+        instruction.</TD>
+</TR>
+<TR><TD NOWRAP>expression out of range</TD>
+    <TD>The result of an expression is too big or too small for that purpose.</TD>
+</TR>
+<TR><TD NOWRAP>file name expected</TD>
+    <TD>There should be a valid file name in this position.</TD>
+</TR>
+<TR><TD NOWRAP>forward reference to macro</TD>
+    <TD>A macro has been called, before it has been defined.</TD>
+</TR>
+<TR><TD NOWRAP>forward reference to register</TD>
+    <TD>A register type symbol has been used, before it has been EQU'd or SET.</TD>
+</TR>
+<TR><TD NOWRAP>illegal character</TD>
+    <TD>A statement contains characters, which are not allowed in
+        <NOBR>MCS-51</NOBR> assembly language.</TD>
+</TR>
+<TR><TD NOWRAP>illegal constant</TD>
+    <TD>There are syntax errors in a numeric constant.</TD>
+</TR>
+<TR><TD NOWRAP>illegal control statement</TD>
+    <TD>A statement is starting with an unknown keyword beginning with a $.</TD>
+</TR>
+<TR><TD NOWRAP>illegal operand</TD>
+    <TD>In this position of an expression, a valid operand had been expected.</TD>
+</TR>
+<TR><TD NOWRAP>illegal statement syntax</TD>
+    <TD>A statement contains a syntax element, which is not allowed in this
+        context.</TD>
+</TR>
+<TR><TD NOWRAP>invalid base address</TD>
+    <TD>A DATA address that is not bit-addressable has been used on the left
+        side of a '.' operator.</TD>
+</TR>
+<TR><TD NOWRAP>invalid bit number</TD>
+    <TD>A number greater than 7 has been used on the right side of a '.'
+        operator.</TD>
+</TR>
+<TR><TD NOWRAP>invalid instruction</TD>
+    <TD>The instruction has previously been disabled with the $PHILIPS control.</TD>
+</TR>
+<TR><TD NOWRAP>macro type operand</TD>
+    <TD>A macro type symbol is used as an operand in a numeric expression.</TD>
+</TR>
+<TR><TD NOWRAP>maximum line length exceeded</TD>
+    <TD>During macro expansion, the replacement of parameters and/or local
+        symbols increases the resulting line length to more than 255 characters.</TD>
+</TR>
+<TR><TD NOWRAP>misplaced LOCAL instruction</TD>
+    <TD>In a macro definition, a LOCAL instruction is preceded by body lines.</TD>
+</TR>
+<TR><TD NOWRAP>misplaced macro instruction</TD>
+    <TD>A macro instruction is used outside of a macro definition, or
+        otherwise misplaced in the program structure.</TD>
+</TR>
+<TR><TD NOWRAP>misplaced macro operator</TD>
+    <TD>A macro operator (&lt;, &gt;, !, %, &amp;) has been used in a
+        wrong position.</TD>
+</TR>
+<TR><TD NOWRAP>module name already defined</TD>
+    <TD>There are more than one NAME statements in the program.</TD>
+</TR>
+<TR><TD NOWRAP>must be known on first pass</TD>
+    <TD>The result of an expression must fully evaluate on <NOBR>pass 1</NOBR> of assembly.</TD>
+</TR>
+<TR><TD NOWRAP>must be preceded by $SAVE</TD>
+    <TD>A $RESTORE control occurs without a preceding $SAVE control.</TD>
+</TR>
+<TR><TD NOWRAP>must be preceded by IFxx</TD>
+    <TD>An ELSEIFxx, ELSE or ENDIF meta instruction occurs without a
+        preceding IFxx meta instruction.</TD>
+</TR>
+<TR><TD NOWRAP>no END statement found</TD>
+    <TD>The program ends without an END statement.</TD>
+</TR>
+<TR><TD NOWRAP>not allowed in BIT segment</TD>
+    <TD>Instruction is not allowed in a BIT segment.</TD>
+</TR>
+<TR><TD NOWRAP>only allowed in BIT segment</TD>
+    <TD>Instruction is only allowed in a BIT segment.</TD>
+</TR>
+<TR><TD NOWRAP>only allowed in CODE segment</TD>
+    <TD>Instruction is only allowed in a CODE segment.</TD>
+</TR>
+<TR><TD NOWRAP>operand expected</TD>
+    <TD>An instruction ends, before it is syntactically complete.</TD>
+</TR>
+<TR><TD NOWRAP>phase error</TD>
+    <TD>A symbol is evaluating to different values on <NOBR>pass 1</NOBR> and <NOBR>pass 2</NOBR>,
+        or a macro has been defined different on <NOBR>pass 1</NOBR> and <NOBR>pass 2</NOBR>.</TD>
+</TR>
+<TR><TD ALIGN=RIGHT VALIGN=TOP NOWRAP><STRONG><U>Note:</U></STRONG></TD>
+    <TD>This is a serious, internal assembler error, and should be reported
+        to the author immediately!</TD>
+</TR>
+<TR><TD NOWRAP>preceded by non-control lines</TD>
+    <TD>A primary control occurs after statements that are no assembler
+        controls.</TD>
+</TR>
+<TR><TD NOWRAP>register type operand</TD>
+    <TD>A register type symbol is used as an operand in a numeric expression.</TD>
+</TR>
+<TR><TD NOWRAP>segment limit exceeded</TD>
+    <TD>The location counter exceeds the boundaries of the current segment.</TD>
+</TR>
+<TR><TD NOWRAP>segment type mismatch</TD>
+    <TD>The segment type of an operand does not match the type of the
+        instruction.</TD>
+</TR>
+<TR><TD NOWRAP>string exceeds end of line</TD>
+    <TD>A character string is not properly terminated with a quote.</TD>
+</TR>
+<TR><TD NOWRAP>symbol already defined</TD>
+    <TD>Attempt to redefine a symbol, which is already defined.</TD>
+</TR>
+<TR><TD NOWRAP>symbol name expected</TD>
+    <TD>There should be a valid symbol name in this position.</TD>
+</TR>
+<TR><TD NOWRAP>symbol not defined</TD>
+    <TD>A symbol is referenced, which has never been defined.</TD>
+</TR>
+<TR><TD NOWRAP>too many closing parentheses</TD>
+    <TD>An expression contains more closing than opening parentheses.</TD>
+</TR>
+<TR><TD NOWRAP>too many opening parentheses</TD>
+    <TD>An expression contains more opening than closing parentheses.</TD>
+</TR>
+<TR><TD NOWRAP>too many operands</TD>
+    <TD>An instruction contains more operands than expected.</TD>
+</TR>
+<TR><TD NOWRAP>unary operator expected</TD>
+    <TD>In this position of an expression, only unary operators are allowed.</TD>
+</TR>
+<TR><TD NOWRAP>user-defined error</TD>
+    <TD>A user-defined error message has been forced with the $ERROR control.</TD>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+<BR>
+<U><A NAME="ASEMRUNTIME">A.2 Runtime Errors:</A></U>
+</P>
+
+<P>
+Runtime errors are operational errors, or I/O errors.
+If one of these errors is detected, it is flagged on the console,
+and ASEM is aborting with exit code&nbsp;2:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<TR><TH NOWRAP>Error Message</TH><TH NOWRAP>Meaning</TH></TR>
+<TR><TD NOWRAP>access denied            </TD><TD>No privilege for attempted operation.</TD></TR>
+<TR><TD NOWRAP>ambiguous option name    </TD><TD>Not enough characters specified.</TD></TR>
+<TR><TD NOWRAP>argument missing         </TD><TD>Option requires an argument.</TD></TR>
+<TR><TD NOWRAP>device or resource busy  </TD><TD>Attempt to write to a busy device. (Linux)</TD></TR>
+<TR><TD NOWRAP>disk full                </TD><TD>No more free disk space.</TD></TR>
+<TR><TD NOWRAP>disk write-protected     </TD><TD>Attempt to write to a write-protected disk.</TD></TR>
+<TR><TD NOWRAP>drive not ready          </TD><TD>Disk drive is off, or no media mounted.</TD></TR>
+<TR><TD NOWRAP>duplicate file name      </TD><TD>Attempt to overwrite an input or output file.</TD></TR>
+<TR><TD NOWRAP>fatal I/O error          </TD><TD>General (unknown) disk or device I/O error.</TD></TR>
+<TR><TD NOWRAP>file not found           </TD><TD>Source or include file not found. (DOS/Windows)</TD></TR>
+<TR><TD NOWRAP>illegal option syntax    </TD><TD>Option is not correctly specified.</TD></TR>
+<TR><TD NOWRAP>invalid argument         </TD><TD>Option has an illegal argument.</TD></TR>
+<TR><TD NOWRAP>no input file            </TD><TD>There is no file name in the command line.</TD></TR>
+<TR><TD NOWRAP>no such file or directory</TD><TD>Source or include file not found. (Linux)</TD></TR>
+<TR><TD NOWRAP>not a directory          </TD><TD>Path contains a non-directory name. (Linux)</TD></TR>
+<TR><TD NOWRAP>out of memory            </TD><TD>Heap overflow!</TD></TR>
+<TR><TD NOWRAP>path not found           </TD><TD>Disk or directory not found. (DOS/Windows)</TD></TR>
+<TR><TD NOWRAP>symbol is predefined     </TD><TD>A /DEFINE option specifies a predefined symbol.</TD></TR>
+<TR><TD NOWRAP>too many open files      </TD><TD>No more free file handles.</TD></TR>
+<TR><TD NOWRAP>too many parameters      </TD><TD>More than three file names have been specified.</TD></TR>
+<TR><TD NOWRAP>unknown option           </TD><TD>Option is not implemented.</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+Only DOS command line options are mentioned above for simplification.
+Under Linux, they have to be replaced by the corresponding Linux options.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="derivat.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_b.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

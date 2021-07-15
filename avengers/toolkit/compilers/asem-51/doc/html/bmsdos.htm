@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Trouble under MS-DOS -->
+
+<HTML>
+
+<HEAD>
+<TITLE>Trouble under MS-DOS</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<P><BIG>
+<BR>
+<STRONG><U>IV.2 Trouble under MS-DOS</U></STRONG>
+</BIG></P>
+
+<P><BIG>
+These are problems that are specific to DOS-based host platforms, including
+Windows <NOBR>3.1x</NOBR>. Most of it also applies to Windows 9x systems.
+</BIG></P>
+
+<P><BIG>
+<OL TYPE=1>
+<LI>When initializing the serial port, the DOS <STRONG>MODE</STRONG> utility aborts
+    with an error message like: &quot;function not supported on this
+    computer&quot;, or &quot;invalid parameter&quot;, or something like that.<BR>
+    On most PCs, the BIOS doesn't support baudrates greater than 9600 Baud.
+    <STRONG>MODE</STRONG> itself doesn't support baudrates greater than 19200 Baud.
+    However, most terminal emulation programs can operate at baudrates of up
+    to 115200 Baud.<BR>&nbsp;</LI>
+<LI>The <STRONG>RESET51</STRONG> program aborts with &quot;port not found&quot;.<BR>
+    The PC-BIOS didn't recognize the printer or serial port specified.<BR>
+    Try another port or check your PC hardware.<BR>&nbsp;</LI>
+<LI>The <STRONG>RESET51</STRONG> program aborts with &quot;hardware failure&quot;.<BR>
+    The PC-BIOS has recognized the specified port, but the data latch
+    (printer port) or modem control register (serial port) doesn't work.<BR>
+    Try another port, or check the defective port.<BR>&nbsp;</LI>
+<LI>The PC hangs when data are sent over the serial interface in batch mode.<BR>
+    The RS-232 cable may be plugged into the wrong COM-port.<BR>
+    First of all, try the other ports.<BR>
+    There may also something be wrong with the modem control signals.<BR>
+    (See chapter <A HREF="bcables.htm">II.3 Tailoring the Cables</A>.)<BR>
+    &nbsp;</LI>
+<LI>It works in interactive mode, but the PC hangs, if data are sent in batch
+    mode.<BR>
+    There <STRONG><EM>is</EM></STRONG> something wrong with the modem control lines!<BR>
+    Employ the <NOBR>BOOT-51</NOBR> User's Manual and check the RS-232 cable
+    at the PC side connector.<BR>&nbsp;</LI>
+<LI>When invoked, the <NOBR>MS-DOS</NOBR> <STRONG>MODE</STRONG> command hangs, or fails
+    to change the previous baudrate, although it terminates without error.<BR>
+    Remove all networking and communication drivers and TSR programs from
+    your <NOBR><EM>CONFIG.SYS</EM></NOBR> and <NOBR><EM>AUTOEXEC.BAT</EM></NOBR>
+    files, reboot, and try it again. There is plenty of quick'n dirty
+    software, doing something strange with the BIOS interrupts!</LI>
+</OL>
+</BIG></P>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="boot51.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="btrouble.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="bgeneral.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="blinux.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

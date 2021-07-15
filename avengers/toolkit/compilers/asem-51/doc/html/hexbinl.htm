@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- The HEXBIN Utility (Linux) -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>The HEXBIN Utility (Linux)</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.2.5 The HEXBIN Utility</U></STRONG>
+</P>
+
+<P>
+Most EPROM programmers are accepting the <NOBR>Intel-HEX</NOBR> object file format that
+is output by <NOBR>ASEM-51</NOBR>. However, for dumb EPROM burners and special purposes
+it might be useful to convert the HEX file to a pure binary image file.
+For this the conversion utility hexbin is provided.
+It is invoked as follows:
+</P>
+
+<P>
+<STRONG><PRE>
+    hexbin [&lt;options&gt;] &lt;hexfile&gt; [&lt;binary&gt;]
+</PRE></STRONG>
+</P>
+
+<P>
+where &lt;hexfile&gt; is the input file in <NOBR>Intel-HEX</NOBR> format, and &lt;binary&gt; is the
+binary output file. All file names that are specified explicitly, are left
+unchanged. The parameter &lt;binary&gt; is optional. When omitted, the file name
+is derived from the &lt;hexfile&gt;, but with the extension &quot;.bin&quot;.<BR>
+The maximum length of a file parameter is limited to 255 characters!
+</P>
+
+<P>
+Instead of file names you may also specify device names to redirect the input
+or output to I/O devices. Device names are assumed to start with &quot;/dev/&quot;.
+Of course no extensions will be added to device names!<BR>
+It is not checked, whether the device is existing or suitable for the task.
+</P>
+
+<P>
+hexbin recognizes the following options:
+</P>
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH NOWRAP><BIG>short options</BIG></TH><TH NOWRAP><BIG>long options</BIG></TH></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-o &lt;offset&gt;</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--offset=&lt;offset&gt;</CODE></STRONG></BIG></TD></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-l &lt;length&gt;</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--length=&lt;length&gt;</CODE></STRONG></BIG></TD></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-f &lt;fillbyte&gt;</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--fill=&lt;fillbyte&gt;</CODE></STRONG></BIG></TD></TR>
+<TR><TD NOWRAP><BIG><STRONG><CODE>-v</CODE></STRONG></BIG></TD><TD NOWRAP><BIG><STRONG><CODE>--verbose</CODE></STRONG></BIG></TD></TR>
+</TABLE>
+</P>
+
+<P>
+The short and long options in the same row are equivalent.<BR>
+Long options may be abbreviated as long as they remain unique.<BR>
+All option names are case-sensitive!
+</P>
+
+<P>
+The binary file output can be controlled with the options
+<NOBR>--offset</NOBR>, <NOBR>--fill</NOBR> and <NOBR>--length</NOBR>.
+</P>
+
+<P>
+Normally the first byte in the binary file is the first byte of the HEX
+record with the lowest load address. If a number of dummy bytes is to be
+inserted on top of the file (e.g. for alignment in an EPROM image), this
+can be performed with the <NOBR>--offset</NOBR> option:
+<BLOCKQUOTE>
+<STRONG><PRE>
+--offset=1000
+</PRE></STRONG>
+</BLOCKQUOTE>
+would insert 4096 dummy bytes before the first byte of the first HEX record
+loaded. The offset must always be specified as a hex number. The default
+offset is 0.
+</P>
+
+<P>
+Since there may be peepholes between the HEX records, a fill byte value can
+be defined with the <NOBR>--fill</NOBR> option:
+<BLOCKQUOTE>
+<STRONG><PRE>
+--fill=0
+</PRE></STRONG>
+</BLOCKQUOTE>
+would fill all peepholes between the HEX records with zero bytes as well
+as all the dummy bytes that might have been inserted with the <NOBR>--offset</NOBR> or
+<NOBR>--length</NOBR> option. The fill byte value must always be specified as a hex
+number. The default fill byte is the EPROM-friendly FFH.
+</P>
+
+<P>
+By default the last byte in the binary file is the last byte of the HEX
+record with the highest load address. If the binary file should have a
+well defined length, then a number of dummy bytes can be appended to the
+file (e.g. for exactly matching an EPROM length), this can be performed
+with the <NOBR>--length</NOBR> option:
+<BLOCKQUOTE>
+<STRONG><PRE>
+--length=8000
+</PRE></STRONG>
+</BLOCKQUOTE>
+would append as many dummy bytes behind the last byte of the file, that the
+total file length becomes exactly 32768 bytes. The file length must always
+be specified as a hex number.
+</P>
+
+<P>
+By default, hexbin is totally &quot;quiet&quot;, if no errors are detected.
+If the <NOBR>--verbose</NOBR> option is specified, additional product and version
+information, and a file conversion report is written to standard output:
+<PRE>
+        Hex File Converter HEXBIN V2.3
+
+                     offset:      FF0H bytes
+              first address:     7FF0H
+               last address:     8255H
+        fill peepholes with:       A5H
+        binary image length:     2000H bytes
+</PRE>
+</P>
+
+<P>
+<BR>
+<STRONG>Examples:</STRONG>
+<BLOCKQUOTE>
+<STRONG><PRE>
+0.)    hexbin
+</PRE></STRONG>
+<BLOCKQUOTE>
+When invoked without parameters, hexbin displays a help screen:
+</BLOCKQUOTE>
+<PRE>
+       Hex File Converter HEXBIN V2.3
+
+       usage:      hexbin [options] &lt;hexfile&gt; [&lt;binary&gt;]
+
+       options:   -o   --offset=&lt;offset&gt;
+                  -l   --length=&lt;length&gt;
+                  -f   --fill=&lt;fillbyte&gt;
+                  -v   --verbose
+</PRE>
+<STRONG><PRE>
+1.)    hexbin program.hex
+</PRE></STRONG>
+<BLOCKQUOTE>
+will convert the <NOBR>Intel-HEX</NOBR> file program.hex to a pure binary image file
+program.bin.
+</BLOCKQUOTE>
+<STRONG><PRE>
+2.)    hexbin -f E5 tarzan.obj jungle.bin
+</PRE></STRONG>
+<BLOCKQUOTE>
+will convert the <NOBR>Intel-HEX</NOBR> file tarzan.obj to a binary image file
+jungle.bin and fill all peepholes between the HEX file records with
+the binary value E5H.
+</BLOCKQUOTE>
+<STRONG><PRE>
+3.)    hexbin --off=8000 -l10000 --fill=0 project.hex eprom
+</PRE></STRONG>
+<BLOCKQUOTE>
+will convert the <NOBR>Intel-HEX</NOBR> file project.hex to a binary image
+file eprom, insert 32K dummy bytes on top of file, fill all peepholes
+and the dummy bytes with nulls, and extend the file to exactly 64K.
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+When terminating hexbin returns an exit code to the calling process:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH ALIGN=LEFT><BIG>situation</BIG></TH><TH><BIG>exit code</BIG></TH></TR>
+<TR><TD NOWRAP><BIG>no errors</BIG></TD><TD ALIGN=CENTER><BIG>0</BIG></TD></TR>
+<TR><TD NOWRAP><BIG>conversion errors detected</BIG></TD><TD ALIGN=CENTER><BIG>1</BIG></TD></TR>
+<TR><TD NOWRAP><BIG>fatal runtime error</BIG></TD><TD ALIGN=CENTER><BIG>2</BIG></TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="linux.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="linuxenv.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="demo.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

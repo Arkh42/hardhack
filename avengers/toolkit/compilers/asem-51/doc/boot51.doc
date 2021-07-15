@@ -1,0 +1,1381 @@
+
+
+
+
+              MCS-51 Microcontroller Family Bootstrap Program
+
+
+
+
+
+
+           BBBBBB    OOOOO    OOOOO  TTTTTTTT       5555555   11
+           BB   BB  OO   OO  OO   OO    TT          55       111
+           BB   BB  OO   OO  OO   OO    TT          55        11
+           BBBBBB   OO   OO  OO   OO    TT    ====  555555    11
+           BB   BB  OO   OO  OO   OO    TT               55   11
+           BB   BB  OO   OO  OO   OO    TT               55   11
+           BBBBBB    OOOOO    OOOOO     TT          555555   1111
+
+
+
+
+
+
+
+
+
+                         U S E R ' S    M A N U A L
+
+                                Version  1.1
+
+
+
+
+                              December 15, 2002
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                copyright (c) 1996, 2002  by  W.W. Heinz
+
+
+
+                          TABLE OF CONTENTS
+                          -----------------
+
+
+
+I.    Introduction
+
+II.   BOOT-51 Installation
+
+      II.1   Files
+      II.2   Customizing BOOT-51
+      II.3   Tailoring the Cables
+      II.4   Design of MCS-51 Evaluation Boards
+
+III.  BOOT-51 Operation
+
+      III.1  Interactive Operation
+      III.2  Batch File Operation under MS-DOS
+      III.3  DOS Upload Utilities
+      III.4  Shell Script Operation under Linux
+      III.5  The BLINK Program
+
+IV.   Troubleshooting
+
+      IV.1   General Trouble
+      IV.2   Trouble under MS-DOS
+      IV.3   Trouble under Linux
+
+
+Appendix A:  CUSTOMIZ Error Messages
+
+      A.1    Parameter Errors
+      A.2    Baudrate Errors
+      A.3    Runtime Errors
+
+Appendix B:  RESET51 Error Messages
+
+Appendix C:  BOOT-51 Error Messages
+
+Appendix D:  Trademarks
+
+Appendix E:  Tables of Baudrates
+
+
+
+I. Introduction
+---------------
+Usually an 8051 application program is not running correctly from scratch,
+and it is not quite easy to debug it without a suitable test equipment.
+It is very inconvenient, to burn the program into an EPROM after every
+change. Instead it would be nice to load the program into the external
+RAM of the target board and then start it. This would dramatically speed
+up the turn-around cycles. However, three problems must be solved first:
+
+  1. There must be a suitable interface to transmit the application
+     program from the host (PC) to the target (8051) system.
+
+  2. The target board needs a suitable firmware that can receive a
+     program from the host computer, store it in the external RAM,
+     and finally execute it.
+
+  3. Once loaded, the application program must be executable, although
+     it is stored in the external RAM, which is usually mapped into the
+     XDATA address space.
+     (Programs can only be executed in the CODE address space!)
+
+The corresponding three solutions are:
+
+  1. an RS-232 interface between the PC and the 8051 board
+  2. a bootstrap program
+  3. external RAM that is mapped into both the CODE and XDATA address space
+
+Nearly all evaluation boards for 8051 derivatives are meeting requirements
+1 and 3. In most cases, it is easy to establish a memory map according to
+requirement 3, even on target boards that do not originally support it.
+(See chapter "II.4 Design of MCS-51 Evaluation Boards".)
+
+Requirement 2 can be met by burning a customized version of BOOT-51 into
+the EPROM of the target board. After system reset, it can receive an
+Intel-HEX file over the serial interface, store it in the external RAM,
+and finally jump to the program start address.
+
+BOOT-51 itself doesn't need any external RAM, and requires only 1 kB of
+EPROM. In principle, it is not restricted to a PC-based host system, but
+presently only the host platforms MS-DOS, Windows 9x, and Linux (i386)
+are supported.
+
+Sure, a bootstrap program cannot replace a target debugger, but it's a start.
+
+
+
+II. BOOT-51 Installation
+------------------------
+The BOOT-51 support files are usually installed on the host system together
+with the latest ASEM-51 version. Of course BOOT-51 must be installed on the
+MCS-51 target system, too.
+Before burning BOOT-51 into an EPROM, it must be customized for the target
+board, and one or two cables must be tailored for local requirements.
+If the design of the target system is not yet finished, some basic knowledge,
+concerning the general design of MCS-51 evaluation boards, might be helpful
+to meet the hardware requirements from the beginning.
+
+
+
+II.1 Files
+----------
+The BOOT-51 package for DOS/Windows consists of the following files:
+
+    BOOT51.DOC          BOOT-51 User's Manual, ASCII format
+    BOOT51.HTM          index file of the BOOT-51 documentation, HTML format
+         *.HTM          further pages of the HTML documentation
+         *.GIF          GIF images referenced by HTML pages
+    BOOT51.A51          BOOT-51 assembler source (for ASEM-51 V1.3 and up)
+  CUSTOMIZ.EXE          BOOT-51 customization utility
+      BOOT.BAT          batch file for application program upload
+    UPLOAD.BAT          called by BOOT.BAT only
+   COMPORT.EXE          setup utility for PC serial ports
+   RESET51.EXE          program to reset the target system via PC ports
+     SLEEP.EXE          program to wait for the reset recovery time
+     BLINK.A51          sample test program for BOOT-51
+
+The BOOT-51 package for Linux consists of the following files:
+
+    boot51.doc          BOOT-51 User's Manual, ASCII format
+    boot51.htm          index file of the BOOT-51 documentation, HTML format
+         *.htm          further pages of the HTML documentation
+         *.gif          GIF images referenced by HTML pages
+    boot51.a51          BOOT-51 assembler source (for ASEM-51 V1.3 and up)
+    customiz            BOOT-51 customization utility
+    customiz.1          man-page for customiz
+    boot                shell script for application program upload
+    boot.1              man-page for boot
+    upload              called by boot only (generic version)
+    upload.new          "new" upload (optimized for stty 2.0 or later)
+    reset51             program to reset the target system via PC ports
+    reset51.1           man-page for reset51
+    blink.a51           sample test program for BOOT-51
+
+
+
+II.2 Customizing BOOT-51
+------------------------
+BOOT-51 must be customized for the target board, before it is ready for
+assembly. This is performed with an include file boot51.inc, containing
+the required configuration data. boot51.inc is generated with the BOOT-51
+Customization Utility CUSTOMIZ.
+There are two major groups of configuration parameters:
+
+  -  baudrate generation
+  -  memory addresses
+
+CUSTOMIZ is invoked as shown below:
+
+
+  customiz <baud> [<timer> [<prec> [<clock> [<start> [<user>]]]]]
+
+
+The first four parameters are for baudrate generation, and the last two
+parameters are memory addresses. Parameters in brackets are optional.
+If CUSTOMIZ is invoked without parameters, it displays a help screen.
+
+<baud>     is the desired nominal baudrate (in Baud), BOOT-51 should use
+           for communication with the host system.
+
+<timer>    is the on-chip timer or baudrate generator that is used for
+           baudrate generation. Legal values are:
+
+           T1 = timer 1, available on nearly all 8051 derivatives (default)
+           T2 = timer 2, available on 8052/32 and all true compatibles
+           BG = internal baudrate generator on 80C515/35 and 80C517/37
+           BA = internal baudrate generator on 80C515A and 80C517A
+           D1 = timer 1 with clock/12 or clock/4 prescaler on 80C320
+
+<prec>     is the required relative precision of the baudrate in %.
+           The default precision is 1.0 %.
+
+<clock>    is the system clock frequency in MHz. (11.0592 MHz default)
+
+<start>    is the start address of BOOT-51 on the target system in hex
+           representation. (default is 0000H)
+
+<user>     is the usual hex start address of the application programs
+           in the external memory. (default is 8000H)
+
+Baudrate:
+---------
+For the serial interface, the standard UART is used that is available on
+almost every 8051 derivative. BOOT-51 is always running the UART in Mode 1,
+that is asynchronous mode, 8 data bits, 1 stop bit, no parity.
+However, depending on the derivative, there may be various timers or
+prescalers that can be used for baudrate generation.
+If the desired baudrate cannot be generated or the precision is too bad,
+CUSTOMIZ will display a corresponding error message. In this case, try
+another baudrate generator that is also available on your derivative.
+If this fails, too, try another baudrate that may also do, or think of
+using another oscillator crystal that suits better for the task.
+You should play around with CUSTOMIZ, to explore how to get best results.
+The tables in Appendix E show the precisions of the most frequently used
+baudrates that can be generated with the supported timers and baudrate
+generators, for some standard clock frequencies.
+In most cases baudrate deviations of 2 to 3 % are no problem for the
+communication with a PC. Whenever in doubt, try it!
+BOOT-51 can receive data at very high baudrates without the need for a
+handshake protocol. Output is done more slowly with short pauses between
+the characters, to avoid a data overrun of the PC UART. The maximum
+effective output speed of BOOT-51 is corresponding to 9600 Baud
+(max. 1 character per ms).
+In general, speed is rather a problem for the PC than for the micro.
+
+Example 1:   customiz 9600 BG 0.1 12
+----------
+             will generate an include file for BOOT-51 that configures it
+             for 9600 Baud, generated with the internal baudrate generator
+             of a SAB80C535 or SAB80C537 that is clocked with 12.0 MHz.
+             The required precision is 0.1 %.
+             The bootstrap and application program start addresses are
+             set to their default values.
+
+Addresses:
+----------
+
+<start>:
+An 8051 starts program execution at CODE address 0000H after reset.
+Thus there must always be ROM at CODE address 0000H to execute the first
+instructions. On most 8051 boards there is EPROM in the range 0000H-7FFFH,
+and RAM in the range 8000H-FFFFH. However, the final application programs
+will usually start at address 0000H, and the 8051 interrupt addresses start
+at address 0003H. If application programs can be loaded into RAM at 8000H,
+this is normally not quite realistic for testing.
+Hence it would be nice to have CODE/XDATA-RAM at address 0000H to load and
+test application programs. That is why some evaluation boards (e.g. the Keil
+MCB-517) remap the EPROM from address 0000H to 8000H, and the RAM from 8000H
+to 0000H, when the first memory access to a CODE address > 7FFFH occurs.
+To support this, BOOT-51 starts with a long jump to its entry point, to
+eventually remap the memory. If you own a corresponding evaluation board,
+specify the <start> address of BOOT-51 to the location, where it resides
+after memory remapping!
+
+<user>:
+In principle, BOOT-51 can load an application program at any location in
+the external RAM and start it there. However, the interrupt addresses
+should be redirected to the location, where application programs usually
+start, e.g. the start address of the external RAM.
+Hence the <user> address should point to the location, where the CODE/XDATA-
+RAM starts. If it starts at 8000H, interrupt 0003H is redirected to 8003H,
+interrupt 000BH to 800BH, and so on.
+If the CODE/XDATA-RAM starts at 0000H (after remapping), the <user> address
+has no practical meaning and can be left default.
+
+Example 2:   customiz 19200 T2 1 11.0592 0 C000
+----------
+             will generate an include file for BOOT-51 that configures it
+             for 19200 Baud, generated with timer 2 of an 80C52 or 80C32
+             that is clocked with 11.0592 MHz. The required precision is 1 %.
+             BOOT-51 is located at address 0000H in the EPROM, and the
+             interrupt addresses are redirected to location 0C000H.
+
+If CUSTOMIZ aborts with an error message, it returns exit code 1 on para-
+meter- and baudrate-errors, and exit code 2 on fatal runtime errors.
+When CUSTOMIZ terminates without error message, it returns exit code 0, and
+a customization header file boot51.inc should be present in the default
+directory. With this file, BOOT-51 can be assembled as usual with
+
+              ASEM BOOT51                           (DOS)
+              asem boot51.a51                       (Linux)
+
+Remember that BOOT-51 requires ASEM-51 V1.3 or later!
+Now there should be an Intel-HEX file boot51.hex, which may serve directly
+as an input for the EPROM programmer. We may also convert it to a binary
+image file with the HEXBIN utility:
+
+             HEXBIN BOOT51/LENGTH:4000              (DOS)
+             hexbin -l 4000 boot51.hex              (Linux)
+
+would generate a binary image file boot51.bin for a 16 kB EPROM (27C128).
+(Note: Only 1 kB of EPROM is required for the BOOT-51 program code.)
+Once in an EPROM, BOOT-51 should be ready to run on the target system.
+
+
+
+II.3 Tailoring the Cables
+-------------------------
+Application programs are uploaded to the target system over a serial
+interface. The serial ports of the PC may have 9-pin or 25-pin male
+D-Shell connectors. Suitable RS-232 cables for the MCS-51 board can
+be tailored as follows:
+
+
+   RS-232 cable with 25-pin female D-Shell connector:
+   --------------------------------------------------
+
+   PC serial port:                                  MCS-51 target system:
+
+        pin
+
+    Tx   2  o----------------------------------------->  RXD
+
+    Rx   3  o----------------------------------------->  TXD
+
+   RTS   4  o-----+
+                  |
+   CTS   5  o-----+
+
+   DSR   6  o-----+
+                  |
+   DCD   8  o-----+
+                  |
+   DTR  20  o-----+----------------------------------->  Reset
+
+ground   7  o----------------------------------------->  ground
+
+
+Shortening the modem control signals is absolutely required for batch
+operation under MS-DOS! If the CTS-, DSR-, or DCD-input is not set to
+logic low (+12V), the PC will hang during character output to the serial
+port.
+For shell script operation under Linux, only the Tx-, Rx-, and ground
+lines are required, and the handshake inputs may be left open.
+The same is true for interactive operation with most terminal emulation
+programs. (For further information refer to the documentation of your
+terminal emulation program.)
+If there is a spare RS-232 line receiver on your MCS-51 board, it can be
+employed as a reset input! In this case, the target system can be reset
+in batch (or script) files with the reset program provided, and from terminal
+emulation programs (by dropping the DTR output with the hang-up function).
+
+
+   RS-232 cable with 9-pin female D-Shell connector:
+   -------------------------------------------------
+
+   PC serial port:                                  MCS-51 target system:
+
+        pin
+
+    Rx   2  o----------------------------------------->  TXD
+
+    Tx   3  o----------------------------------------->  RXD
+
+   RTS   7  o-----+
+                  |
+   CTS   8  o-----+
+
+   DCD   1  o-----+
+                  |
+   DTR   4  o-----+----------------------------------->  Reset
+                  |
+   DSR   6  o-----+
+
+ground   5  o----------------------------------------->  ground
+
+
+If you own a 9/25-pin mouse adaptor with all pins connected, the 9-pin
+version of the cable should be preferred!
+If your MCS-51 board has no spare RS-232 line receivers, but a TTL reset
+input (or you can establish one), the target system can also be reset in
+batch (or script) files over a printer port of the PC.
+For this, a suitable reset cable must be tailored as shown below:
+
+
+   Reset cable with 25-pin male D-Shell connector:
+   -----------------------------------------------
+
+   PC printer port:                                 MCS-51 target system:
+
+            pin
+
+        D0   2  o----------------------------------------->  Reset
+                                                             _____
+        D1   3  o----------------------------------------->  Reset
+
+    ground  25  o----------------------------------------->  ground
+
+
+In practice, only one of the two reset lines will be required.
+When the reset program is invoked, a positive reset pulse appears
+at D0 (8031, 8032), and a negative pulse at D1 (80C535, 80C537).
+For detailed information on the reset program, refer to chapters
+"III.2 Batch File Operation under MS-DOS", and
+"III.4 Shell Script Operation under Linux".
+
+
+
+II.4 Design of MCS-51 Evaluation Boards
+---------------------------------------
+When developing embedded systems, debugging aspects should be taken into
+account as soon as possible. That is why MCS-51 prototype boards should
+always be armed with a download RAM in the hardware design phase, even if
+the serial model (probably) doesn't need an external RAM!
+A $3 RAM can save a $3000 in-circuit emulator and weeks of trouble!
+
+Before discussing the basic concepts of program download, it is essential
+to understand the memory organization of the MCS-51 architecture.
+First of all, there is an 8-bit address space for internal RAM. Parts of
+it are directly addressable (DATA space), indirectly addressable (IDATA
+space), or bit-addressable (BIT space). These address spaces are fully or
+partly overlapping. Furthermore, the four register banks and the Special
+Function Registers (SFR) are mapped into this internal address space. This
+is hard to understand for newbies, but plays no role for program download.
+Aside of the internal memory, the MCS-51 architecture provides a bus
+interface for external memory. There are two separate 16-bit address spaces
+for 64K of program memory (ROM) and 64K of data memory (RAM). Program memory
+(CODE space) can only be read with the -PSEN bus signal, and data memory
+(XDATA space) can be read and written with the -RD and -WR bus signals.
+The -PSEN signal becomes active during instruction fetch cycles and MOVC
+instructions. The -RD and -WR signals become active during read and write
+operations with MOVX instructions.
+
+The obvious problem is: a downloaded program can only be stored in external
+RAM, mapped into the XDATA space, whereas program code can only be executed
+from memory in the CODE space.
+There must be a way to execute a downloaded program, although it is stored
+in external RAM! Fortunately, there is a simple trick to solve this:
+The -OE input of the (usually static) RAM must be driven by a logic AND of
+the -RD and -PSEN signals of the MCU, rather than by -RD alone. That's all!
+Then the external RAM can be read and written with MOVX instructions (using
+-RD and -WR), and program code can be executed from it (using -PSEN).
+
+For example, a typical 8051 evaluation board could be designed as follows:
+A 32K EPROM (e.g. 27C256) is mapped into the CODE space from address 0000H
+to 7FFFH, containing BOOT-51 at address 0000H.
+A 32K static RAM (e.g. 62256) is mapped into both the CODE and XDATA spaces
+from address 8000H to FFFFH.
+After reset, the MCU starts program execution at address 0000H, and BOOT-51
+is running, waiting for commands. When it receives an UPLOAD command from
+the host computer, it reads an Intel-HEX file and stores it at its start
+address in the external RAM (e.g. 8000H). If BOOT-51 receives a GO TO 8000
+command, it jumps to the specified address 8000H, and the downloaded program
+is running.
+A memory map like this can be obtained with a minimum of hardware:
+The -CE (chip enable) input of the EPROM must be driven by the A15 signal
+(P2.7) of the MCU, and -CE of the RAM with the inverted A15 signal
+respectively, to avoid bus conflicts in the CODE space.
+The -OE (output enable) input of the EPROM must be driven by the -PSEN
+signal of the MCU, as usual for CODE memory.
+The -WE (write enable) input of the RAM must be driven by the -WR signal
+(P3.6) of the MCU, as usual for XDATA memory.
+Only the -OE (output enable) input of the RAM must be driven by that famous
+logical AND of the -RD and -PSEN signals of the MCU, to map the RAM into
+both the XDATA and CODE space. That's it!
+
+Because this is so simple, cheap and (in contrast to many in-circuit
+emulators) absolutely reliable, most MCS-51 family evaluation boards are
+working like this or similar.
+In most cases, it is easy to establish a suitable memory map, even on
+target boards that do not originally support it.
+
+If there is no spare AND gate, it may also do, to simply connect the -OE
+input of the RAM to the -PSEN signal of the MCU only. In this case, the RAM
+can still be written, but no longer be read with MOVX instructions. Since
+program code can also be executed from it, this minimized version can still
+be used as download RAM, but no longer as external data RAM.
+(In cases of emergency, it can be read with MOVC instructions, however!)
+
+
+
+III. BOOT-51 Operation
+----------------------
+When BOOT-51 is customized correctly, and the target board is connected to
+the host PC with the cable(s) described above, we can start to upload and
+run application programs. There are two possible modes of operation:
+
+  - interactive operation
+  - batch operation
+
+
+
+III.1 Interactive Operation
+---------------------------
+BOOT-51 implements a simple ASCII user interface for serial communication.
+The bootstrap program can be operated interactively with a terminal emulation
+program running on the PC (e.g. TELIX under MS-DOS, or minicom under Linux).
+To perform this, start your terminal emulation program, and configure it for
+the correct baudrate, 8 data bits, 1 stop bit, no parity, and no handshake.
+Then reset the MCS-51 target system.
+(If you have established an RS-232 reset line, the target system can usually
+ be reset by dropping the RS-232 DTR output with the "hang-up" function!)
+Now the BOOT-51 sign-on message should appear on your screen:
+
+        BOOT-51  V1.1           Copyright (c) 2002 by W.W. Heinz
+
+        >
+
+The '>' character indicates that the BOOT-51 command line interpreter is
+ready for input. It implements exactly two commands:
+
+1. The UPLOAD command:
+   First press the 'U', and then the return key.
+   Now the upload prompt ':' should be displayed. BOOT-51 is now ready to
+   receive an application program in Intel-HEX format. Send an Intel-HEX
+   file with the ASCII upload function of your terminal emulation program.
+   (Be sure that it terminates every line with a CR and/or LF character!)
+   Now the received Intel-HEX records are loaded to their start addresses
+   specified in the record headers. If an EOF record is received, the upload
+   is terminated and the command prompt '>' is displayed again. Now the
+   command line interpreter is ready for the next command.
+   When a format error is detected in the Intel-HEX file, BOOT-51 waits
+   until no more characters are received for about two seconds, and then
+   aborts with a corresponding error message.  (see Appendix C)
+
+2. The GO TO command:
+   To start an application program at address 8000H, enter "G 8000" and
+   press return. BOOT-51 sets now all MCU registers to reset conditions
+   (as far as possible), and jumps to the start address specified.
+   Now the previously loaded application program should be running!
+
+Any desired number of Intel-HEX files may be loaded, before entering the
+'G' command. The commands may be entered in upper or lower case letters.
+Interactive operation should be preferred, if the application program
+performs serial I/O. This can easily be supervised with the terminal
+emulation program. In interactive mode, only an RS-232 reset output is
+applicable. (A printer port reset cable would be of little use!)
+
+
+
+III.2 Batch File Operation under MS-DOS
+---------------------------------------
+If serial I/O is only used for program upload, batch file operation may be
+the most convenient way of testing with the shortest turn-around cycles.
+The sample batch job below, shows the principles of operating BOOT-51 from
+a PC with MS-DOS batch commands:
+
+        MODE COM2:9600,N,8,1,P
+        RESET51 LPT1
+        SLEEP 9600
+        ASEM %1
+        ECHO U >COM2
+        COPY %1.HEX COM2
+        ECHO G 8000 >COM2
+
+In this example, serial I/O is done over serial port COM2, and the target
+system can be reset over printer port LPT1.
+First of all, the serial port COM2 is initialized to the desired baudrate
+of 9600 Baud, 8 data bits, 1 stop bit, and no parity with the MODE utility.
+Then the RESET51 program provided is executed to reset the target system via
+printer port LPT1. After that, the SLEEP program waits until BOOT-51 has
+fully output its sign-on message at 9600 Baud and is ready for a command.
+To give the MCS-51 board some more time to recover from reset, ASEM-51 is
+now invoked to assemble the application program.
+When finished, the BOOT-51 upload command 'U' is ECHOed to COM2, and the
+Intel-HEX file is also simply copied to the serial port.
+Finally the application program is started at address 8000H with the
+command "ECHO G 8000 >COM2".
+To test an application program MYPROG.A51 with the above batch job (stored
+in a file TEST51.BAT), simply type
+
+        TEST51 MYPROG
+
+at the DOS prompt, and see what you get.
+Of course this was only a minimized example! In general you will not only
+have to modify serial port, baudrate, reset port, and start address for
+your local requirements, but also to do something for plausibility checking
+and error handling.
+For this, the more sophisticated batch file BOOT.BAT has been provided.
+It allows an easy change of all configuration parameters with any ASCII
+editor. For further information see the commentary inside BOOT.BAT.
+In principle, BOOT.BAT contains only those configuration data!
+(The actual work is done by another batch file UPLOAD.BAT provided,
+ which is invoked by BOOT.BAT.)
+A program MYPROG.A51 can now be assembled, uploaded and started with
+
+        BOOT MYPROG
+
+
+
+III.3 DOS Upload Utilities
+--------------------------
+The BOOT-51 package for DOS/Windows contains the utilities COMPORT.EXE,
+RESET51.EXE, and SLEEP.EXE, which are usually invoked by UPLOAD.BAT, but
+can also be used separately.
+
+
+COMPORT
+-------
+sets <baudrate> and data format of a PC serial <port>:
+
+        COMPORT <port> <baudrate> [<parity> [<databits> [<stopbits>]]]
+
+Legal parameter values are:
+
+        <port>:        AUX, COM1, COM2, COM3, COM4
+        <baudrate>:    1.66 < baudrate < 121000
+        <parity>:      N, O, E, M, S     (default: N)
+        <databits>:    5, 6, 7, 8        (default: 8)
+        <stopbits>:    1, 1.5, 2         (default: 1)
+
+The port names AUX and COM1 are equivalent.
+COMPORT allows to set very low, very high, and very odd baudrates, which
+can be generated by the 16C450 UART of the PC (and the 8051 board), but
+are not supported by the PC BIOS or the MS-DOS MODE command.
+Baudrates that cannot be generated exactly are accepted as long as the
+deviation doesn't exceed 5.0 %. COMPORT displays the "real" baudrate and
+the relative deviation (if any) from the nominal value.
+The parity can optionally be set to N (none), O (odd), E (even), M (mark),
+or S (space). Furthermore, the data format can be set to 5, 6, 7, or 8
+data bits, and 1, 1.5, or 2 stop bits.
+Default settings are: no parity, 8 data bits and 1 stop bit.
+
+Note:  only 6, 7 or 8 data bits may be combined with 1 or 2 stop bits.
+       5 data bits are only possible with 1.5 stop bits!
+
+Example 1:      COMPORT COM4 12800
+----------
+                Sets the serial port COM4 to 12800 Baud, no parity,
+                8 data bits, and 1 stop bit.
+
+
+RESET51
+-------
+forms a reset pulse of the duration <pulsewidth> at the D0 and D1 outputs
+of a PC printer <port>, or at the DTR output of a serial <port>:
+
+        RESET51 <port> [<pulsewidth>]
+
+Legal <port> values are:  PRN, LPT1, LPT2, LPT3,
+                          AUX, COM1, COM2, COM3, COM4,
+                          NUL
+
+PRN and LPT1 are equivalent, and so are AUX and COM1.
+The optional parameter <pulsewidth> is the duration of the reset pulse in ms.
+Legal values are:  1 <= <pulsewidth> <= 65535.  (default is 50)
+When invoked without parameters, a help screen is displayed.
+In case of error, RESET51 returns the ERRORLEVEL 1, 0 otherwise.
+When executed, RESET51 forms a positive pulse at D0 (pin 2), and a negative
+pulse at D1 (pin 3) of a PC printer port, or a "high" pulse (-12 V !!!) at
+the DTR output of a serial port respectively. If the NUL device is specified
+as <port>, RESET51 delays only for <pulsewidth> ms.
+If the default pulse width of 50 ms is too short to reset the MCS-51 board,
+specify a greater pulse width.
+
+Example 2:      RESET51 LPT2 500
+----------
+                Applies a reset signal to the D0 and D1 outputs of the
+                printer port LPT2 for 500 ms.
+
+RESET51 is running under MS-DOS, and in the DOS-Boxes of Windows 3.1x and 9x.
+Windows ME does no longer provide a DOS-Box.
+RESET51 is not running under Windows NT, 2000, and XP!
+
+For batch file operation, a reset line is highly recommended! If you don't
+have it, you will always have to press the reset button of the target system,
+before invoking BOOT.BAT. Since this may easily be forgotten, it is better
+to automate this step.
+
+
+SLEEP
+-----
+waits until BOOT-51 has output <chars> characters of its sign-on message
+at a given <baudrate>:
+
+        SLEEP <baudrate> [<chars>]
+
+SLEEP is a simple delay program, which is waiting as long as it takes to
+output <chars> characters with the specified <baudrate>. However, SLEEP
+takes into account, that BOOT-51 will never send more than one character
+per ms, even at very high baudrates.
+The default value of <chars> is 70, which is slightly more than the total
+length of the BOOT-51 sign-on message.
+
+Example 3:      SLEEP 300
+----------
+                Waits until BOOT-51 has fully output its sign-on message
+                at 300 Baud.
+
+
+
+III.4 Shell Script Operation under Linux
+----------------------------------------
+If serial I/O is only used for program upload, shell script operation may be
+the most convenient way of testing with the shortest turn-around cycles.
+The sample script file below, shows the principles of operating BOOT-51 from
+a PC, running under Linux, with shell commands:
+
+#!/bin/sh
+stty 9600 sane clocal -crtscts -hupcl </dev/ttyS1      # until stty 1.16
+# stty -F /dev/ttyS1 9600 sane clocal -crtscts -hupcl  # stty 2.0 or later
+reset51 /dev/lp0
+sleep 1
+asem $1.a51
+echo "U" >/dev/ttyS1
+cp $1.hex /dev/ttyS1
+echo "G 8000" >/dev/ttyS1
+
+In this example, serial I/O is done over serial port /dev/ttyS1, and the
+target system can be reset over printer port /dev/lp0.
+First of all, the serial port /dev/ttyS1 is initialized to the desired
+baudrate of 9600 Baud, 8 data bits, 1 stop bit, no parity and no handshake
+with the stty command. (If your stty is version 2.0 or later, better use
+the new command syntax with the -F option, as shown in commentary!)
+Then the reset51 program provided is executed to reset the target system via
+printer port /dev/lp0. After that, the sleep command waits until BOOT-51 has
+recovered from reset, fully output its sign-on message, and is ready for a
+command.
+Now ASEM-51 is invoked to assemble the application program.
+When finished, the BOOT-51 upload command 'U' is echoed to /dev/ttyS1, and
+the Intel-HEX file is also simply copied to that serial port.
+Finally the application program is started at address 8000H with the
+command 'echo "G 8000" >/dev/ttyS1'.
+To test an application program myprog.a51 with the above shell script
+(stored in a file test51), simply type
+
+        test51 myprog
+
+at the shell prompt, and see what you get.
+Of course this was only a minimized example! In general you will not only
+have to modify serial port, baudrate, reset port, and start address for
+your local requirements, but also to do something for plausibility checking
+and error handling.
+For this, the more sophisticated script file boot has been provided.
+It allows an easy change of all configuration parameters with any ASCII
+editor. For further information see the commentary inside boot.
+In principle, boot contains only those configuration data!
+(The actual work is done by another script upload provided, which is
+ invoked by boot. If your stty command is version 2.0 or later, better
+ use the script file upload.new instead!)
+A program myprog.a51 can now be assembled, uploaded and started with
+
+        boot myprog
+
+To get the boot script running, ensure that you have full read/write
+access to the serial port used as upload device!
+If a printer port is employed as reset device, the reset51 program requires
+root privileges!  (see below)
+
+Finally, the reset51 program provided, may be worth a detailed explanation:
+When invoked, reset51 forms a reset pulse of the duration <pulsewidth> at
+the D0 and D1 outputs of a PC printer <port>, or at the DTR output of a
+serial <port>:
+
+        reset51 /dev/<port> [<pulsewidth>]
+
+Legal <port> values are:  lp0, lp1, lp2,
+                          ttyS0, ttyS1, ttyS2, ttyS3,
+                          cua0, cua1, cua2, cua3,
+                          null
+
+Under Linux with kernels 2.0.x the printer ports are assigned to fixed
+I/O base addresses (lp0 = 3BCH, lp1 = 378H, lp2 = 278H).
+From kernel 2.2.0, the parport layer has been introduced, providing dynamic
+printer port assignment. If your 2.2.x kernel doesn't contain parport layer
+support or the /proc file system, you should recompile it respectively.
+This should also make PCI bus printer ports available as reset devices.
+reset51 can only handle the four standard PC serial ports ttyS0 thru ttyS3.
+(However, the boot script described above should also work with non-standard
+ serial ports, because it operates them with the stty command only!)
+The serial ports ttyS0 and cua0 are equivalent, and so are ttyS1 and cua1,
+and so on.
+If /dev/null is specified as <port>, reset51 delays only for <pulsewidth> ms.
+
+The optional parameter <pulsewidth> is the duration of the reset pulse in ms.
+Legal values are:  1 <= <pulsewidth> <= 65535.  (default is 50)
+When invoked without parameters, a help screen is displayed.
+In case of error, reset51 returns the exit code 1, 0 otherwise.
+When executed, reset51 forms a positive pulse at D0 (pin 2), and a negative
+pulse at D1 (pin 3) of a PC printer port, or a "high" pulse (-12 V !!!) at
+the DTR output of a serial port respectively.
+If the default pulse width of 50 ms is too short to reset the MCS-51 board,
+specify a greater pulse width.
+
+Since reset51 needs direct access to I/O ports, it requires root privileges!
+To make it available for all users, set the owner to "root" and set the
+"set-user-id"-bit:
+
+        chown root reset51
+        chmod u+s reset51
+
+For shell script operation, a reset line is highly recommended! If you don't
+have it, you will always have to press the reset button of the target system,
+before invoking the boot script. Since this may easily be forgotten, it is
+better to automate this step.
+
+
+
+III.5 The BLINK Program
+-----------------------
+When BOOT-51 is customized and blown into an EPROM, and the target board
+is connected to the host PC, it would be nice to verify, whether the whole
+configuration is working together correctly. This can be done with a short
+test program that performs a well-defined action when started.
+For this purpose the tiny assembly program blink.a51 has been provided.
+It simply toggles the logic level of a port pin (roughly) once a second
+(great if connected to a LED) to verify, whether all the components in
+the chain
+
+    assembly -> serial interface -> target system <-> bootstrap program
+
+are working together correctly.
+It can be adapted to your requirements with little efforts:
+
+1. If your target system carries a LED that can be switched with a
+   bit-addressable port pin, please change the BIT symbol LEDPIN
+   accordingly. Then the program will make the LED blink.
+
+   If your LED can only be switched with a non-bit-addressable
+   port pin (say bit 2 of a port P6), simply replace the statement
+   "CPL LEDPIN" by "XRL P6,#00000100B" or something like that.
+
+2. Change the program start address START to the location, where
+   user programs are usually loaded on your target system.
+   The program code itself is position-independent!
+
+If there is no LED on your target system, connect the port pin to
+a volt-meter. This may also do. Aside of P0 and P2 you may use every
+port with LEDs or spare outputs. Now the command
+
+        boot blink
+
+should reset the MCS-51 board, assemble the test program, upload it to the
+target system, and finally start it. If the LED is blinking, everything is
+now perfectly installed and ready for daily work.
+If not, you should read the next chapter!
+
+
+
+IV. Troubleshooting
+--------------------
+Of course, you have read all the previous chapters carefully (haven't you?),
+and you have checked (and double-checked) your hardware, but the damn thing
+is not willing to work!
+If you don't have an idea what may still be wrong, here are some typical
+cases from my own experience:
+
+
+
+IV.1 General Trouble
+--------------------
+These are problems that may occur on all host platforms:
+
+ 1. The RESET51 program terminates without any error, but the target system
+    is not reset.
+    The (reset) cable may be plugged into the wrong (printer) port.
+    First of all try the other ports.
+    There may also be something wrong with the cable itself.
+    Employ the BOOT-51 User's Manual and the circuit diagram of the target
+    board, and check the cable.
+    Furthermore, the reset pulse may be too short.
+    Specify a greater pulse width.
+    You may also decrease the reset capacitor of the MCS-51 system.
+
+ 2. The target system is reset all the time.                            _____
+    When tailoring the reset cable, you may have mixed up the RESET and RESET
+    lines. Simply interchange them.
+
+ 3. In batch (or script) mode everything seems to work fine on the PC, but
+    on the target system you get absolutely nothing.
+    Try the interactive mode and reset the target system. If nothing happens,
+    you may have mixed up the receive and transmit lines of the target board.
+    If you get some garbage, the baudrates and/or serial data formats of the
+    target system and the PC are probably different.
+    Configure your terminal emulation program correctly, and change BOOT.BAT
+    (under MS-DOS) or the boot script (under Linux) accordingly.
+    (correct data format: 8 data bits, 1 stop bit, no parity)
+
+ 4. Everything is working fine in batch (or script) mode, but when you try
+    to upload the same HEX file in interactive mode, BOOT-51 aborts with the
+    error message "unexpected character".
+    Check the ASCII upload configuration parameters of your terminal
+    emulation program. It has to terminate every line with a CR and/or LF
+    character, and it must not send any pace characters!
+    Of course it is always best, to send the HEX file exactly as it is.
+
+
+
+IV.2 Trouble under MS-DOS
+-------------------------
+These are problems that are specific to DOS-based host platforms, including
+Windows 3.1x. Most of it also applies to Windows 9x systems.
+
+ 1. When initializing the serial port, the DOS MODE utility aborts with an
+    error message like:  "function not supported on this computer", or
+    "invalid parameter", or something like that.
+    On most PCs, the BIOS doesn't support baudrates greater than 9600 Baud.
+    MODE itself doesn't support baudrates greater than 19200 Baud.
+    However, most terminal emulation programs can operate at baudrates of up
+    to 115200 Baud.
+
+ 2. The RESET51 program aborts with "port not found".
+    The PC-BIOS didn't recognize the printer or serial port specified.
+    Try another port or check your PC hardware.
+
+ 3. The RESET51 program aborts with "hardware failure".
+    The PC-BIOS has recognized the specified port, but the data latch
+    (printer port) or modem control register (serial port) doesn't work.
+    Try another port, or check the defective port.
+
+ 4. The PC hangs when data are sent over the serial interface in batch mode.
+    The RS-232 cable may be plugged into the wrong COM-port.
+    First of all, try the other ports.
+    There may also something be wrong with the modem control signals.
+    (See chapter "II.3 Tailoring the Cables".)
+
+ 5. It works in interactive mode, but the PC hangs, if data are sent in batch
+    mode.
+    There _is_ something wrong with the modem control lines! Employ the
+    BOOT-51 User's Manual and check the RS-232 cable at the PC side connector.
+
+ 6. When invoked, the MS-DOS MODE command hangs, or fails to change the
+    previous baudrate, although it terminates without error.
+    Remove all networking and communication drivers and TSR programs from
+    your CONFIG.SYS and AUTOEXEC.BAT files, reboot, and try it again.
+    There is plenty of quick'n dirty software, doing something strange
+    with the BIOS interrupts!
+
+
+
+IV.3 Trouble under Linux
+------------------------
+The most popular problems under Linux are permission conflicts and wrong
+(or no) configuration. Problems may even change with the version number
+of the Linux kernel!
+Note that some changes suggested here will lower your systems security
+against attackers who have login access to your machine. Direct access
+to hardware ports and security do not mix well.
+On some distributions changes in the /dev directory might be detected
+by periodically run jobs and automatically reverted to the old state.
+
+ 1. The boot script aborts with the error message
+
+    ./upload: /dev/ttyS1: Permission denied
+
+    (or something like that).
+    You don't have read/write access to the serial port in use (ttyS1).
+    If you are the only user of this computer, you can log in as root,
+    and simply allow read/write operations for all users:
+
+          chmod a+rw /dev/ttyS1
+
+    If there are more users who have access to the system, better define
+    a new group called "embedded" (or something) in /etc/group and add all
+    users who need access to this port. Finally do
+
+          chgrp embedded /dev/ttyS1
+          chmod o-rw,ug+rw /dev/ttyS1
+
+ 2. The boot script hangs on any attempt to output an Intel-HEX file to
+    a particular serial port.
+    There may be an I/O address or interrupt conflict, or the serial ports
+    are not configured correctly, or not at all.
+
+    Make sure that every serial port uses a base I/O address and an IRQ
+    that does not conflict with any other hardware installed in your system.
+    (For example, port ttyS3 at 0x2e8 conflicts with an 8514 graphics card!)
+    Check the BIOS setup menu for on-board peripherals, as well as the jumper
+    settings of all the legacy (ISA) boards.
+    Watch the console output when Linux is booting. There are messages like
+
+          ttyS00 at 0x03f8 (irq = 4) is a 16550A
+
+    A log file is usually kept in /var/log. The file name depends on the
+    Linux distribution and version. Look for boot.msg, bootlog, or something.
+    Linux doesn't really auto-probe the serial ports. It assumes standard
+    port addresses and IRQ numbers. If your hardware doesn't match this
+    default configuration, it will not work. In this case you have to
+    configure your serial ports manually with the setserial command, e.g.
+
+          setserial -v /dev/ttyS0 port 0x3f8 irq  4 autoconfig
+          setserial -v /dev/ttyS1 port 0x2f8 irq  3 autoconfig
+          setserial -v /dev/ttyS2 port 0x3e8 irq  9 autoconfig
+          setserial -v /dev/ttyS3 port 0x2e8 irq 10 autoconfig
+
+    Unfortunately the best place where to put these commands, in order to
+    execute them during system boot, depends on the Linux distribution.
+    For most Linux distributions, /etc/init.d/serial is a good choice!
+    SuSE distributions kept it in /sbin/init.d/serial until version 7.0.
+    For detailed information on serial port configuration refer to the
+    setserial man-pages and the Serial-HOWTO.
+
+ 3. The boot script aborts with an error message like
+
+         resetting target system ...
+    @@@@@ access denied: /dev/lp0 @@@@@
+
+    on a system with a 2.2.x (or later) kernel, or with
+
+         resetting target system ...
+    @@@@@ no root privilege @@@@@
+
+    on a system with a 2.0.x (or earlier) kernel.
+    The reset51 program needs root privileges for direct access to I/O ports!
+    If you are the only user of this computer, you can log in as root,
+    and simply allow to run reset51 as root for all users:
+
+          chown root reset51
+          chmod a+x,u+s reset51
+
+    Once again a warning: don't do this, if your system should have a higher
+    level of security! If there are more users who have access to the system,
+    better define a special group "embedded" (or something) in /etc/group and
+    add all users who need to run reset51. Then disable execution for all
+    other users:
+
+          chown root reset51
+          chgrp embedded reset51
+          chmod o-x,ug+x,u+s reset51
+
+    This may considerably improve your system security.
+
+ 4. The boot script aborts with the error message
+
+         resetting target system ...
+    @@@@@ hardware failure: lp0 @@@@@
+
+    although there are two perfectly working printer ports in your PC.
+    The reason may be that you run a 2.0.x (or earlier) Linux kernel,
+    which assigns fixed I/O base addresses to the printer port devices:
+    there is no printer port with base address 0x3bc in your system!
+    Try /dev/lp1 (0x378) and /dev/lp2 (0x278) as reset devices, and
+    change your boot script accordingly.
+
+ 5. The boot script aborts with the error message
+
+         resetting target system ...
+    @@@@@ port not found: /dev/lp2 @@@@@
+
+    on a PC with two printer ports and a 2.2.x (or later) kernel.
+    There is no entry for /dev/lp2 in /proc/parport/2!
+
+    From version 2.2.0 the Linux kernel provides the parport layer for
+    dynamic printer port assignment, as known from the PC-BIOS.
+    If you have recently updated from a 2.0.x (or earlier) kernel, your
+    previous printer port /dev/lp2 may now simply be called /dev/lp1 in
+    a 2.2.x (or later) system.
+    Try /dev/lp1 as reset device, and change your boot script accordingly.
+    If this doesn't apply, make sure that
+
+    - the /proc file system is configured and mounted
+    - the kernel contains the kernel module loader kmod
+    - the kernel is configured for parport support
+    - the kernel modules lp, parport, and parport_pc are loaded
+    - all printer ports are configured in /etc/modules.conf, e.g.
+
+          options parport_pc io=0x378,0x278 irq=7,none
+
+    Configure and recompile your kernel respectively, if necessary.
+    For further information refer to the documentation files parport.txt,
+    modules.txt, kmod.txt and README provided with recent kernel sources,
+    or ask a real Linux expert!
+    (See also chapter "III.4 Shell Script Operation under Linux".)
+
+ 6. The boot script aborts with the error message
+
+         resetting target system ...
+    ./upload: /dev/ttyS4: Device or resource busy
+
+    The interrupt of the serial interface may already be used by another
+    driver (i.e. printer port, USB).
+    Try to find and solve the interrupt conflict. (See items 2 and 5.)
+
+
+
+Appendix A:     CUSTOMIZ Error Messages
+===========
+
+
+A.1 Parameter Errors:
+---------------------
+Parameter errors apply to the correctness and consistency of the command
+line parameters. If one of these errors is detected, it is flagged on the
+console, and CUSTOMIZ is aborting with exit code 1:
+
+accuracy out of range                 Baudrate accuracy < 0, or > 5 %.
+address out of range                  Address is no unsigned 16-bit number.
+baudrate out of range                 Specified baudrate is < 0.
+clock frequency out of range          Specified clock frequency is < 0.
+illegal real number                   Parameter is no valid real number.
+invalid hex number                    Parameter is no valid hex number.
+too many parameters                   More than 6 parameters specified.
+unknown baudrate generator            Baudrate generator not implemented.
+
+
+
+A.2 Baudrate Errors:
+--------------------
+Baudrate errors apply to the results that CUSTOMIZ has derived from the
+given program parameters. If one of these errors is detected, it is flagged
+on the console, and CUSTOMIZ is aborting with exit code 1:
+
+baudrate cannot be generated          Baudrate error is greater than 10 %.
+insufficient accuracy                 Baudrate error is greater than the
+                                      required accuracy.
+
+
+A.3 Runtime Errors:
+-------------------
+In general, runtime errors are file I/O errors.
+If one of these errors is detected, it is flagged on the console,
+and CUSTOMIZ is aborting with exit code 2:
+
+access denied                 No privilege for attempted operation.
+disk full                     No more free disk space.
+disk write-protected          Attempt to write to a write-protected disk.
+drive not ready               Disk drive is off, or no media mounted.
+fatal I/O error               General (unknown) disk or device I/O error.
+
+
+
+Appendix B:     RESET51 Error Messages
+===========
+
+                General Errors:
+
+too many parameters           More than two parameters specified.
+illegal port name             Unknown device name.
+invalid pulse-width           Pulse width is 0, or no unsigned 16-bit number.
+hardware failure              The port register cannot be read back.
+
+                MS-DOS only:
+
+port not found                The BIOS did not recognize the port.
+
+                Linux only:
+
+no root privilege             Program doesn't run as root.
+access denied                 No r/w access to character device.
+port not found                Port entry not found in /proc/parport
+invalid base address          Format error in /proc/parport/n/hardware
+
+
+
+Appendix C:     BOOT-51 Error Messages
+===========
+
+checksum error                Intel-HEX record checksum is not correct.
+illegal command               A command other than U or G has been entered.
+illegal hex digit             Hex digit expected. Another character received.
+illegal record ID             Intel-HEX record type is greater than 1.
+unexpected character          The received Intel-HEX record doesn't start
+                              with ':', or doesn't end with CR, LF, or CR/LF.
+
+
+
+Appendix D:     Trademarks
+===========
+
+
+ASEM-51 is a trademark of W.W. Heinz.
+MCS-51 is a trademark of Intel Corporation.
+MCB-517 is a trademark of Keil Elektronik GmbH.
+TELIX is a trademark of deltaComm Development.
+IBM-PC, IBM-XT, and IBM-AT are trademarks of IBM Corporation.
+MS-DOS is a trademark of Microsoft Corporation.
+Windows is a trademark of Microsoft Corporation.
+Linux is a trademark of Linus Torvalds.
+All device codes of 8051 derivatives are trademarks of the manufacturers.
+Other brand and product names are trademarks of their respective holders.
+
+
+
+Appendix E:     Tables of Baudrates
+===========
+
+
+The following tables show the most frequently used baudrates that can
+be generated with a particular timer or baudrate generator, for some
+standard clock frequencies.
+Baudrates which can be generated with a relative accuracy of better
+than 4.0 %, are marked with that accuracy (in %) or with a '+' character,
+if they can be generated exactly (better than 0.01 %).
+
+
+
+
+Baudrates that can be generated with Timer 1:
+---------------------------------------------
+
+
+bps\MHz | 7.3728  11.0592  12.0000  14.7456  16.0000  18.0000  20.0000  24.0000
+--------+----------------------------------------------------------------------
+ 128000 |                                                                 2.34
+  76800 |                              +
+  64000 |                    2.34                                         2.34
+  57600 |            +
+  38400 |   +                          +
+  31250 |                     +                          +                 +
+  19200 |   +        +                 +                2.34
+  14400 |            +                         3.55              3.34     3.55
+  12500 |  2.40               +       2.40                                 +
+   9600 |   +        +                 +       3.55     2.34     1.36     0.16
+   7200 |            +       3.55     3.03     3.55     0.16     3.34     2.12
+   4800 |   +        +       0.16      +       2.12     2.34     1.36     0.16
+   3600 |  3.03      +       2.12     1.59     0.64     0.16     0.22     0.79
+   2400 |   +        +       0.16      +       0.79     0.16     0.94     0.16
+   1800 |  1.59      +       0.79     0.78     0.64     0.16     0.22     0.64
+   1200 |   +        +       0.16      +       0.64     0.16     0.22     0.16
+    600 |   +        +       0.16      +       0.08     0.16     0.22     0.16
+    300 |   +        +       0.16      +       0.08     0.16     0.22     0.16
+    200 |   +        +       0.16      +       0.16     0.16     1.73
+    150 |   +        +       0.16      +
+    134 |  0.20     0.03     0.09
+    110 |  0.26     2.27
+     75 |   +
+
+
+
+
+
+
+Baudrates that can be generated with Timer 2 of the 8052:
+---------------------------------------------------------
+
+
+bps\MHz | 7.3728  11.0592  12.0000  14.7456  16.0000  18.0000  20.0000  24.0000
+--------+----------------------------------------------------------------------
+ 460800 |                              +
+ 256000 |                                      2.34                       2.34
+ 230400 |   +                          +
+ 128000 |                    2.34              2.34              2.34     2.34
+ 115200 |   +        +                 +                2.34
+  76800 |   +                2.34      +                         1.73     2.34
+  64000 |                    2.34     2.86     2.34     2.34     2.34     2.34
+  57600 |   +        +                 +       3.55     2.34     1.36     0.16
+  38400 |   +        +       2.34      +       0.16     2.34     1.73     2.34
+  31250 |           0.54      +       1.70      +        +        +        +
+  19200 |   +        +       2.34      +       0.16     1.02     1.36     0.16
+  14400 |   +        +       0.16      +       0.79     0.16     0.94     0.16
+  12500 |  2.40     1.26      +       0.37      +        +        +        +
+   9600 |   +        +       0.16      +       0.16     0.69     0.16     0.16
+   7200 |   +        +       0.16      +       0.64     0.16     0.22     0.16
+   4800 |   +        +       0.16      +       0.16     0.16     0.16     0.16
+   3600 |   +        +       0.16      +       0.08     0.16     0.22     0.16
+   2400 |   +        +       0.16      +       0.16     0.16     0.16     0.16
+   1800 |   +        +       0.16      +       0.08     0.16     0.06     0.08
+   1200 |   +        +       0.16      +       0.08     0.05     0.03      +
+    600 |   +        +        +        +       0.04     0.05     0.03      +
+    300 |   +        +        +        +       0.02      +       0.02      +
+    200 |   +        +        +        +        +       0.02      +        +
+    150 |   +        +        +        +       0.01      +        +        +
+    134 |  0.02      +       0.02      +        +        +        +        +
+    110 |  0.02      +        +        +       0.01      +        +        +
+     75 |   +        +        +        +        +        +        +        +
+     50 |   +        +        +        +        +        +        +        +
+
+
+
+
+
+
+Baudrates that can be generated with the 80535 Internal Baudrate Generator:
+---------------------------------------------------------------------------
+
+
+bps\MHz | 7.3728  11.0592  12.0000  14.7456  16.0000  18.0000  20.0000  24.0000
+--------+----------------------------------------------------------------------
+  19200 |                                                                  +
+  14400 |                                                +
+  12500 |                                      2.40
+   9600 |                     +                                            +
+   7200 |                                                +
+   4800 |                     +
+
+
+
+
+
+
+Baudrates that can be generated with the 80C515A Internal Baudrate Generator:
+-----------------------------------------------------------------------------
+
+
+bps\MHz | 7.3728  11.0592  12.0000  14.7456  16.0000  18.0000  20.0000  24.0000
+--------+----------------------------------------------------------------------
+ 460800 |                              +
+ 256000 |                                      2.34                       2.34
+ 230400 |   +                          +
+ 128000 |                    2.34              2.34              2.34     2.34
+ 115200 |   +        +                 +                2.34
+  76800 |   +                2.34      +                         1.73     2.34
+  64000 |                    2.34     2.86     2.34     2.34     2.34     2.34
+  57600 |   +        +                 +       3.55     2.34     1.36     0.16
+  38400 |   +        +       2.34      +       0.16     2.34     1.73     2.34
+  31250 |           0.54      +       1.70      +        +        +        +
+  19200 |   +        +       2.34      +       0.16     1.02     1.36     0.16
+  14400 |   +        +       0.16      +       0.79     0.16     0.94     0.16
+  12500 |  2.40     1.26      +       0.37      +        +        +        +
+   9600 |   +        +       0.16      +       0.16     0.69     0.16     0.16
+   7200 |   +        +       0.16      +       0.64     0.16     0.22     0.16
+   4800 |   +        +       0.16      +       0.16     0.16     0.16     0.16
+   3600 |   +        +       0.16      +       0.08     0.16     0.22     0.16
+   2400 |   +        +       0.16      +       0.16     0.16     0.16     0.16
+   1800 |   +        +       0.16      +       0.08     0.16     0.06     0.08
+   1200 |   +        +       0.16      +       0.08     0.05     0.03      +
+    600 |   +        +        +        +       0.04     0.05     0.03      +
+    300 |   +        +        +        +       0.04     0.05     1.73
+    200 |   +        +       0.05
+    150 |   +
+    134 |  0.03
+    110 |  2.27
+
+
+
+
+
+
+Baudrates that can be generated with Timer 1 of the DALLAS 80C320:
+------------------------------------------------------------------
+
+
+bps\MHz | 7.3728  11.0592  12.0000  14.7456  16.0000  18.0000  20.0000  24.0000
+--------+----------------------------------------------------------------------
+ 256000 |                                      2.34
+ 230400 |                              +
+ 128000 |                                      2.34                       2.34
+ 115200 |   +                          +
+  76800 |                              +                         1.73     2.34
+  64000 |                    2.34              2.34              2.34     2.34
+  57600 |   +        +                 +                2.34
+  38400 |   +                2.34      +                         1.73     2.34
+  31250 |                     +                 +        +        +        +
+  19200 |   +        +       2.34      +       0.16     2.34     1.73     2.34
+  14400 |   +        +       0.16      +       2.12     2.34     1.36     0.16
+  12500 |  2.40     1.26      +       2.40      +       2.17      +        +
+   9600 |   +        +       2.34      +       0.16     1.02     1.36     0.16
+   7200 |   +        +       0.16      +       0.79     0.16     0.94     0.16
+   4800 |   +        +       0.16      +       0.16     0.69     0.16     0.16
+   3600 |   +        +       0.16      +       0.64     0.16     0.22     0.16
+   2400 |   +        +       0.16      +       0.16     0.16     0.16     0.16
+   1800 |   +        +       0.16      +       0.08     0.16     0.22     0.16
+   1200 |   +        +       0.16      +       0.16     0.16     0.16     0.16
+    600 |   +        +       0.16      +       0.08     0.16     0.22     0.16
+    300 |   +        +       0.16      +       0.08     0.16     0.22     0.16
+    200 |   +        +       0.16      +       0.16     0.16     1.73
+    150 |   +        +       0.16      +
+    134 |  0.20     0.03     0.09
+    110 |  0.26     2.27
+     75 |   +
+

@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- List File Format -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>List File Format</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>V. List File Format</U></STRONG>
+</P>
+
+<P>
+The <NOBR>ASEM-51</NOBR> list file format has been designed to give the user
+as much information about the generated code as possible.
+Besides the source code listed, there are five basic layout structures
+in the listing:
+</P>
+
+<P>
+<UL TYPE=DISC>
+<LI>the page header</LI>
+<LI>the file header</LI>
+<LI>the line headings</LI>
+<LI>the error diagnosis</LI>
+<LI>the symbol table or cross-reference listing</LI>
+</UL>
+</P>
+
+<P>
+Normally, every page of the listing starts with a page header as shown below:
+</P>
+
+</BIG>
+<P>
+<PRE>
+
+ASEM-51 V1.3              Copyright (c) 2002 by W.W. Heinz               PAGE 1
+
+</PRE>
+</P>
+<BIG>
+
+<P>
+It identifies the assembler, contains the copyright information and shows the
+actual page number at the right margin. After the page header, source lines
+are output in the list file format. When the maximum number of lines per page
+is reached, another page header is output after a form feed character.
+If your printer doesn't support form feeds, the page header can be
+suppressed with the $NOPAGING control. The number of lines per page can be
+adjusted to the paper format with the $PAGELENGTH control. The width of the
+page header (and all other lines) can be set with the $PAGEWIDTH control.
+</P>
+
+<P>
+The file header appears only on the first page. It identifies the assembler,
+lists all input and output files and marks the columns for the line headings.
+A typical file header is looking as shown below:
+</P>
+
+</BIG>
+<P>
+<PRE>
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+        Source File:    demo.a51
+        Object File:    demo.hex
+        List File:      demo.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+</PRE>
+</P>
+<BIG>
+
+<P>
+Directly after the file header starts the listing of the source code lines.
+Every source code line is preceded by a line heading. The line heading
+consists of four columns: line number, include file or macro level, line
+address, and generated code.<BR>
+By default the line headings contain tab characters to save disk space.
+If your printer or file browser doesn't support tabs, they can be expanded
+to blanks with the $NOTABS control.
+</P>
+
+<P>
+The column &quot;Line&quot; contains the global line number. It is not necessarily
+the local line number within the particular source file, but a global line
+number that is counted over the main source, all include files, and all
+macro expansion lines.<BR>
+Since include files and macros can be nested arbitrarily, the global line
+number is terminated by a ':' character for the main source and all include
+file levels, and with a '+' character for macro expansion levels.
+</P>
+
+<P>
+The column &quot;I&quot; flags the level of include file or macro nesting. In the main
+source, this column is empty. The first include file gets level 1. If this
+include file includes another include file, this one gets level 2, and so on.
+This is also valid for nested macro calls. If a macro is called in the main
+source, its expansion lines get level 1. If this macro calls another one, it
+gets level 2, and so forth.<BR>
+Include file and macro levels can be nested in any sequence and to any depth!
+</P>
+
+<P>
+The column &quot;Addr&quot; shows the start address of the listed line in the currently
+active segment (8051 address space). All addresses are represented as hex
+numbers. The addresses in the CODE and XDATA segments are four-digit numbers.
+Addresses in all other segments are two-digit numbers. For lines that cannot
+be assigned to a particular segment, the &quot;Addr&quot; field is left blank.
+</P>
+
+<P>
+The &quot;Code&quot; column may contain up to four bytes of generated code, which is
+sufficient for all 8051 instructions. The code is listed in hex byte
+quantities starting from the left margin of the &quot;Code&quot; column.
+However, the code generated for DB and DW instructions may be longer than
+four bytes. In these cases, the source code line is followed by additional
+line headings until the whole code of the line is listed.<BR>
+The &quot;Code&quot; column does not always contain code that consumes space in the
+8051 CODE segment. In contrast to many other assemblers, <NOBR>ASEM-51</NOBR>
+lists the evaluation results of all expressions that may appear in pseudo instructions
+or assembler controls. These values are listed in hex representation at the
+right margin of the &quot;Code&quot; column. The segment type of those expressions is
+flagged with one single character at the left margin of the &quot;Code&quot; column:
+</P>
+
+<P>
+<STRONG><PRE>
+            C         CODE
+            D         DATA
+            I         IDATA
+            X         XDATA
+            B         BIT
+            N         typeless number
+            R         register
+</PRE></STRONG>
+</P>
+
+<P>
+The &quot;Source&quot; column finally contains the original source code line.
+A typical source code listing is looking as follows:
+</P>
+
+</BIG>
+<P>
+<PRE>
+
+ Line  I  Addr  Code            Source
+
+    1:                                  ;A sample List File Demo Program
+    2:                                  ;-------------------------------
+    3:                          $NOMOD51                 ;no 8051 SFR
+    4:          N      004F     $PAGEWIDTH (79)          ;79 columns per line
+    5:                          $NOTABS                  ;expand tabs
+    6:          N        90             P1    DATA 090H  ;port 1 address
+    7:          B        93             INPUT BIT  P1.3  ;pulse input
+    8:
+    9:          N      8000             ORG  08000H      ;set location counter
+   10:    8000  80 20                   SJMP START       ;jump to start address
+   11:
+   12:    8002  01 07                   DB  1,7          ;define bytes
+   13:    8004  00 02 00 0C             DW  2,12,9       ;define words
+          8008  00 09
+   14:    800A  63 6F 66 66             DB  'coffeeright (c) 2002',0    ;string
+          800E  65 65 72 69
+          8012  67 68 74 20
+          8016  28 63 29 20
+          801A  32 30 30 32
+          801E  00
+   15:    801F  N      0003             DS  3            ;define space
+   16:
+   17:    8022  75 30 00        START:  MOV COUNT,#0     ;reset counter
+   18:    8025  30 93 FD        LLEVEL: JNB INPUT,LLEVEL ;wait for high
+   19:    8028  20 93 FD        HLEVEL: JB  INPUT,HLEVEL ;wait for low
+   20:    802B  05 30                   INC COUNT        ;count pulse
+   21:    802D  80 F6                   JMP LLEVEL       ;next pulse
+   22:
+   23:          N        30             DSEG AT 030H     ;internal RAM
+   24:      30  N        01     COUNT:  DS 1             ;counter variable
+   25:
+   26:                                  END
+
+</PRE>
+</P>
+<BIG>
+
+<P>
+If an error is detected in a source line, its position is flagged with a ^
+character as good as possible, and a comprehensive error message is inserted.
+This is looking as shown below:
+</P>
+
+</BIG>
+<P>
+<PRE>
+
+   17:    8022  75 30 00        START:  MOV COUNT,#0     ;reset counter
+   18:    8025  30 93 FD        LLEVEL: JNB INPUT,LLEVEL ;wait for high
+   19:    8028  20 93 00        HLEVEL: JB  INPUT,HLEUEL ;wait for low
+                                                  ^
+                          @@@@@ symbol not defined @@@@@
+
+   20:    802B  05 30                   INC COUNT        ;count pulse
+   21:    802D  80 F6                   JMP LLEVEL       ;next pulse
+
+</PRE>
+</P>
+<BIG>
+
+<P>
+The error diagnosis at the end of program lists the register banks used,
+and the total number of errors detected throughout the assembly:
+</P>
+
+</BIG>
+<P>
+<PRE>
+
+                register banks used:  0, 1, 3
+
+                187 errors detected
+
+</PRE>
+</P>
+<BIG>
+
+<P>
+A register bank counts as &quot;used&quot;, if the program had switched to that
+bank with a USING instruction, or one of the special assembler symbols
+AR0 ... AR7 has been used, while the bank was active. The message
+</P>
+
+</BIG>
+<P>
+<PRE>
+                register banks used:  ---
+</PRE>
+</P>
+<BIG>
+
+<P>
+means, that no bank has been used explicitly, and that the program
+code may, but need not, be register bank independent.
+</P>
+
+<P>
+After the source code listing and error diagnosis, the symbol table or
+cross-reference listing starts. By default, a symbol table is generated.
+The symbol table lists all the symbols of a program in alphabetical order
+with their symbol name, segment type, hex value and first definition line.
+Predefined symbols are listed without a definition line number.<BR>
+The symbol table listing can be suppressed with the $NOSYMBOLS control.
+A typical symbol table listing is looking as shown below:
+</P>
+
+</BIG>
+<P>
+<PRE>
+
+               L I S T   O F   S Y M B O L S
+               =============================
+
+
+SYMBOL                            TYPE     VALUE        LINE
+------------------------------------------------------------
+AKKUM                             REGISTER     A          38
+COUNT                             DATA        30          47
+HLEVEL                            CODE      802E          35
+INPUT                             BIT         93          12
+LLEVEL                            CODE      802B          34
+MY_PROGRAM                        MODULE                  14
+P1                                DATA        90
+QUANT                             NUMBER    0013          22
+RECEIVE                           MACRO                    5
+SP                                DATA        81
+STACK                             IDATA       80          17
+START                             CODE      8022          31
+VOLTDC                            XDATA     D785          50
+
+</PRE>
+</P>
+<BIG>
+
+<P>
+If the $XREF control is specified, a cross-reference listing is generated
+instead of a symbol table. The corresponding cross-reference listing for
+the symbol table above is looking as follows:
+</P>
+
+</BIG>
+<P>
+<PRE>
+
+               C R O S S - R E F E R E N C E - L I S T I N G
+               =============================================
+
+
+SYMBOL                           TYPE     VALUE     DEFINED  REFERENCED
+-------------------------------------------------------------------------------
+AKKUM                            REGISTER     A          38          42      43
+COUNT                            DATA        30          47          32      40
+                                                                     43      44
+HLEVEL                           CODE      802E          35          35
+INPUT                            BIT         93          12          34      35
+LLEVEL                           CODE      802B          34          34      41
+MY_PROGRAM                       MODULE                  14
+P1                               DATA        90                      12
+QUANT                            NUMBER    0007          22          44
+                                 NUMBER    0013          37
+RECEIVE                          MACRO                    5
+SP                               DATA        81                      31
+STACK                            IDATA       80          17          31
+START                            CODE      8022          31          24
+TRASH                            undef.    ----                      42
+VOLTDC                           XDATA     D785          50          33
+
+</PRE>
+</P>
+<BIG>
+
+<P>
+It lists all the symbols of the program in alphabetical order, with their
+symbol name, all definitions including definition lines, segment types, and
+numerical values. Furthermore, all symbol references are listed as well.
+The SYMBOL column contains the symbol name, while the columns TYPE, VALUE,
+and DEFINED may contain the segment types, numerical values, and definition
+lines of one, more, or no symbol defintions.<BR>
+Register symbols have the symbol type &quot;REGISTER&quot;, module names have the symbol
+type &quot;MODULE&quot;, macro names have the symbol type &quot;MACRO&quot;, and symbols that have
+been referenced but not defined, are flagged with &quot;undef.&quot; in the TYPE column.
+Starting from column REFERENCED up to the right margin, there is a number of
+columns (depending on the page width), containing all line numbers of symbol
+references (if any).<BR>
+The cross-reference listing does not distinguish, whether multiple definitions
+of, or references to a particular symbol are legal or not. For this, refer to
+the error messages in the source listing.
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="compatib.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="derivat.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

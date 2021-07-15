@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- DOS Command Line Operation -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>DOS Command Line Operation</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+
+<BR>
+
+<P>
+<STRONG><U>II.1.3 DOS Command Line Operation</U></STRONG>
+</P>
+
+<P>
+<NOBR>ASEM-51</NOBR> provides full support of command line operation and batch
+capability as the best commercial development tools.
+&nbsp;&nbsp;&nbsp;<IMG SRC="smile.gif" ALT="(smile)" WIDTH=15 HEIGHT=15><BR>
+Nevertheless, it can be integrated into foreign development environments,
+if desired. The assembler is invoked by typing:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<STRONG><PRE>
+ASEM &lt;source&gt; [&lt;object&gt; [&lt;listing&gt;]] [&lt;options&gt;]
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+where &lt;source&gt; is the 8051 assembler source, &lt;object&gt; is the output file,
+and &lt;listing&gt; is the assembler list file. The parameters &lt;object&gt; and
+&lt;listing&gt; are optional. When omitted, the file names are derived from the
+&lt;source&gt; file name, but with extensions HEX (or OMF) and LST. All file names
+may be specified without extensions. In these cases, the assembler adds
+default extensions as shown below:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH ALIGN=LEFT><BIG>file</BIG></TH><TH ALIGN=LEFT><BIG>extension</BIG></TH></TR>
+<TR><TD><BIG>&lt;source&gt;</BIG></TD><TD><BIG>.A51</BIG></TD></TR>
+<TR><TD><BIG>&lt;object&gt;</BIG></TD><TD NOWRAP><BIG>.HEX &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (with /OMF-51 option: .OMF)</BIG></TD></TR>
+<TR><TD><BIG>&lt;listing&gt;</BIG></TD><TD><BIG>.LST</BIG></TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+If you want a file name to have no extension, terminate it with a '.'!
+Instead of file names you may also specify device names to redirect the
+output to character I/O ports. Device names may be terminated with a ':'!
+It is not checked, whether the device is existing or suitable for the task.
+Although it is possible to read the source file from a character device
+(e.g. CON:) instead of a file, this cannot be recommended: Since <NOBR>ASEM-51</NOBR>
+is a two-pass assembler, it always reads the source file twice!
+</P>
+
+<P>
+ASEM recognizes the following options:
+<BLOCKQUOTE>
+<STRONG><PRE>
+ /INCLUDES:path1[;path2[; ... ;pathn]]
+ /DEFINE:symbol[:value[:type]]
+ /OMF-51
+ /COLUMNS
+ /QUIET
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+When the /INCLUDES option is used, the assembler searches the specified
+path for include files that cannot be found in the working directory.
+The path may be any number of directories separated by ';' characters.
+The directories will be searched from left to right.
+The path, specified with the /INCLUDES option, is searched before the
+path, defined with the (optional) DOS environment variable ASEM51INC!
+</P>
+
+<P>
+The /DEFINE option is useful for selecting particular program variants
+from the command line that have been implemented with conditional assembly.
+It allows to define a symbol with a value and a segment type in the
+command line. Value and type are optional. The segment type of the symbol
+defaults to NUMBER, if omitted. The symbol value defaults to 0, if omitted.
+The symbol value may be any numerical constant. The symbol type must be one
+of the following characters:
+<BLOCKQUOTE>
+<STRONG><PRE>
+    C   =   CODE
+    D   =   DATA
+    I   =   IDATA
+    X   =   XDATA
+    B   =   BIT
+    N   =   NUMBER    (default)
+</PRE></STRONG>
+</BLOCKQUOTE>
+</P>
+
+<P>
+By default, <NOBR>ASEM-51</NOBR> generates an object file in <NOBR>Intel-HEX</NOBR> format.
+When the <NOBR>/OMF-51</NOBR> option is specified, an absolute <NOBR>OMF-51</NOBR>
+module is generated.
+</P>
+
+<P>
+Options may be abbreviated as long as they remain unique!
+</P>
+
+<P>
+<BR>
+<STRONG>Examples:</STRONG>
+<STRONG><PRE>
+    0.)    ASEM
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+When invoked without parameters, the assembler displays a help screen:
+</BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+           MCS-51 Family Macro Assembler ASEM-51 V1.3
+
+           usage:   ASEM &lt;source&gt; [&lt;object&gt; [&lt;listing&gt;]] [options]
+
+           options:      /INCLUDES:path1;path2;path3
+                         /DEFINE:symbol[:value[:type]]
+                         /OMF-51
+                         /COLUMNS
+                         /QUIET
+</PRE>
+<STRONG><PRE>
+    1.)    ASEM PROGRAM
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+will assemble the 8051 assembly language program PROGRAM.A51 and produce
+an <NOBR>Intel-HEX</NOBR> file PROGRAM.HEX and a listing PROGRAM.LST.
+</BLOCKQUOTE></BLOCKQUOTE>
+<STRONG><PRE>
+    2.)    ASEM TARZAN.ASM JANE JUNGLE.PRN
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+will assemble the 8051 assembly language program TARZAN.ASM and
+produce an <NOBR>Intel-HEX</NOBR> file JANE.HEX and a listing JUNGLE.PRN.
+</BLOCKQUOTE></BLOCKQUOTE>
+<STRONG><PRE>
+    3.)    ASEM PROJECT EPROM.
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+will assemble the 8051 assembly language program PROJECT.A51 and
+produce an <NOBR>Intel-HEX</NOBR> file EPROM and a listing PROJECT.LST.
+</BLOCKQUOTE></BLOCKQUOTE>
+<STRONG><PRE>
+    4.)    ASEM ROVER /OMF
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+will assemble the 8051 assembly language program ROVER.A51 and produce
+an absolute <NOBR>OMF-51</NOBR> object module ROVER.OMF and a listing ROVER.LST.
+</BLOCKQUOTE></BLOCKQUOTE>
+<STRONG><PRE>
+    5.)    ASEM sample COM2: NUL
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+will assemble the 8051 assembly language program SAMPLE.A51, send
+the HEX file output to the serial interface COM2 and suppress the
+list file output by sending it to the NUL device.
+</BLOCKQUOTE></BLOCKQUOTE>
+<STRONG><PRE>
+    6.)    ASEM APPLICAT /INC:C:\ASEM51\MCU;D:\MICROS\8051\HEADERS
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+will assemble the program APPLICAT.A51, while all required include
+files will be searched first in the default directory, then in
+C:\ASEM51\MCU, and finally in D:\MICROS\8051\HEADERS.
+</BLOCKQUOTE></BLOCKQUOTE>
+<STRONG><PRE>
+    7.)    ASEM UNIVERSL /D:Eva_Board:8000H:C
+</PRE></STRONG>
+<BLOCKQUOTE><BLOCKQUOTE>
+will assemble the program UNIVERSL.A51, while the CODE symbol
+EVA_BOARD will be predefined with value 8000H during assembly.
+</BLOCKQUOTE></BLOCKQUOTE>
+</P>
+
+<P>
+When program errors are detected, they are flagged on the console. This
+may look as follows:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+    MCS-51 Family Macro Assembler ASEM-51 V1.3
+
+    APPLICAT.A51(14): must be known on first pass
+    USERBITS.INC(6): attempt to divide by zero
+    DEFINES.INC(37): symbol not defined
+    APPLICAT.A51(20): symbol not defined
+    APPLICAT.A51(27): no END statement found
+
+         5 errors detected
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Every error is flagged with the name of the source or include file, the
+local line number where it was found, and the error message itself.
+This output format makes it easy to integrate <NOBR>ASEM-51</NOBR> into
+existing foreign development environments or workbenches.<BR>
+A perfect fit for the <NOBR>Turbo C++</NOBR> IDE (and perhaps others) can
+be reached with the /COLUMNS option. When specified, the column numbers of
+program errors are output additionally after the line numbers:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+    MCS-51 Family Macro Assembler ASEM-51 V1.3
+
+    APPLICAT.A51(14,12): must be known on first pass
+    USERBITS.INC(6,27): attempt to divide by zero
+    DEFINES.INC(37,18): symbol not defined
+    APPLICAT.A51(20,18): symbol not defined
+    APPLICAT.A51(27,1): no END statement found
+
+         5 errors detected
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+If errors are detected in macro expansion lines, there is no corresponding
+location in the source file. Therefore, the error is flagged with the name
+of the source or include file, and the local line number from where the
+macro expansion has been invoked. (For callable macros this is the line
+with the macro call, and for repeat blocks this is the ENDM line.)
+To give the user a hint, the macro name and expansion line (and optionally
+column) number are inserted before the actual error message:
+</P>
+
+<P>
+<BLOCKQUOTE>
+<PRE>
+    MCS-51 Family Macro Assembler ASEM-51 V1.3
+
+    UARTIO.A51(44,1): RECEIVE(3,22): segment type mismatch
+    UARTIO.A51(87,1): REPT(4,19): symbol not defined
+    UARTIO.A51(87,1): REPT(8,19): symbol not defined
+    UARTIO.A51(87,1): REPT(12,19): symbol not defined
+
+         4 errors detected
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The expansion line number is the number of the expansion line within the
+corresponding macro expansion, starting with 1. If the error occurs during
+expansion of a repeat block, the keyword REPT replaces the macro name.
+</P>
+
+<P>
+The /QUIET option suppresses all console output except error messages.
+</P>
+
+<P>
+When terminating, <NOBR>ASEM-51</NOBR> returns an exit code to the operating system:
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER CELLPADDING=8>
+<TR><TH ALIGN=LEFT><BIG>situation</BIG></TH><TH><BIG>ERRORLEVEL</BIG></TH></TR>
+<TR><TD NOWRAP><BIG>no errors</BIG></TD><TD ALIGN=CENTER><BIG>0</BIG></TD></TR>
+<TR><TD NOWRAP><BIG>program errors detected</BIG></TD><TD ALIGN=CENTER><BIG>1</BIG></TD></TR>
+<TR><TD NOWRAP><BIG>fatal runtime error</BIG></TD><TD ALIGN=CENTER><BIG>2</BIG></TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<P>
+<STRONG>Note:</STRONG> &nbsp; Warnings do not influence the exit code!
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="doswin.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="dinstall.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="dosenv.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

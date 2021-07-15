@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Expressions -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Expressions</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>III.4 Expressions</U></STRONG>
+</P>
+
+<P>
+Arithmetic expressions are composed of operands, operators and parentheses.
+Operands may be user-defined symbols, constants or special assembler symbols.
+All operands are treated as unsigned 16-bit numbers.
+Special assembler symbols, that can be used as operands are:
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<TR><TD NOWRAP> AR0, ... , AR7 </TD><TD> direct addresses of registers R0 thru R7 </TD></TR>
+<TR><TD ALIGN=CENTER> $ </TD><TD> the location counter of the currently active segment
+                                  (start address of the current assembler statement)</TD></TR>
+</TABLE>
+</P>
+
+<P>
+The following operators are implemented:
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<CAPTION>Unary Operators</CAPTION>
+<TR><TH>Operator         </TH><TH>Operation              </TH><TH>Definition                         </TH></TR>
+<TR><TD ALIGN=CENTER>+   </TD><TD NOWRAP>identity        </TD><TD ALIGN=CENTER NOWRAP>  +x = x       </TD></TR>
+<TR><TD ALIGN=CENTER>-   </TD><TD NOWRAP>two's complement</TD><TD ALIGN=CENTER NOWRAP>  -x = 0-x     </TD></TR>
+<TR><TD ALIGN=CENTER>NOT </TD><TD NOWRAP>one's complement</TD><TD ALIGN=CENTER NOWRAP>NOT x = FFFFH-x</TD></TR>
+<TR><TD ALIGN=CENTER>HIGH</TD><TD NOWRAP>high order byte </TD><TD ALIGN=CENTER NOWRAP>   &nbsp;      </TD></TR>
+<TR><TD ALIGN=CENTER>LOW </TD><TD NOWRAP>low order byte  </TD><TD ALIGN=CENTER NOWRAP>   &nbsp;      </TD></TR>
+</TABLE>
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<CAPTION>Binary Operators</CAPTION>
+<TR><TH>Operator                    </TH><TH>Operation              </TH><TH>Result</TH></TR>
+<TR><TD ALIGN=CENTER>+              </TD><TD NOWRAP>unsigned addition      </TD><TD ROWSPAN=11>&nbsp;</TD></TR>
+<TR><TD ALIGN=CENTER>-              </TD><TD NOWRAP>unsigned subtraction   </TD></TR>
+<TR><TD ALIGN=CENTER>*              </TD><TD NOWRAP>unsigned multiplication</TD></TR>
+<TR><TD ALIGN=CENTER>/              </TD><TD NOWRAP>unsigned division      </TD></TR>
+<TR><TD ALIGN=CENTER>MOD            </TD><TD NOWRAP>unsigned remainder     </TD></TR>
+<TR><TD ALIGN=CENTER>SHL            </TD><TD NOWRAP>logical shift left     </TD></TR>
+<TR><TD ALIGN=CENTER>SHR            </TD><TD NOWRAP>logical shift right    </TD></TR>
+<TR><TD ALIGN=CENTER>AND            </TD><TD NOWRAP>logical and            </TD></TR>
+<TR><TD ALIGN=CENTER>OR             </TD><TD NOWRAP>logical or             </TD></TR>
+<TR><TD ALIGN=CENTER>XOR            </TD><TD NOWRAP>exclusive or           </TD></TR>
+<TR><TD ALIGN=CENTER>.              </TD><TD>bit operator used for bit-adressable locations</TD></TR>
+<TR><TD NOWRAP>EQ &nbsp; or &nbsp; =       </TD><TD NOWRAP>equal to               </TD><TD ROWSPAN=6>0 if FALSE,<BR>FFFFH if TRUE</TD></TR>
+<TR><TD NOWRAP>NE &nbsp; or &nbsp; &lt;&gt;</TD><TD NOWRAP>not equal to           </TD></TR>
+<TR><TD NOWRAP>LT &nbsp; or &nbsp; &lt;    </TD><TD NOWRAP>less than              </TD></TR>
+<TR><TD NOWRAP>LE &nbsp; or &nbsp; &lt;=   </TD><TD NOWRAP>less or equal than     </TD></TR>
+<TR><TD NOWRAP>GT &nbsp; or &nbsp; &gt;    </TD><TD NOWRAP>greater than           </TD></TR>
+<TR><TD NOWRAP>GE &nbsp; or &nbsp; &gt;=   </TD><TD NOWRAP>greater or equal than  </TD></TR>
+</TABLE>
+</P>
+
+<P>
+Operators that are no special characters but keywords as SHR or AND must
+be separated from their operands by at least one blank or tab.
+In general expressions are evaluated from left to right according to
+operator precedence, which may be overridden by parentheses.
+Parentheses may be nested to any level.<BR>
+Expressions always evaluate to unsigned 16-bit numbers, while overflows
+are ignored. When an expression result is to be assigned to an 8-bit
+quantity, the high byte must be either 00 or FF.
+</P>
+
+<P>
+<TABLE BORDER CELLPADDING=8>
+<CAPTION>Operator Precedence</CAPTION>
+<TR><TH NOWRAP> Operator(s) </TH><TH> Type </TH><TH> Precedence </TH></TR>
+<TR><TD NOWRAP> &nbsp; ( &nbsp; ) &nbsp; </TD><TD> &nbsp; </TD><TD ALIGN=CENTER> highest </TD></TR>
+<TR><TD NOWRAP> &nbsp; + &nbsp; - &nbsp; NOT &nbsp; HIGH &nbsp; LOW &nbsp; </TD><TD> unary </TD><TD ROWSPAN=7>&nbsp;</TD></TR>
+<TR><TD NOWRAP> &nbsp; . &nbsp; </TD><TD ROWSPAN=3>&nbsp;</TD></TR>
+<TR><TD NOWRAP> &nbsp; * &nbsp; / &nbsp; MOD &nbsp;      </TD></TR>
+<TR><TD NOWRAP> &nbsp; SHL &nbsp; SHR &nbsp;             </TD></TR>
+<TR><TD NOWRAP> &nbsp; + &nbsp; - &nbsp;                 </TD><TD> binary </TD></TR>
+<TR><TD NOWRAP> &nbsp; EQ &nbsp; = &nbsp; NE &nbsp; &lt;&gt; &nbsp; LT &nbsp; &lt; &nbsp; LE &nbsp; &lt;= &nbsp; GT &nbsp; &gt; &nbsp; GE &nbsp; &gt;= &nbsp; </TD><TD ROWSPAN=3>&nbsp;</TD></TR>
+<TR><TD NOWRAP> &nbsp; AND  &nbsp;                       </TD></TR>
+<TR><TD NOWRAP> &nbsp; OR  &nbsp; XOR  &nbsp;            </TD><TD ALIGN=CENTER> lowest </TD></TR>
+</TABLE>
+</P>
+
+<P>
+<BR>
+<STRONG>Example:</STRONG>
+<BLOCKQUOTE>
+The expression
+<PRE>
+        P1.((87+3)/10 AND -1 SHR 0DH)
+</PRE>
+will evaluate to 91H.
+</BLOCKQUOTE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="language.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="constant.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="instrset.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

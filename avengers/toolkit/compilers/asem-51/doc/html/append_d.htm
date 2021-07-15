@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Appendix D -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Appendix D</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>Appendix D</U></STRONG>
+</P>
+
+<P>
+<STRONG>Reserved Keywords</STRONG>
+</P>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<CAPTION><STRONG>Special Assembler Symbols</STRONG></CAPTION>
+<TR>
+<TD>
+    <TABLE>
+    <TR><TD NOWRAP>$   </TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>location counter</TD></TR>
+    <TR><TD NOWRAP>A   </TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>accumulator</TD></TR>
+    <TR><TD NOWRAP>AB  </TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>A/B register pair</TD></TR>
+    <TR><TD NOWRAP>AR0, AR1, AR2, AR3, AR4, AR5, AR6, AR7</TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>direct register addresses</TD></TR>
+    <TR><TD NOWRAP>C   </TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>carry flag</TD></TR>
+    <TR><TD NOWRAP>DPTR</TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>data pointer</TD></TR>
+    <TR><TD NOWRAP>PC  </TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>program counter</TD></TR>
+    <TR><TD NOWRAP>R0, R1, R2, R3, R4, R5, R6, R7</TD><TD NOWRAP>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD NOWRAP>registers</TD></TR>
+    </TABLE>
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+<BR>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<CAPTION><STRONG>Instruction Mnemonics</STRONG></CAPTION>
+<TR><TD>
+    <TABLE>
+    <TR><TD>ACALL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DA</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JNB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>MUL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>RR</TD></TR>
+    <TR><TD>ADD</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DEC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JNC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>NOP</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>RRC</TD></TR>
+    <TR><TD>ADDC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DIV</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JNZ</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ORL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>SETB</TD></TR>
+    <TR><TD>AJMP</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DJNZ</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JZ</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>POP</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>SJMP</TD></TR>
+    <TR><TD>ANL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>INC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>LCALL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>PUSH</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>SUBB</TD></TR>
+    <TR><TD>CALL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>LJMP</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>RET</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>SWAP</TD></TR>
+    <TR><TD>CJNE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JBC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>MOV</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>RETI</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>XCH</TD></TR>
+    <TR><TD>CLR</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>MOVC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>RL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>XCHD</TD></TR>
+    <TR><TD>CPL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>JMP</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>MOVX</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>RLC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>XRL</TD></TR>
+    </TABLE>
+</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<BR>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<CAPTION><STRONG>Pseudo Instructions</STRONG></CAPTION>
+<TR><TD>
+    <TABLE>
+    <TR><TD>AT</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DATA</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DSEG</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>IDATA</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>SET</TD></TR>
+    <TR><TD>BIT</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DW</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ISEG</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>USING</TD></TR>
+    <TR><TD>BSEG</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DBIT</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>END</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>NAME</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>XDATA</TD></TR>
+    <TR><TD>CODE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>DS</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>EQU</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ORG</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>XSEG</TD></TR>
+    <TR><TD>CSEG</TD></TR>
+    </TABLE>
+</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<BR>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<CAPTION><STRONG>Operators</STRONG></CAPTION>
+<TR><TD>
+    <TABLE>
+    <TR><TD>AND</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>GT</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>LOW</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>NE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>SHL</TD></TR>
+    <TR><TD>EQ</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>HIGH</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>LT</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>NOT</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>SHR</TD></TR>
+    <TR><TD>GE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>LE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>MOD</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>OR</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>XOR</TD></TR>
+    </TABLE>
+</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<BR>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<CAPTION><STRONG>Assembler Controls</STRONG></CAPTION>
+<TR><TD>
+    <TABLE>
+    <TR><TD>$COND</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$GO</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NODEBUG</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOSYMBOLS</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$RS</TD></TR>
+    <TR><TD>$CONDONLY</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$IC</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOGE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOTABS</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$SA</TD></TR>
+    <TR><TD>$DA</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$INCLUDE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOGEN</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOXR</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$SAVE</TD></TR>
+    <TR><TD>$DATE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$LI</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOLI</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOXREF</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$SB</TD></TR>
+    <TR><TD>$DB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$LIST</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOLIST</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$PAGELENGTH</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$SYMBOLS</TD></TR>
+    <TR><TD>$DEBUG</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$MACRO</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOMACRO</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$PAGEWIDTH</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$TITLE</TD></TR>
+    <TR><TD>$EJ</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$MO</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOMO</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$PAGING</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$TT</TD></TR>
+    <TR><TD>$EJECT</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$MOD51</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOMOD51</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$PHILIPS</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$WARNING</TD></TR>
+    <TR><TD>$ERROR</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$MR</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOMR</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$PI</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$XR</TD></TR>
+    <TR><TD>$GE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOBUILTIN</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOPAGING</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$PL</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$XREF</TD></TR>
+    <TR><TD>$GEN</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOCOND</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOPI</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$PW</TD></TR>
+    <TR><TD>$GENONLY</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NODB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$NOSB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>$RESTORE</TD></TR>
+    </TABLE>
+</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+<BR>
+
+<P>
+<CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<CAPTION><STRONG>Meta Instructions</STRONG></CAPTION>
+<TR><TD>
+    <TABLE>
+    <TR><TD>ELSE</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ELSEIFN</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ENDM</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>IFDEF</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>LOCAL</TD></TR>
+    <TR><TD>ELSEIF</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ELSEIFNB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>EXITM</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>IFN</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>MACRO</TD></TR>
+    <TR><TD>ELSEIFB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ELSEIFNDEF</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>IF</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>IFNB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>REPT</TD></TR>
+    <TR><TD>ELSEIFDEF</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>ENDIF</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>IFB</TD><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD>IFNDEF</TD></TR>
+    </TABLE>
+</TD></TR>
+</TABLE>
+</CENTER>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_c.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_e.htm"><IMG SRC="next.gif" ALT="[next]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!-- Appendix J -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Appendix J</TITLE>
+
+</HEAD>
+
+<BODY BACKGROUND="spiral.gif" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#990099" ALINK="#FF0000">
+
+<TABLE WIDTH="98%">
+<TR><TD WIDTH=60 VALIGN=BOTTOM NOWRAP>
+<IMG SRC="transp.gif" ALT="" WIDTH=60 HEIGHT=20>
+</TD><TD>
+
+<!-- Ab hier Seitentext: -->
+
+<BIG>
+<BR>
+
+<P>
+<STRONG><U>Appendix J</U></STRONG>
+</P>
+
+<P>
+<STRONG>8051 Instructions in lexical Order</STRONG>
+</P>
+
+<P>
+<BR>
+<TABLE CELLPADDING=8>
+<TR><TD VALIGN=TOP ROWSPAN=2><STRONG>Abbreviations:</STRONG>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+    <TD><TABLE>
+        <TR><TD>direct </TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>8-bit DATA address in internal memory</TD></TR>
+        <TR><TD>const8 </TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>8-bit constant in CODE memory</TD></TR>
+        <TR><TD>const16</TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>16-bit constant in CODE memory</TD></TR>
+        <TR><TD>addr16 </TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>16-bit long CODE address</TD></TR>
+        <TR><TD>addr11 </TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>11-bit absolute CODE address</TD></TR>
+        <TR><TD>rel    </TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>signed 8-bit relative CODE address</TD></TR>
+        <TR><TD>bit    </TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>8-bit BIT address in internal memory</TD></TR>
+        </TABLE>
+    </TD>
+</TR>
+<TR><TD><TABLE>
+        <TR><TD>i</TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>register numbers 0 or 1</TD></TR>
+        <TR><TD>n</TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>register numbers 0 thru 7</TD></TR>
+        <TR><TD>a</TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>32 * m</TD></TR>
+        <TR><TD>m</TD><TD NOWRAP>&nbsp; = &nbsp;</TD><TD NOWRAP>the 3 most significant bits of an absolute address</TD></TR>
+        </TABLE>
+    </TD>
+</TR>
+</TABLE>
+</P>
+
+<P>
+<BR>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=8>
+<TR><TH>Opcode</TH><TH>Mnemonic</TH><TH>Operands</TH><TH>Bytes</TH><TH COLSPAN=4>Flags</TH><TH>Cycles</TH></TR>
+<TR><TD NOWRAP>11 + a</TD><TD>ACALL</TD><TD NOWRAP>addr11</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>24</TD><TD>ADD</TD><TD NOWRAP>A, #const8</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>26 + i</TD><TD>ADD</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>25</TD><TD>ADD</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>28 + n</TD><TD>ADD</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>34</TD><TD>ADDC</TD><TD NOWRAP>A, #const8</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>36 + i</TD><TD>ADDC</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>35</TD><TD>ADDC</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>38 + n</TD><TD>ADDC</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>01 + a</TD><TD>AJMP</TD><TD NOWRAP>addr11</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>54</TD><TD>ANL</TD><TD NOWRAP>A, #const8</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>56 + i</TD><TD>ANL</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>55</TD><TD>ANL</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>58 + n</TD><TD>ANL</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>B0</TD><TD>ANL</TD><TD NOWRAP>C, /bit</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>82</TD><TD>ANL</TD><TD NOWRAP>C, bit</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>53</TD><TD>ANL</TD><TD NOWRAP>direct, #const8</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>52</TD><TD>ANL</TD><TD NOWRAP>direct, A</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>B6 + i</TD><TD>CJNE</TD><TD NOWRAP>@Ri, #const8, rel</TD><TD ALIGN=CENTER>3</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>B4</TD><TD>CJNE</TD><TD NOWRAP>A, #const8, rel</TD><TD ALIGN=CENTER>3</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>B5</TD><TD>CJNE</TD><TD NOWRAP>A, direct, rel</TD><TD ALIGN=CENTER>3</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>B8 + n</TD><TD>CJNE</TD><TD NOWRAP>Rn, #const8, rel</TD><TD ALIGN=CENTER>3</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>E4</TD><TD>CLR</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>C2</TD><TD>CLR</TD><TD NOWRAP>bit</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>C3</TD><TD>CLR</TD><TD NOWRAP>C</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>F4</TD><TD>CPL</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>B2</TD><TD>CPL</TD><TD NOWRAP>bit</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>B3</TD><TD>CPL</TD><TD NOWRAP>C</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>D4</TD><TD>DA</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>16 + i</TD><TD>DEC</TD><TD NOWRAP>@Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>14</TD><TD>DEC</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>15</TD><TD>DEC</TD><TD NOWRAP>direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>18 + n</TD><TD>DEC</TD><TD NOWRAP>Rn</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>84</TD><TD>DIV</TD><TD NOWRAP>AB</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>4</TD></TR>
+<TR><TD NOWRAP>D5</TD><TD>DJNZ</TD><TD NOWRAP>direct, rel</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>D8 + n</TD><TD>DJNZ</TD><TD NOWRAP>Rn, rel</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>06 + i</TD><TD>INC</TD><TD NOWRAP>@Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>04</TD><TD>INC</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>05</TD><TD>INC</TD><TD NOWRAP>direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>A3</TD><TD>INC</TD><TD NOWRAP>DPTR</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>08 + n</TD><TD>INC</TD><TD NOWRAP>Rn</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>20</TD><TD>JB</TD><TD NOWRAP>bit, rel</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>10</TD><TD>JBC</TD><TD NOWRAP>bit, rel</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>40</TD><TD>JC</TD><TD NOWRAP>rel</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>73</TD><TD>JMP</TD><TD NOWRAP>@A+DPTR</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>30</TD><TD>JNB</TD><TD NOWRAP>bit, rel</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>50</TD><TD>JNC</TD><TD NOWRAP>rel</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>70</TD><TD>JNZ</TD><TD NOWRAP>rel</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>60</TD><TD>JZ</TD><TD NOWRAP>rel</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>12</TD><TD>LCALL</TD><TD NOWRAP>addr16</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>02</TD><TD>LJMP</TD><TD NOWRAP>addr16</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>76 + i</TD><TD>MOV</TD><TD NOWRAP>@Ri, #const8</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>F6 + i</TD><TD>MOV</TD><TD NOWRAP>@Ri, A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>A6 + i</TD><TD>MOV</TD><TD NOWRAP>@Ri, direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>74</TD><TD>MOV</TD><TD NOWRAP>A, #const8</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>E6 + i</TD><TD>MOV</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>E5</TD><TD>MOV</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>E8 + n</TD><TD>MOV</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>92</TD><TD>MOV</TD><TD NOWRAP>bit, C</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>A2</TD><TD>MOV</TD><TD NOWRAP>C, bit</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>75</TD><TD>MOV</TD><TD NOWRAP>direct, #const8</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>86 + i</TD><TD>MOV</TD><TD NOWRAP>direct, @Ri</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>F5</TD><TD>MOV</TD><TD NOWRAP>direct, A</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>85</TD><TD>MOV</TD><TD NOWRAP>direct, direct</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>88 + n</TD><TD>MOV</TD><TD NOWRAP>direct, Rn</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>90</TD><TD>MOV</TD><TD NOWRAP>DPTR, #const16</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>78 + n</TD><TD>MOV</TD><TD NOWRAP>Rn, #const8</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>F8 + n</TD><TD>MOV</TD><TD NOWRAP>Rn, A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>A8 + n</TD><TD>MOV</TD><TD NOWRAP>Rn, direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>93</TD><TD>MOVC</TD><TD NOWRAP>A, @A+DPTR</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>83</TD><TD>MOVC</TD><TD NOWRAP>A, @A+PC</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>F0</TD><TD>MOVX</TD><TD NOWRAP>@DPTR, A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>F2 + i</TD><TD>MOVX</TD><TD NOWRAP>@Ri, A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>E0</TD><TD>MOVX</TD><TD NOWRAP>A, @DPTR</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>E2 + i</TD><TD>MOVX</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>A4</TD><TD>MUL</TD><TD NOWRAP>AB</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>4</TD></TR>
+<TR><TD NOWRAP>00</TD><TD>NOP</TD><TD NOWRAP>&nbsp;</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>44</TD><TD>ORL</TD><TD NOWRAP>A, #const8</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>46 + i</TD><TD>ORL</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>45</TD><TD>ORL</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>48 + n</TD><TD>ORL</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>A0</TD><TD>ORL</TD><TD NOWRAP>C, /bit</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>72</TD><TD>ORL</TD><TD NOWRAP>C, bit</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>43</TD><TD>ORL</TD><TD NOWRAP>direct, #const8</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>42</TD><TD>ORL</TD><TD NOWRAP>direct, A</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>D0</TD><TD>POP</TD><TD NOWRAP>direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>C0</TD><TD>PUSH</TD><TD NOWRAP>direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>22</TD><TD>RET</TD><TD NOWRAP>&nbsp;</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>32</TD><TD>RETI</TD><TD NOWRAP>&nbsp;</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>23</TD><TD>RL</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>33</TD><TD>RLC</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>03</TD><TD>RR</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>13</TD><TD>RRC</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>D2</TD><TD>SETB</TD><TD NOWRAP>bit</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>D3</TD><TD>SETB</TD><TD NOWRAP>C</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>80</TD><TD>SJMP</TD><TD NOWRAP>rel</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>94</TD><TD>SUBB</TD><TD NOWRAP>A, #const8</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>96 + i</TD><TD>SUBB</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>95</TD><TD>SUBB</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>98 + n</TD><TD>SUBB</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>CY</TD><TD>AC</TD><TD>OV</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>C4</TD><TD>SWAP</TD><TD NOWRAP>A</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>C6 + i</TD><TD>XCH</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>C5</TD><TD>XCH</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>C8 + n</TD><TD>XCH</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>D6 + i</TD><TD>XCHD</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>64</TD><TD>XRL</TD><TD NOWRAP>A, #const8</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>66 + i</TD><TD>XRL</TD><TD NOWRAP>A, @Ri</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>65</TD><TD>XRL</TD><TD NOWRAP>A, direct</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>68 + n</TD><TD>XRL</TD><TD NOWRAP>A, Rn</TD><TD ALIGN=CENTER>1</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>P&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+<TR><TD NOWRAP>63</TD><TD>XRL</TD><TD NOWRAP>direct, #const8</TD><TD ALIGN=CENTER>3</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>2</TD></TR>
+<TR><TD NOWRAP>62</TD><TD>XRL</TD><TD NOWRAP>direct, A</TD><TD ALIGN=CENTER>2</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;&nbsp;</TD><TD ALIGN=CENTER>1</TD></TR>
+</TABLE>
+</P>
+
+</BIG>
+
+<!-- Seitentext Ende -->
+
+<P>
+<BR>
+<BR>
+<CENTER>
+<TABLE WIDTH="70%">
+<TR><TH><A HREF="contents.htm"><IMG SRC="home.gif" ALT="[contents]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="contents.htm"><IMG SRC="up.gif" ALT="[up]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+    <TH><A HREF="append_i.htm"><IMG SRC="back.gif" ALT="[back]" BORDER=0 WIDTH=32 HEIGHT=32></A></TH>
+</TR>
+</TABLE>
+</CENTER>
+</P>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>
