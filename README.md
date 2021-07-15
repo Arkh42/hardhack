@@ -1,7 +1,9 @@
 
 # Hack the Hardware
 
-<h2 align="center">The absolute template</h2>
+
+<h2 align="center">Decipher connections</h2>
+
 
 <p align="center">
 	<a href='https://hardhack.readthedocs.io/en/latest/'>
@@ -23,9 +25,4 @@ A word about repository structure:
 
 - [avengers](./avengers) about MCS-51 (and derivatives) programmed in assembler
 
-
----
-
-
-_Note_: the /tests folder is a temporary container for tests I made and that have to be included properly later in the repository.
 
