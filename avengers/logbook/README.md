@@ -21,7 +21,7 @@ _Quick navigation:_
 ---
 
 
-## Entry 001: _Looking for a compiler_ {#entry-001-compiler}
+## Entry 001: _Looking for a compiler_ [](#){name=entry-001-compiler}
 
 For teaching and amusement, I need to use the assembler instructions to program the MCS-51 microcontroller from Intel, and its current derivatives.
 Of course, the first step consists in finding a compiler that accepts the assembly and generates a hexadecimal file to load into the microcontroller to program it.
