@@ -5,8 +5,11 @@
 ## 'SPI_single_slave.svg'
 
 Authors: Cburnett
+
 Date: 2007-04-07
+
 Link to file: https://en.wikipedia.org/wiki/File:SPI_single_slave.svg
+
 Permission: 
 
 > Permission is granted to copy, distribute and/or modify this document under the terms of the 
@@ -19,8 +22,11 @@ Link to [GNU Free Documentation License v1.2](https://commons.wikimedia.org/wiki
 ## 'SPI_timing_diagram2.svg'
 
 Authors: Cburnett, Jordsan
+
 Date: 2010-09-07
+
 Link to file: https://en.wikipedia.org/wiki/File:SPI_timing_diagram2.svg
+
 Permission: 
 
 > Permission is granted to copy, distribute and/or modify this document under the terms of the 

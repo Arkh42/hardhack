@@ -32,13 +32,19 @@ The communication bus that is proposed in the [ArduinoISP built-in example](http
 This is a serial communication between one master and one or several slaves that needs a clock (SCLK), a communication wire from master to slaves (MOSI, for Master Output Slave Input), a communication wire from slaves to master (MISO, for Master Input Slave Output), and one slave select (SS) per slave so that the master can select which slave can communicate.
 So, in our use case, 4 wires: SCLK, MOSI, MISO, and one SS (only one slave, the target).
 
-The [Wikipedia page about SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) 
-is highly qualitative and can be used as a good start to understand this concept.
-
 
 ![SPI bus: wiring for single master, single slave][spi_1M1S_wiring]
 
+_SPI bus: wiring for single master, single slave_
+
+
 ![SPI bus: timing diagram][spi_1M1S_timing]
+
+_SPI bus: timing diagram_
+
+
+_Note_: the [Wikipedia page about SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) 
+is highly qualitative and can be used as a good start to understand this concept.
 
 
 [spi_1M1S_wiring]: ./figures/SPI_single_slave.svg
