@@ -2,18 +2,23 @@
 # Arduino ISP over SPI
 
 
-The use of an Arduino board to perform in-system programming (ISP) over SPI is mainly based on the following resources:
 
-- [Program 8051 (AT89 Series) With Arduino](https://www.instructables.com/Program-8051-With-Arduino/),
-- [Arduino as ISP and Arduino Bootloaders](https://www.arduino.cc/en/Tutorial/BuiltInExamples/ArduinoISP),
-- [ArduinoISP built-in example](https://github.com/arduino/arduino-examples/tree/main/examples/11.ArduinoISP/ArduinoISP),
-- [Arduino SPI library](https://www.arduino.cc/en/reference/SPI).
-
-And, of course, the datasheet of the microcontroller.
+## Navigation
 
 
+Quick access:
 
-## Basic understanding
+- [Basic understanding](#basic-understanding)
+- [Requirements](#requirements)
+- [In-System Programming process](#isp-process)
+  - [Step 1: Turn the Arduino into an ISP board](#step-1-arduino-isp)
+- [Resources](#resources)
+
+
+---
+
+
+## Basic understanding  <a name="basic-understanding"></a>
 
 
 The goal is to program an MCS-51 (derivative) microcontroller, named hereafter _the target_, by using __in-system programming (ISP)__.
@@ -35,12 +40,11 @@ So, in our use case, 4 wires: SCLK, MOSI, MISO, and one SS (only one slave, the 
 
 ![SPI bus: wiring for single master, single slave][spi_1M1S_wiring]
 
-_SPI bus: wiring for single master, single slave_
-
+__Fig. 1:__ _SPI bus: wiring for single master, single slave_
 
 ![SPI bus: timing diagram][spi_1M1S_timing]
 
-_SPI bus: timing diagram_
+__Fig. 2:__ _SPI bus: timing diagram_
 
 
 _Note_: the [Wikipedia page about SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) 
@@ -78,7 +82,7 @@ Here is the bill of material (BOM):
 
 
 
-## Steps
+## In-System Programming process   <a name="isp-process"></a>
 
 
 There are _5 main steps_ to program the AT89S51 via SPI.
@@ -347,4 +351,28 @@ Chip erase:
 > In this mode, chip erase is self-timed and takes about 500 ms.
 > During chip erase, a serial read from any address location will return 00H at the data output.
 
+Links:
+
+- https://www.avrfreaks.net/forum/writing-at89s52-through-usbasp
+- https://www.nongnu.org/avrdude/
+- http://savannah.nongnu.org/projects/avrdude/
+
+
+
+## Resources
+
+
+The use of an Arduino board to perform in-system programming (ISP) over SPI with STK is mainly based on the following resources:
+
+- general process
+  - [AT89S51 overview](https://www.microchip.com/wwwproducts/en/AT89S51),
+  - [AT89S51 datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/doc2487.pdf)),
+  - [Program 8051 (AT89 Series) With Arduino](https://www.instructables.com/Program-8051-With-Arduino/),
+- Arduino board as ISP with SPI bus
+  - [Arduino as ISP and Arduino Bootloaders](https://www.arduino.cc/en/Tutorial/BuiltInExamples/ArduinoISP),
+  - [ArduinoISP built-in example](https://github.com/arduino/arduino-examples/tree/main/examples/11.ArduinoISP/ArduinoISP),
+  - [Arduino SPI library](https://www.arduino.cc/en/reference/SPI),
+  - [Wikipedia page about SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface),
+- STK communication protocol and AVRDUDE
+  - [Microchip's Application Note 2525](https://www.microchip.com//wwwAppNotes/AppNotes.aspx?appnote=en592001).
 
