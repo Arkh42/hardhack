@@ -13,7 +13,6 @@ And, of course, the datasheet of the microcontroller.
 
 
 
-
 ## Basic understanding
 
 
@@ -26,9 +25,27 @@ For a proper implementation of the communication between the target and the prog
 1. the communication bus, e.g., the signals, directions, clocks;
 2. the data exchange, e.g., program, acknowledgment, identity.
 
-The communication bus that is proposed in the [ArduinoISP built-in example](https://github.com/arduino/arduino-examples/tree/main/examples/11.ArduinoISP/ArduinoISP) is the __Serial-Peripheral Interface (SPI).
+
+### Communication bus
+
+The communication bus that is proposed in the [ArduinoISP built-in example](https://github.com/arduino/arduino-examples/tree/main/examples/11.ArduinoISP/ArduinoISP) is the __Serial Peripheral Interface (SPI)__.
 This is a serial communication between one master and one or several slaves that needs a clock (SCLK), a communication wire from master to slaves (MOSI, for Master Output Slave Input), a communication wire from slaves to master (MISO, for Master Input Slave Output), and one slave select (SS) per slave so that the master can select which slave can communicate.
 So, in our use case, 4 wires: SCLK, MOSI, MISO, and one SS (only one slave, the target).
+
+The [Wikipedia page about SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) 
+is highly qualitative and can be used as a good start to understand this concept.
+
+
+![SPI bus: wiring for single master, single slave][spi_1M1S_wiring]
+
+![SPI bus: timing diagram][spi_1M1S_timing]
+
+
+[spi_1M1S_wiring]: ./figures/SPI_single_slave.svg
+[spi_1M1S_timing]: ./figures/SPI_timing_diagram2.svg
+
+
+### Communication management
 
 The communication "management" is one layer above SPI to enable several actions on the target, such as memory erase, programming, or identification.
 The proposed method in [Program 8051 (AT89 Series) With Arduino](https://www.instructables.com/Program-8051-With-Arduino/) is the use of the __STK500__ communication protocol developed by Atmel to program their chips with AVR commands, i.e., assembly instructions.
